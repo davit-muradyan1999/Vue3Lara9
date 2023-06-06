@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CategoryRequest;
-use App\Models\Category;
+use App\Http\Requests\ColorRequest;
+use App\Models\Color;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ColorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('category.index', compact('categories'));
+        $colors = Color::all();
+        return view('color.index', compact('colors'));
     }
 
     /**
@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category.create');
+        return view('color.create');
     }
 
     /**
@@ -35,13 +35,13 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(ColorRequest $request)
     {
         $data = $request->validated();
         // dd($data);
-        Category::firstOrCreate($data);
+        Color::firstOrCreate($data);
 
-        return redirect()->route('categories.index')->with('success','Category was added successfully');
+        return redirect()->route('colors.index')->with('success','Color was added successfully');
     }
 
     /**
@@ -50,9 +50,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Color $color)
     {
-        return view('category.show', compact('category'));
+        return view('color.show', compact('color'));
     }
 
     /**
@@ -61,9 +61,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Color $color)
     {
-        return view('category.edit', compact('category'));
+        return view('color.edit', compact('color'));
     }
 
     /**
@@ -73,12 +73,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(ColorRequest $request,Color $color)
     {
         $data = $request->validated();
-        $category->update($data);
+        $color->update($data);
 
-        return view('category.show', compact('category'));
+        return view('color.show', compact('color'));
     }
 
     /**
@@ -87,10 +87,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Color $color)
     {
-        $category->delete();
+        $color->delete();
 
-        return redirect()->route('categories.index')->with('success','Category was deleted successfully');
+        return redirect()->route('colors.index')->with('success','Color was added successfully');
     }
 }
