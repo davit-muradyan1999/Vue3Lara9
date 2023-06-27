@@ -1,10 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ColorController;
-use App\Http\Controllers\TagController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\{AdminController, CategoryController, ColorController, TagController, ShoesSizeController, UserController, ProductController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +23,8 @@ Route::get('/', function () {
 Route::group(['prefix'=>'admin'], function(){
     Route::resource('categories', CategoryController::class);
     Route::resource('tags', TagController::class);
+    Route::resource('shoes', ShoesSizeController::class);
     Route::resource('colors', ColorController::class);
     Route::resource('users', UserController::class);
+    Route::resource('products', ProductController::class);
 });

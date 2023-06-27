@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TagRequest;
-use App\Models\Tag;
+use App\Http\Requests\ShoesSizeRequest;
+use App\Models\ShoesSize;
 use Illuminate\Http\Request;
 
-class TagController extends Controller
+class ShoesSizeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::all();
-        return view('tag.index', compact('tags'));
+        $shoes = ShoesSize::all();
+        return view('shoes.index', compact('shoes'));
     }
 
     /**
@@ -26,7 +26,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('tag.create');
+        return view('shoes.create');
     }
 
     /**
@@ -35,12 +35,13 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TagRequest $request)
+    public function store(ShoesSizeRequest $request)
     {
         $data = $request->validated();
-        Tag::firstOrCreate($data);
+        ShoesSize::firstOrCreate($data);
 
-        return redirect()->route('tags.index')->with('success','Tag was added successfully');
+        return redirect()->route('shoes.index')->with('success','Shoes Size was added successfully');
+
     }
 
     /**
@@ -49,9 +50,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tag $tag)
+    public function show(ShoesSize $shoes)
     {
-        return view('tag.show', compact('tag'));
+        return view('shoes.show', compact('shoes'));
     }
 
     /**
@@ -60,9 +61,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tag $tag)
+    public function edit(ShoesSize $shoes)
     {
-        return view('tag.edit', compact('tag'));
+        return view('shoes.edit', compact('shoes'));
     }
 
     /**
@@ -72,12 +73,12 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TagRequest $request,Tag $tag)
+    public function update(ShoesSizeRequest $request,ShoesSize $shoes)
     {
         $data = $request->validated();
-        $tag->update($data);
+        $shoes->update($data);
 
-        return view('tag.show', compact('tag'));
+        return view('shoes.show', compact('shoes'));
     }
 
     /**
@@ -86,10 +87,11 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tag $tag)
+    public function destroy(ShoesSize $shoes)
     {
-        $tag->delete();
+        $shoes->delete();
 
-        return redirect()->route('tags.index')->with('success','Tag was added successfully');
+        return redirect()->route('shoes.index')->with('success','Shoes size was added successfully');
+
     }
 }
