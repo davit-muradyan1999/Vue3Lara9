@@ -23,18 +23,18 @@
                             <table class="table table-hover text-nowrap">
                                       <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Surname</th>
-                                        <th>Email</th>
+                                        <th>Title</th>
+                                        <th>Image</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($products as $item)
                                     <tr>
                                         <td><a href="{{ route('products.show', $item->id) }}">{{ $item->id }}</a></td>
-                                        <td> {{ $item->name }} </td>
-                                        <td> {{ $item->surname }} </td>
-                                        <td> {{ $item->email }} </td>
+                                        <td> {{ $item->title }} </td>
+                                        <td>
+                                            <img src="{{ asset($item->images[0]) }}" width="50" height="50" alt="First Image">
+                                         </td>
                                     </tr>
                                     @endforeach
                                     </tbody>

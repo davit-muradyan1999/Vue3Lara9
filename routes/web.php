@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{AdminController, CategoryController, ColorController, TagController, ShoesSizeController, UserController, ProductController};
+use App\Http\Controllers\{AdminController, CategoryController, CollectionController, ColorController, TagController, ShoesSizeController, UserController, ProductController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,14 +17,13 @@ Route::get('/admin', AdminController::class);
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('client.index');
 });
 
 Route::group(['prefix'=>'admin'], function(){
     Route::resource('categories', CategoryController::class);
+    Route::resource('collections', CollectionController::class);
     Route::resource('tags', TagController::class);
-    Route::resource('shoes', ShoesSizeController::class);
-    Route::resource('colors', ColorController::class);
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
 });

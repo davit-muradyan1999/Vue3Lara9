@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Panel</title>
-
+    @vite(['resources/js/app.js'])
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -91,34 +91,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('collections.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    Collections
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('tags.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tags"></i>
                                 <p>
                                     Tegs
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('shoes.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-shoe-prints"></i>
-                                <p>
-                                    Shoes Size
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('colors.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-palette"></i>
-                                <p>
-                                    Colors
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/calendar.html" class="nav-link">
-                                <i class="nav-icon fas fa-money-check-alt"></i>
-                                <p>
-                                    Price
                                 </p>
                             </a>
                         </li>

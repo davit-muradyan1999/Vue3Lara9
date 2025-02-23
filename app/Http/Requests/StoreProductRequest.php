@@ -26,15 +26,13 @@ class StoreProductRequest extends FormRequest
         return [
             'title' => 'required|string',
             'description' => 'required|string',
-            'content' => 'required|string',
             'images' => 'required|array',
             'price' => 'required',
             'count' => 'required',
             'is_published' => 'nullable',
+            'is_private' => 'nullable',
             'category_id' => 'required',
             'tags' => 'nullable|array',
-            'shoes_size' => 'nullable|array',
-            'colors' => 'nullable|array',
         ];
     }
 }

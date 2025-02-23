@@ -36,11 +36,9 @@ class ProductController extends Controller
     public function create()
     {
         $tags = Tag::all();
-        $colors = Color::all();
         $categories = Category::all();
-        $shoes = ShoesSize::all();
 
-        return view('product.create', compact('tags', 'colors', 'categories', 'shoes'));
+        return view('product.create', compact('tags', 'categories'));
     }
 
     /**
@@ -52,11 +50,9 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $data = $request->validated();
-        $tagsIds = $data['tags'];
-        $shoesIds = $data['shoes_size'];
-        $colorsIds = $data['colors'];
+        $tagsIds = $data['tags'] ?? [];
         $images = [];
-        unset($data['tags'], $data['colors'], $data['shoes_size']);
+        unset($data['tags']);
         foreach ($data['images'] as $image) {
             $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
             $image_path = 'images/resource/' . $image_name;
@@ -72,18 +68,6 @@ class ProductController extends Controller
             ProductTag::firstOrCreate([
                'product_id' => $product->id,
                'tag_id' => $tagsId,
-            ]);
-        };
-        foreach ($shoesIds as $shoesId){
-            ShoesSizeProduct::firstOrCreate([
-               'product_id' => $product->id,
-               'shoes_sizes_id' => $shoesId,
-            ]);
-        };
-        foreach ($colorsIds as $colorsId){
-            ColorProduct::firstOrCreate([
-               'product_id' => $product->id,
-               'color_id' => $colorsId,
             ]);
         };
         return redirect()->route('products.index');

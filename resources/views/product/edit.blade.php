@@ -63,24 +63,6 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="select2-purple">
-                            <select name="shoes_size[]" class="select2" multiple="multiple" data-placeholder="Select a Shoes Size" data-dropdown-css-class="select2-purple" style="width: 100%;">
-                                @foreach($shoes as $item)
-                                    <option value="{{$item->id}}">{{$item->shoes_size}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="select2-purple">
-                            <select name="colors[]" class="select2" multiple="multiple" data-placeholder="Select a Colors" data-dropdown-css-class="select2-purple" style="width: 100%;">
-                                @foreach($colors as $color)
-                                    <option value="{{$color->id}}">{{$color->title}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="card-footer" style="background-color: transparent !important;">

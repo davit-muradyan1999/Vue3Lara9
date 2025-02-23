@@ -25,9 +25,6 @@
                             <input type="text" name="description" value="{{ old('description') }}" class="form-control" id="exampleInputEmail1" placeholder="Description">
                         </div>
                         <div class="form-group">
-                            <textarea name="content" class="form-control" cols="30" rows="10" placeholder="Content">{{ old('content') }}</textarea>
-                        </div>
-                        <div class="form-group">
                             <input type="text" name="price" value="{{ old('price') }}" class="form-control" id="exampleInputEmail1" placeholder="Price">
                         </div>
                         <div class="form-group">
@@ -59,24 +56,6 @@
                                 <select name="tags[]" class="select2" multiple="multiple" data-placeholder="Select a Tags" data-dropdown-css-class="select2-purple" style="width: 100%;">
                                     @foreach($tags as $tag)
                                         <option value="{{$tag->id}}">{{$tag->title}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="select2-purple">
-                                <select name="shoes_size[]" class="select2" multiple="multiple" data-placeholder="Select a Shoes Size" data-dropdown-css-class="select2-purple" style="width: 100%;">
-                                    @foreach($shoes as $item)
-                                        <option value="{{$item->id}}">{{$item->shoes_size}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="select2-purple">
-                                <select name="colors[]" class="select2" multiple="multiple" data-placeholder="Select a Colors" data-dropdown-css-class="select2-purple" style="width: 100%;">
-                                    @foreach($colors as $color)
-                                        <option value="{{$color->id}}">{{$color->title}}</option>
                                     @endforeach
                                 </select>
                             </div>
