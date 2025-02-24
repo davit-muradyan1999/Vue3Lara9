@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{AdminController, CategoryController, CollectionController, ColorController, TagController, ShoesSizeController, UserController, ProductController};
+use App\Http\Controllers\{AdminController, AuthenticityCheckController, CategoryController, CollectionController, ColorController, TagController, ShoesSizeController, UserController, ProductController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +26,8 @@ Route::group(['prefix'=>'admin'], function(){
     Route::resource('tags', TagController::class);
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
+    Route::get('/authenticity-checks', [AuthenticityCheckController::class, 'index'])->name('authenticity.index');
+    Route::post('/authenticity-checks/import', [AuthenticityCheckController::class, 'import'])->name('authenticity.import');
+    Route::put('/authenticity/update/{id}', [AuthenticityCheckController::class, 'update'])->name('authenticity.update');
+    Route::get('/authenticity/delete/{id}', [AuthenticityCheckController::class, 'destroy'])->name('authenticity.delete');
 });

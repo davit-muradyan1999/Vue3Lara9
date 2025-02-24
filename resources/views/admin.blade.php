@@ -107,6 +107,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('authenticity.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-tags"></i>
+                                <p>
+                                    Authenticity Check
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('users.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>

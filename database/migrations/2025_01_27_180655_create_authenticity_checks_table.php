@@ -15,9 +15,17 @@ return new class extends Migration
     {
         Schema::create('authenticity_checks', function (Blueprint $table) {
             $table->id();
-            $table->string('barcode')->unique();
-            $table->text('content');
             $table->foreignId('product_id')->nullable()->index()->constrained('products');
+            $table->string('barcode')->unique();
+            $table->string('title')->nullable();
+            $table->string('item')->nullable();
+            $table->string('gold')->nullable();
+            $table->string('silver')->nullable();
+            $table->string('stone')->nullable();
+            $table->string('other_materials')->nullable();
+            $table->string('price_exclusive')->nullable();
+            $table->string('handcrafted')->nullable();
+            $table->string('exclusive_edition')->nullable();
             $table->timestamps();
         });
     }
