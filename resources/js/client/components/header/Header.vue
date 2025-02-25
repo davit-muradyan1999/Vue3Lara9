@@ -6,7 +6,7 @@
             <a class="link--plain link-icon--expandOnHover app-bar__cart" href="/react-based-shopify-craft-theme/cart">
               <img src="client/icons/bascet.svg" alt="bascet">
               <span class="badge link-icon__badge">0</span></a>
-              <a aria-current="page" class="link--plain app-bar__company active" href="/react-based-shopify-craft-theme/">
+              <a aria-current="page" class="link--plain app-bar__company active" href="/">
                   <img class="icon logo link-icon__icon" src="client/icons/logo.svg"  alt="logo">
               </a>
             <button type="button" class="button--plain  button-icon--expandOnHover  app-bar__search">
@@ -19,19 +19,30 @@
         </div>
         <nav class="nav-bar">
           <menu class="menu-list--metro nav-bar__menu">
+            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/">Home</a></li>
+            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/about">About</a></li>
+            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/collections">Collections</a></li>
             <DropdownMenu />
-            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/react-based-shopify-craft-theme/collections/glassware">Glassware</a></li>
-            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/react-based-shopify-craft-theme/collections/serveware">Serveware</a></li>
-            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/react-based-shopify-craft-theme/collections/flatware">Flatware</a></li>
-            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/react-based-shopify-craft-theme/collections/textiles">Textiles</a></li>
-            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/react-based-shopify-craft-theme/collections/bundles">Bundles</a></li>
+            <li class="menu-list__item"><a @click.prevent="openPopup" class="link--underlineOnHover menu-list__link" href="#">Authenticity check</a></li>
+            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/private-club">Private club</a></li>
+            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/boutiques">Boutiques</a></li>
+            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/blog">Blog</a></li>
+            <SearchPopup ref="searchPopup" />
           </menu>
         </nav>
       </header>
     </div>
 </template>
 <script setup>
+import { ref } from 'vue';
 import DropdownMenu from './DropdownMenu.vue';
+import SearchPopup from '../searchPopup/SearchPopup.vue';
+
+const searchPopup = ref(null);
+
+const openPopup = () => {
+  searchPopup.value.openPopup();
+};
 </script>
 <style lang="scss" scoped>
 .logo{

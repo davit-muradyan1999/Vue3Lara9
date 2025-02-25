@@ -24,14 +24,12 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'email' => 'required|string',
-            'password' => 'required|string|confirmed',
-            'surname' => 'string',
-            'patronymic' => 'string',
-            'age' => 'integer',
-            'address' => 'string',
-            'gender' => 'integer',
+            'full_name' => 'required|string',
+            'phone_number' => 'string',
+            'email' => 'string',
+            'password' => 'string',
+            'is_admin' => 'boolean',
+            'is_private' => 'boolean',
         ];
     }
 }

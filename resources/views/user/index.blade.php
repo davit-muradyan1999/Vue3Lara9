@@ -24,7 +24,6 @@
                                       <tr>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th>Surname</th>
                                         <th>Email</th>
                                     </tr>
                                 </thead>
@@ -32,8 +31,7 @@
                                     @foreach ($users as $item)
                                     <tr>
                                         <td><a href="{{ route('users.show', $item->id) }}">{{ $item->id }}</a></td>
-                                        <td> {{ $item->name }} </td>
-                                        <td> {{ $item->surname }} </td>
+                                        <td> {{ $item->full_name }} </td>
                                         <td> {{ $item->email }} </td>
                                     </tr>
                                     @endforeach

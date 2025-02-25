@@ -34,32 +34,16 @@
                                     <td>{{ $user->id }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Name</td>
-                                    <td>{{ $user->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Surname</td>
-                                    <td>{{ $user->surname }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Patronymic</td>
-                                    <td>{{ $user->patronymic }}</td>
+                                    <td>Full Name</td>
+                                    <td>{{ $user->full_name }}</td>
                                 </tr>
                                 <tr>
                                     <td>Email</td>
                                     <td>{{ $user->email }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Age</td>
-                                    <td>{{ $user->age }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Address</td>
-                                    <td>{{ $user->address }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Gender</td>
-                                    <td>{{ $user->gender == '1' ? 'Male' : 'Female' }}</td>
+                                    <td>Phone Number</td>
+                                    <td>{{ $user->phone_number }}</td>
                                 </tr>
                             </tbody>
                         </table>

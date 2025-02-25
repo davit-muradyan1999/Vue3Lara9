@@ -10,6 +10,7 @@ class AuthenticityCheck extends Model
     use HasFactory;
 
     protected $fillable = [
+        'product_id',
         'barcode',
         'title',
         'item',

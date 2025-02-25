@@ -6,13 +6,15 @@ use App\Models\AuthenticityCheck;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\AuthenticityCheckImport;
+use App\Models\Product;
 
 class AuthenticityCheckController extends Controller
 {
     public function index()
     {
-        $products = AuthenticityCheck::latest()->get();
-        return view('authenticity_checks.index', compact('products'));
+        $products = Product::all();
+        $authCheck = AuthenticityCheck::latest()->get();
+        return view('authenticity_checks.index', compact('authCheck', 'products'));
     }
 
     // Импорт товаров из Excel
@@ -35,7 +37,7 @@ class AuthenticityCheckController extends Controller
     {
         $product = AuthenticityCheck::findOrFail($id);
         $product->update($request->only([
-            'barcode', 'title', 'item', 'gold', 'silver', 'stone',
+            'product_id', 'barcode', 'title', 'item', 'gold', 'silver', 'stone',
             'other_materials', 'price_exclusive', 'handcrafted', 'exclusive_edition'
         ]));
 

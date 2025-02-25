@@ -19,7 +19,7 @@
                 @method('PATCH')
                 <div class="card-body">
                     <div class="form-group">
-                            <input type="text" name="name" value="{{ $user->name }}" class="form-control" id="exampleInputEmail1" placeholder="Name">
+                            <input type="text" name="full_name" value="{{ $user->full_name }}" class="form-control" id="exampleInputEmail1" placeholder="Full Name">
                         </div>
                         <div class="form-group">
                             <input type="email" name="email" value="{{ $user->email }}" class="form-control" id="exampleInputEmail1" placeholder="Email">
@@ -28,26 +28,15 @@
                             <input type="password" name="password" value="{{ $user->password }}" class="form-control" id="exampleInputEmail1" placeholder="Password">
                         </div>
                         <div class="form-group">
-                            <input type="password" name="password_confirmation" value="{{ $user->password_confirmation }}" class="form-control" id="exampleInputEmail1" placeholder="Password Confirmation">
+                            <input type="text" name="phone_number" value="{{ $user->phone_number }}" class="form-control" id="exampleInputEmail1" placeholder="Phone Number">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="surname" value="{{ $user->surname }}" class="form-control" id="exampleInputEmail1" placeholder="Surname">
+                            <label class="form-check-label mr-4" for="is_admin">Is Admin:</label>
+                            <input type="checkbox" name="is_admin" value="1" {{ $user->is_admin ? 'checked' : '' }} class="form-check-input mt-1" id="is_admin">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="patronymic" value="{{ $user->patronymic }}" class="form-control" id="exampleInputEmail1" placeholder="Patronymic">
-                        </div>
-                        <div class="form-group">
-                            <input type="number" name="age" value="{{ $user->age }}" class="form-control" id="exampleInputEmail1" placeholder="Age">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="address" value="{{ $user->address }}" class="form-control" id="exampleInputEmail1" placeholder="Address">
-                        </div>
-                        <div class="form-group">
-                            <select name="gender" class="custom-select form-control">
-                                <option disabled selected>Gender</option>
-                                <option {{ $user->gender == 1 ? 'selected' : '' }} value="1">Male</option>
-                                <option {{ $user->gender == 2 ? 'selected' : '' }} value="2">Female</option>
-                            </select>
+                            <label class="form-check-label mr-4" for="is_private">Is Private:</label>
+                            <input type="checkbox" name="is_private" value="1" {{ $user->is_private ? 'checked' : '' }} class="form-check-input mt-1" id="is_private">
                         </div>
                 </div>
 

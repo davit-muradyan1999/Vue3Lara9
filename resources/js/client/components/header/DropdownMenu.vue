@@ -7,29 +7,33 @@
       </button>
 
       <ul v-show="isOpen" class="menu-list__sub-list">
-        <li v-for="item in menuItems" :key="item.link" class="menu-list__sub-list-item">
-          <a class="link--plain menu-list__sub-list-link" :href="item.link">{{ item.name }}</a>
+        <li v-for="item in menuItems" :key="item.id" class="menu-list__sub-list-item">
+          <a class="link--plain menu-list__sub-list-link" :href="`/categories/${item.id}`">{{ item.title }}</a>
         </li>
       </ul>
     </li>
   </template>
 
   <script setup>
-  import { computed, ref } from 'vue';
+  import { ref, onMounted, computed } from 'vue';
+  import axios from 'axios';
 
   const isOpen = ref(false);
-
-  const menuItems = [
-    { name: 'Speckled White', link: '/react-based-shopify-craft-theme/collections/speckled-white' },
-    { name: 'Dove Gray', link: '/react-based-shopify-craft-theme/collections/dove-gray' },
-    { name: 'Blush Pink', link: '/react-based-shopify-craft-theme/collections/blush-pink' },
-    { name: 'Beachgrass Green', link: '/react-based-shopify-craft-theme/collections/beachgrass-green' },
-    { name: 'Midnight Blue', link: '/react-based-shopify-craft-theme/collections/midnight-blue' }
-  ];
+  const menuItems = ref([]);
 
   const toggleDropdown = () => {
     isOpen.value = !isOpen.value;
   };
+
+  onMounted(async () => {
+    try {
+        const response = await axios.get('/api/categories');
+        menuItems.value = response.data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+    });
+
   const wrapperClass = computed(() => ({
   'menu-list__item': true,
   'menu-list__sub-wrapper': true,
@@ -144,6 +148,7 @@
           font-size: 1rem;
           line-height: 2rem;
           display: block;
+          text-transform: capitalize;
           color: colors.$charcoal300;
           transition: color 0.2s ease-in-out;
 
