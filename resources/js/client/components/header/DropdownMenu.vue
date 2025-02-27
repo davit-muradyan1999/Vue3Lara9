@@ -2,8 +2,8 @@
     <li :class="wrapperClass">
       <button @click="toggleDropdown" type="button" class="button--plain menu-list__button">
         <span>Categories</span>
-        <img v-if="!isOpen" class="icon chevron-down menu-list__button-icon down" src="client/icons/arrow-down.svg" alt="arrow-down">
-        <img v-else class="icon chevron-up menu-list__button-icon up" src="client/icons/arrow-up.svg" alt="arrow-up">
+        <img v-if="!isOpen" class="icon chevron-down menu-list__button-icon down" src="/public/client/icons/arrow-down.svg" alt="arrow-down">
+        <img v-else class="icon chevron-up menu-list__button-icon up" src="/public/client/icons/arrow-up.svg" alt="arrow-up">
       </button>
 
       <ul v-show="isOpen" class="menu-list__sub-list">

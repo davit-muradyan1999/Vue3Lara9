@@ -13,7 +13,7 @@
                 @play="handlePlay"
                 @pause="handlePause"
             >
-            <source src="client/videos/about.mp4" type="video/mp4">Sorry, your browser
+            <source src="/public/client/videos/about.mp4" type="video/mp4">Sorry, your browser
             doesn’ t support embedded videos.
         </video>
 
@@ -25,7 +25,7 @@
         >
         <img
             class="icon play button-icon__icon"
-            src="client/icons/play.svg"
+            src="/public/client/icons/play.svg"
             alt="play"
         />
         </button>

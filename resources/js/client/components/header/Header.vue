@@ -4,16 +4,16 @@
         <div class="app-bar">
           <div class="app-bar__wrapper">
             <a class="link--plain link-icon--expandOnHover app-bar__cart" href="/react-based-shopify-craft-theme/cart">
-              <img src="client/icons/bascet.svg" alt="bascet">
+              <img src="/public/client/icons/bascet.svg" alt="bascet">
               <span class="badge link-icon__badge">0</span></a>
               <a aria-current="page" class="link--plain app-bar__company active" href="/">
-                  <img class="icon logo link-icon__icon" src="client/icons/logo.svg"  alt="logo">
+                  <img class="icon logo link-icon__icon" src="/public/client/icons/logo.svg"  alt="logo">
               </a>
             <button type="button" class="button--plain  button-icon--expandOnHover  app-bar__search">
-                <img src="client/icons/search.svg" alt="search">
+                <img src="/public/client/icons/search.svg" alt="search">
             </button>
             <button type="button" class="button--plain  button-icon--expandOnHover  app-bar__menu">
-                <img src="client/icons/burger.svg" alt="burger">
+                <img src="/public/client/icons/burger.svg" alt="burger">
             </button>
           </div>
         </div>

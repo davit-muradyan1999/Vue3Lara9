@@ -8,6 +8,10 @@ class AdminController extends Controller
 {
     public function __invoke()
     {
-        return view('admin');
+        if(!auth()->check() || auth()->user()->is_admin !== 1) {
+            return redirect()->route('admin.login')->with('error', 'Access denied!');
+        }else{
+            return view('admin');
+        }
     }
 }

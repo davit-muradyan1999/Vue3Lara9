@@ -38,6 +38,12 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('products.index') }}" class="nav-link">Home</a>
                 </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                    <a href="#" onclick="document.getElementById('logout-form').submit()" class="nav-link">Logout</a>
+                </li>
                 {{-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li> --}}
@@ -58,7 +64,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="info">
-                        <a href="{{ route('users.index') }}" class="d-block">Admin</a>
+                        <a href="{{ route('users.index') }}" class="d-block">{{ Auth::user()->full_name }}</a>
                     </div>
                 </div>
 
@@ -70,7 +76,7 @@
                             <a href="javascript:void(0);" class="nav-link">
                                 <i class="nav-icon fas fa-shopping-cart"></i>
                                 <p>
-                                    Oeders
+                                    Orders
                                 </p>
                             </a>
                         </li>
