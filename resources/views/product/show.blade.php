@@ -18,9 +18,9 @@
                 <div class="card">
                     <div class="card-header d-flex p-4">
                         <div class="mr-2">
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-outline-success">Edit User</a>
+                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-success">Edit User</a>
                         </div>
-                        <form action="{{ route('users.destroy', $user->id) }}" method="post">
+                        <form action="{{ route('products.destroy', $product->id) }}" method="post">
                         @csrf
                         @method('delete')
                         <input type="submit" class="btn btn-outline-danger" value="Delete">
@@ -31,35 +31,23 @@
                             <tbody>
                                 <tr>
                                     <td>ID</td>
-                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $product->id }}</td>
                                 </tr>
                                 <tr>
                                     <td>Name</td>
-                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $product->title }}</td>
                                 </tr>
                                 <tr>
                                     <td>Surname</td>
-                                    <td>{{ $user->surname }}</td>
+                                    <td>{{ $product->description }}</td>
                                 </tr>
                                 <tr>
                                     <td>Patronymic</td>
-                                    <td>{{ $user->patronymic }}</td>
+                                    <td>{{ $product->price }}</td>
                                 </tr>
                                 <tr>
                                     <td>Email</td>
-                                    <td>{{ $user->email }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Age</td>
-                                    <td>{{ $user->age }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Address</td>
-                                    <td>{{ $user->address }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Gender</td>
-                                    <td>{{ $user->gender == '1' ? 'Male' : 'Female' }}</td>
+                                    <td>{{ $product->count }}</td>
                                 </tr>
                             </tbody>
                         </table>

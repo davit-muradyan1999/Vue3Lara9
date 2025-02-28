@@ -31,8 +31,8 @@
                             <input type="text" name="phone_number" value="{{ old('phone_number') }}" class="form-control" id="exampleInputEmail1" placeholder="Phone Number">
                         </div>
                         <div class="form-group">
-                            <label class="form-check-label mr-4" for="is_admin">Is Admin:</label>
-                            <input type="checkbox" name="is_admin" value="1" {{ old('is_admin') ? 'checked' : '' }} class="form-check-input mt-1" id="is_admin">
+                            <label class="form-check-label mr-4" for="is_published">Is Admin:</label>
+                            <input type="checkbox" name="is_published" value="1" {{ old('is_published') ? 'checked' : '' }} class="form-check-input mt-1" id="is_published">
                         </div>
                         <div class="form-group">
                             <label class="form-check-label mr-4" for="is_private">Is Private:</label>

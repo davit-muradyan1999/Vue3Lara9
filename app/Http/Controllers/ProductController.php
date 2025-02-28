@@ -11,9 +11,9 @@ use App\Models\ProductTag;
 use App\Models\ShoesSize;
 use App\Models\ShoesSizeProduct;
 use App\Models\Tag;
-use Faker\Core\File;
 use Illuminate\Http\Request;
 use Image, Storage;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -90,9 +90,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $tags = Tag::all();
+        $categories = Category::all();
+
+        return view('product.edit', compact('product', 'categories', 'tags'));
     }
 
     /**
@@ -102,9 +105,49 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $data = $request->validate([
+            'title' => 'nullable',
+            'description' => 'nullable',
+            'price' => 'nullable',
+            'count' => 'required',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+        $product->update($data);
+        // $product->tags()->sync($request->input('tags', []));
+
+        $currentImages = $product->images ?? [];
+
+        if ($request->filled('delete_images')) {
+            $imagesToDelete = explode(',', $request->delete_images);
+            foreach ($imagesToDelete as $imagePath) {
+                $fullPath = public_path($imagePath);
+                if (in_array($imagePath, $currentImages) && File::exists($fullPath)) {
+                    File::delete($fullPath);
+                    $currentImages = array_diff($currentImages, [$imagePath]);
+                }
+            }
+        }
+
+
+        if ($request->hasFile('images')) {
+            // foreach ($request->file('images') as $image) {
+            //     $path = $image->store('images/resource');
+            //     $currentImages[] = $path;
+            // }
+            foreach ($request->file('images') as $image) {
+                $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
+                $image_path = 'images/resource/' . $image_name;
+                Image::make($image)->save(public_path($image_path));
+                array_push($images, $image_path);
+            }
+        }
+
+        // Обновление JSON-формата
+        // $product->update(['images' => json_encode(array_values($currentImages))]);
+
+        return redirect()->route('products.index')->with('success', 'Product updated successfully');
     }
 
     /**

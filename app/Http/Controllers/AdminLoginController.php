@@ -19,7 +19,9 @@ class AdminLoginController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($request->only('email', 'password') + ['is_admin' => 1])) {
+        $remember = $request->has('remember');
+
+        if (Auth::attempt($request->only('email', 'password') + ['is_admin' => 1], $remember)) {
             return redirect()->route('admin.dashboard');
         }
 
