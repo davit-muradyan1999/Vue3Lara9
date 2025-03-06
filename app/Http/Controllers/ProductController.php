@@ -14,6 +14,7 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Image, Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -53,15 +54,17 @@ class ProductController extends Controller
         $tagsIds = $data['tags'] ?? [];
         $images = [];
         unset($data['tags']);
-        foreach ($data['images'] as $image) {
-            $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = 'images/resource/' . $image_name;
-            Image::make($image)->save(public_path($image_path));
-            array_push($images, $image_path);
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $newName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+                $path = $image->storeAs('products', $newName, 'public');
+                $images[] = $path;
+            }
         }
-        $data['images'] = $images;
         $product = Product::firstOrCreate([
-            'title' => $data['title']
+            'title' => $data['title'],
+            'images' => $images,
         ], $data);
 
         foreach ($tagsIds as $tagsId){
@@ -114,15 +117,13 @@ class ProductController extends Controller
             'count' => 'required',
             'category_id' => 'required|exists:categories,id',
         ]);
-        $product->update($data);
-        // $product->tags()->sync($request->input('tags', []));
 
         $currentImages = $product->images ?? [];
 
         if ($request->filled('delete_images')) {
             $imagesToDelete = explode(',', $request->delete_images);
             foreach ($imagesToDelete as $imagePath) {
-                $fullPath = public_path($imagePath);
+                $fullPath = storage_path($imagePath);
                 if (in_array($imagePath, $currentImages) && File::exists($fullPath)) {
                     File::delete($fullPath);
                     $currentImages = array_diff($currentImages, [$imagePath]);
@@ -130,22 +131,18 @@ class ProductController extends Controller
             }
         }
 
-
+        $images = [];
         if ($request->hasFile('images')) {
-            // foreach ($request->file('images') as $image) {
-            //     $path = $image->store('images/resource');
-            //     $currentImages[] = $path;
-            // }
             foreach ($request->file('images') as $image) {
-                $image_name = uniqid() . '.' . $image->getClientOriginalExtension();
-                $image_path = 'images/resource/' . $image_name;
-                Image::make($image)->save(public_path($image_path));
-                array_push($images, $image_path);
+                $newName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+                $path = $image->storeAs('products', $newName, 'public'); // Сохранение с новым именем
+                $images[] = $path;
             }
         }
 
-        // Обновление JSON-формата
-        // $product->update(['images' => json_encode(array_values($currentImages))]);
+        $product->update([
+            'images' => $images,
+        ], $data);
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully');
     }

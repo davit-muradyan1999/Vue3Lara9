@@ -14,7 +14,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <form action="{{ route('products.update', $product->id) }}" method="POST">
+            <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="card-body">
@@ -33,11 +33,11 @@
                     <div class="form-group">
                         <input type="text" name="count" value="{{ $product->count }}" class="form-control" id="exampleInputEmail1" placeholder="Count">
                     </div>
-                    @if (empty($product->images)))
+                    @if ($product->images)
                         <div id="existingImages" class="row mt-3">
                             @foreach($product->images as $image)
                                 <div class="col-md-3 position-relative mb-3">
-                                    <img src="{{ asset( $image) }}" class="img-fluid rounded" alt="Image preview">
+                                    <img src="{{ asset( 'storage/' . $image) }}" class="img-fluid rounded" alt="Image preview">
                                     <button type="button" class="btn btn-danger btn-sm remove-image" data-path="{{ $image }}" style="position: absolute; top: 5px; right: 5px;">&times;</button>
                                 </div>
                             @endforeach
