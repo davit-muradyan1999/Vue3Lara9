@@ -9,6 +9,15 @@ class Collections extends Model
 {
     protected $table = 'collections';
     protected $fillable = [
-        'name'
+        'name',
+        'image'
     ];
+
+    protected $casts = [
+        'image' => 'array'
+    ];
+
+    public function products() {
+        return $this->belongsToMany(Product::class, 'collection_products', 'collection_id', 'product_id');
+    }
 }

@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Edit User</h1>
+                <h1 class="m-0">Edit Product</h1>
             </div>
         </div>
     </div>
@@ -23,9 +23,6 @@
                     </div>
                     <div class="form-group">
                         <input type="text" name="description" value="{{ $product->description }}" class="form-control" id="exampleInputEmail1" placeholder="Description">
-                    </div>
-                    <div class="form-group">
-                        <textarea name="content" class="form-control" cols="30" rows="10" placeholder="Content">{{ $product->content }}</textarea>
                     </div>
                     <div class="form-group">
                         <input type="text" name="price" value="{{ $product->price }}" class="form-control" id="exampleInputEmail1" placeholder="Price">

@@ -23,6 +23,14 @@
                             <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
                         </div>
                         <div class="form-group">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" id="imageUpload" name="image" class="custom-file-input">
+                                    <label class="custom-file-label" for="imageUpload">Choose files</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="select2-purple">
                                 <select name="products[]" class="select2" multiple="multiple" data-placeholder="Select a Products" data-dropdown-css-class="select2-purple" style="width: 100%;">
                                     @foreach($products as $item)

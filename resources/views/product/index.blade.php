@@ -33,7 +33,9 @@
                                         <td><a href="{{ route('products.show', $item->id) }}">{{ $item->id }}</a></td>
                                         <td> {{ $item->title }} </td>
                                         <td>
-                                            <img src="{{ asset('storage/'.$item->images[0]) }}" width="50" height="50" alt="First Image">
+                                            @if ($item->images)
+                                                <img src="{{ asset('storage/'.$item->images[0]) }}" width="50" height="50" alt="First Image">
+                                            @endif
                                          </td>
                                     </tr>
                                     @endforeach

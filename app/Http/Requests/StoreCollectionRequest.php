@@ -25,6 +25,7 @@ class StoreCollectionRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
+            'image' => 'required|image',
             'products' => 'required',
             'products.*' => 'integer',
         ];

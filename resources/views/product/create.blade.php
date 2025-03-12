@@ -23,7 +23,6 @@
                             <input type="text" name="title" value="{{ old('title') }}" class="form-control" id="title" placeholder="Title">
                         </div>
                         <div class="form-group">
-                            {{-- <input type="text" name="description" value="{{ old('description') }}" class="form-control" id="exampleInputEmail1" placeholder="Description"> --}}
                             <label for="exampleFormControlTextarea1">Description</label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3">{{ old('description') }}</textarea>
                         </div>

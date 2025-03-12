@@ -52,27 +52,20 @@ class ProductController extends Controller
     {
         $data = $request->validated();
         $tagsIds = $data['tags'] ?? [];
-        $images = [];
         unset($data['tags']);
 
+        $images = [];
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
+            $images = collect($request->file('images'))->map(function ($image) {
                 $newName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('products', $newName, 'public');
-                $images[] = $path;
-            }
+                return $image->storeAs('products', $newName, 'public');
+            })->toArray();
         }
-        $product = Product::firstOrCreate([
-            'title' => $data['title'],
-            'images' => $images,
-        ], $data);
 
-        foreach ($tagsIds as $tagsId){
-            ProductTag::firstOrCreate([
-               'product_id' => $product->id,
-               'tag_id' => $tagsId,
-            ]);
-        };
+        $product = Product::create(array_merge($data, ['images' => $images]));
+
+        $product->tags()->sync($tagsIds);
+
         return redirect()->route('products.index');
     }
 
@@ -123,7 +116,7 @@ class ProductController extends Controller
         if ($request->filled('delete_images')) {
             $imagesToDelete = explode(',', $request->delete_images);
             foreach ($imagesToDelete as $imagePath) {
-                $fullPath = storage_path($imagePath);
+                $fullPath = storage_path('app/public/' . $imagePath);
                 if (in_array($imagePath, $currentImages) && File::exists($fullPath)) {
                     File::delete($fullPath);
                     $currentImages = array_diff($currentImages, [$imagePath]);
@@ -131,18 +124,18 @@ class ProductController extends Controller
             }
         }
 
-        $images = [];
+        $newImages = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $newName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('products', $newName, 'public'); // Сохранение с новым именем
-                $images[] = $path;
+                $path = $image->storeAs('products', $newName, 'public');
+                $newImages[] = $path;
             }
         }
 
-        $product->update([
-            'images' => $images,
-        ], $data);
+        $allImages = array_merge($currentImages, $newImages);
+
+        $product->update(array_merge($data, ['images' => $allImages]));
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully');
     }
@@ -153,8 +146,20 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        if ($product->images) {
+            foreach ($product->images as $image) {
+                $filePath = storage_path("app/public/{$image}");
+                if (File::exists($filePath)) {
+                    File::delete($filePath);
+                }
+            }
+        }
+
+        $product->tags()->detach();
+        $product->delete();
+
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully');
     }
 }

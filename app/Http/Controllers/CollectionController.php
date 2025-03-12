@@ -7,6 +7,7 @@ use App\Models\CollectionProduct;
 use App\Models\Collections;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CollectionController extends Controller
 {
@@ -39,20 +40,29 @@ class CollectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCollectionRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
+        $data = $request->validate([
+            'name' => 'required|string',
+            'products' => 'required',
+            'products.*' => 'integer',
+        ]);
         $productsIds = $data['products'] ?? [];
         unset($data['products']);
+
+        $image = $request->file('image') ?? null;
+        if ($request->hasFile('image')) {
+                $newName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('collections', $newName, 'public');
+                $image = 'collections/' . $newName;
+        }
+
         $collection = Collections::firstOrCreate([
             'name' => $data['name'],
+            'image' => $image,
         ], $data);
-        foreach ($productsIds as $productsId){
-            CollectionProduct::firstOrCreate([
-               'collection_id' => $collection->id,
-               'product_id' => $productsId,
-            ]);
-        };
+
+        $collection->products()->sync($productsIds);
         return redirect()->route('collections.index');
     }
 
