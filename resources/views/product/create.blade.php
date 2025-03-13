@@ -23,8 +23,8 @@
                             <input type="text" name="title" value="{{ old('title') }}" class="form-control" id="title" placeholder="Title">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Description</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3">{{ old('description') }}</textarea>
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="editor" name="description" rows="3">{{ old('description') }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="price"> Price </label>
@@ -107,6 +107,8 @@
         $('#imagePreview').on('click', '.remove-image', function () {
             $(this).parent().remove();
         });
+
+
     });
 </script>
 @endsection

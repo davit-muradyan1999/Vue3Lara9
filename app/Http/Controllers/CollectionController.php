@@ -6,11 +6,14 @@ use App\Http\Requests\StoreCollectionRequest;
 use App\Models\CollectionProduct;
 use App\Models\Collections;
 use App\Models\Product;
+use App\Traits\UploadFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class CollectionController extends Controller
 {
+    use UploadFile;
     /**
      * Display a listing of the resource.
      *
@@ -42,6 +45,7 @@ class CollectionController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request->hasFile('image'));
         $data = $request->validate([
             'name' => 'required|string',
             'products' => 'required',
@@ -49,18 +53,13 @@ class CollectionController extends Controller
         ]);
         $productsIds = $data['products'] ?? [];
         unset($data['products']);
+        $image = [];
 
-        $image = $request->file('image') ?? null;
         if ($request->hasFile('image')) {
-                $newName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('collections', $newName, 'public');
-                $image = 'collections/' . $newName;
+            $image = $this->uploadFile($request->file('image'), 'collections');
         }
 
-        $collection = Collections::firstOrCreate([
-            'name' => $data['name'],
-            'image' => $image,
-        ], $data);
+        $collection = Collections::create(array_merge($data, ['image' => $image]));
 
         $collection->products()->sync($productsIds);
         return redirect()->route('collections.index');
@@ -72,9 +71,9 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Collections $collection)
     {
-        //
+        return view('collections.show', compact('collection'));
     }
 
     /**
@@ -83,9 +82,10 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Collections $collection)
     {
-        //
+        $products = Product::all();
+        return view('collections.edit', compact('collection', 'products'));
     }
 
     /**
@@ -95,9 +95,34 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Collections $collection)
     {
-        //
+//        dd($request->all());
+        $data = $request->validate([
+            'name' => 'required|string',
+            'products' => 'required',
+            'products.*' => 'integer',
+        ]);
+
+        $image = $collection->image ?? [];
+        if ($request->filled('delete_images')) {
+            $imagesToDelete = explode(',', $request->delete_images);
+            foreach ($imagesToDelete as $imagePath) {
+                $fullPath = storage_path('app/public/' . $imagePath);
+                if ($imagePath && File::exists($fullPath)) {
+                    File::delete($fullPath);
+                }
+            }
+        }
+
+        if ($request->hasFile('image')) {
+            $image = $this->uploadFile($request->file('image'), 'collections');
+        }
+
+
+        $collection->update(array_merge($data, ['image' => $image]));
+
+        return redirect()->route('collections.index')->with('success', 'Collection updated successfully');
     }
 
     /**
@@ -106,8 +131,18 @@ class CollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Collections $collection)
     {
-        //
+        if ($collection->image) {
+                $filePath = storage_path("app/public/{$collection->image[0]}");
+                if (File::exists($filePath)) {
+                    File::delete($filePath);
+                }
+        }
+
+        $collection->products()->detach();
+        $collection->delete();
+
+        return redirect()->route('collections.index')->with('success', 'Collection deleted successfully');
     }
 }

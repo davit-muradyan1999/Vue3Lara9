@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Tag</h1>
+                <h1 class="m-0">Collection</h1>
             </div>
         </div>
     </div>
@@ -35,8 +35,14 @@
                                 </tr>
                                 <tr>
                                     <td>Title</td>
-                                    <td>{{ $collection->title }}</td>
+                                    <td>{{ $collection->name }}</td>
                                 </tr>
+                                @if($collection->image)
+                                    <tr>
+                                        <td>Image</td>
+                                        <td><img src="{{ asset('storage/'.$collection->image[0]) }}" alt=""></td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>

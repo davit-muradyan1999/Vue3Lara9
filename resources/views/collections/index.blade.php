@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Categories</h1>
+                    <h1 class="m-0">Collections</h1>
                 </div>
             </div>
         </div>
@@ -24,6 +24,7 @@
                                       <tr>
                                         <th>ID</th>
                                         <th>Name</th>
+                                        <th>Image</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -31,6 +32,9 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td><a href="{{ route('collections.show', $item->id) }}">{{ $item->name }}</a></td>
+                                        @if($item->image)
+                                            <td><img src="{{ asset('storage/'.$item->image[0]) }}" alt="" width="50" height="50"></td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                     </tbody>

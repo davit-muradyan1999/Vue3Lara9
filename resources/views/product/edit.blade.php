@@ -22,7 +22,7 @@
                         <input type="text" name="title" value="{{ $product->title }}" class="form-control" id="exampleInputEmail1" placeholder="Title">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="description" value="{{ $product->description }}" class="form-control" id="exampleInputEmail1" placeholder="Description">
+                        <textarea class="form-control" id="editor" name="description" rows="3">{{ $product->title }}</textarea>
                     </div>
                     <div class="form-group">
                         <input type="text" name="price" value="{{ $product->price }}" class="form-control" id="exampleInputEmail1" placeholder="Price">

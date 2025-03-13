@@ -15,9 +15,12 @@ use Illuminate\Http\Request;
 use Image, Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use App\Traits\UploadFile;
 
 class ProductController extends Controller
 {
+
+    use UploadFile;
     /**
      * Display a listing of the resource.
      *
@@ -56,10 +59,7 @@ class ProductController extends Controller
 
         $images = [];
         if ($request->hasFile('images')) {
-            $images = collect($request->file('images'))->map(function ($image) {
-                $newName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
-                return $image->storeAs('products', $newName, 'public');
-            })->toArray();
+            $images = $this->uploadFile($request->file('images'), 'products');
         }
 
         $product = Product::create(array_merge($data, ['images' => $images]));
@@ -126,11 +126,7 @@ class ProductController extends Controller
 
         $newImages = [];
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $newName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('products', $newName, 'public');
-                $newImages[] = $path;
-            }
+            $newImages = $this->uploadFile($request->file('images'), 'products');
         }
 
         $allImages = array_merge($currentImages, $newImages);

@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dist/css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.3.0/ckeditor5.css" crossorigin>
 </head>
 <!--
 `body` tag options:
@@ -157,10 +159,12 @@
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE -->
     <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
-    <script src="{{ asset('assets/dist/js/pages/dashboard3.js') }}"></script>
+{{--    <script src="{{ asset('assets/dist/js/pages/dashboard3.js') }}"></script>--}}
 
     <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/44.3.0/ckeditor5.umd.js" crossorigin></script>
+    <script src="{{ asset('assets/dist/js/main.js') }}"></script>
     <script>
         $('.select2').select2()
     </script>
