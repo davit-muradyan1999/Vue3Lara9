@@ -1,6 +1,19 @@
 <?php
 
-use App\Http\Controllers\{AdminController, AdminLoginController, AuthenticityCheckController, CategoryController, CollectionController, ColorController, TagController, ShoesSizeController, UserController, ProductController};
+use App\Http\Controllers\{AboutController,
+    AdminController,
+    AdminLoginController,
+    AuthenticityCheckController,
+    BlogController,
+    BoutiqueController,
+    CategoryController,
+    CollectionController,
+    ColorController,
+    HomeController,
+    TagController,
+    ShoesSizeController,
+    UserController,
+    ProductController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +33,8 @@ Route::post('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 Route::get('/admin', AdminController::class)->name('admin.dashboard');
 
 
-Route::get('/', function () {
-    return view('client.index');
-});
+Route::get('/', HomeController::class)->name('home');
+Route::get('/collections', [HomeController::class, 'collections'])->name('collections');
 
 Route::group(['prefix'=>'admin', 'middleware' => 'isAdmin'], function(){
     Route::resource('categories', CategoryController::class);
@@ -30,6 +42,9 @@ Route::group(['prefix'=>'admin', 'middleware' => 'isAdmin'], function(){
     Route::resource('tags', TagController::class);
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('abouts', AboutController::class);
+    Route::resource('boutiques', BoutiqueController::class);
+    Route::resource('blogs', BlogController::class);
     Route::get('/authenticity-checks', [AuthenticityCheckController::class, 'index'])->name('authenticity.index');
     Route::post('/authenticity-checks/import', [AuthenticityCheckController::class, 'import'])->name('authenticity.import');
     Route::put('/authenticity/update/{id}', [AuthenticityCheckController::class, 'update'])->name('authenticity.update');

@@ -6,8 +6,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/js/admin.js',  // Для админки
-                'resources/js/client/app.js' // Для клиентской части на Vue
+                'resources/js/app.js'
             ],
             refresh: true,
         }),

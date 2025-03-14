@@ -10,7 +10,6 @@ trait UploadFile
 {
     public function uploadFile($uploadedFiles, $folder = null, $disk = 'public', $filename = null)
     {
-//        dd($uploadedFiles);
         $uploadedPaths = [];
         $allowedFileFormats = [
             'jpg', 'jpeg', 'gif', 'png', 'svg',

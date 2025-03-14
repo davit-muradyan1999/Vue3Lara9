@@ -19,9 +19,9 @@
         </div>
         <nav class="nav-bar">
           <menu class="menu-list--metro nav-bar__menu">
-            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/">Home</a></li>
+            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/">Home</Link></li>
             <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/about">About</a></li>
-            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/collections">Collections</a></li>
+            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/collections">Collections</Link></li>
             <DropdownMenu />
             <li class="menu-list__item"><a @click.prevent="openPopup" class="link--underlineOnHover menu-list__link" href="#">Authenticity check</a></li>
             <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/private-club">Private club</a></li>
@@ -37,6 +37,7 @@
 import { ref } from 'vue';
 import DropdownMenu from './DropdownMenu.vue';
 import SearchPopup from '../searchPopup/SearchPopup.vue';
+import { Link } from '@inertiajs/vue3';
 
 const searchPopup = ref(null);
 

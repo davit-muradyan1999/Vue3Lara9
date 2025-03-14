@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Panel</title>
-    @vite(['resources/js/app.js'])
+{{--    @vite(['resources/js/app.js'])--}}
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -127,6 +127,14 @@
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Users
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('abouts.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-info"></i>
+                                <p>
+                                    About
                                 </p>
                             </a>
                         </li>

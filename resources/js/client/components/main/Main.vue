@@ -1,11 +1,7 @@
 <template>
-    <main class="layout__main">
-        <div class="layout__main-wrapper">
             <Collage />
             <Video />
             <Testimonies />
-        </div>
-    </main>
 </template>
 
 <script setup>
@@ -20,17 +16,6 @@ import Testimonies from './testimonies/Testimonies.vue';
 @use "../../../../assets/styles/shared.scss";
 
 $breakPoint: 1000px;
-
-.layout__main {
-  padding: 4rem 0;
-}
-
-.layout__main-wrapper {
-  @extend .wrapper;
-  overflow: visible;
-  min-height: 100vh;
-}
-
 .source-code-link {
   position: fixed;
   bottom: 0;
