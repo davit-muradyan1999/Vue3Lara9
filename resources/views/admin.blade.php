@@ -138,6 +138,22 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('blogs.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-blog"></i>
+                                <p>
+                                    Blog
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('boutiques.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-store"></i>
+                                <p>
+                                    Boutique
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

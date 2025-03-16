@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\About;
 use Illuminate\Http\Request;
 use App\Traits\UploadFile;
+use Illuminate\Support\Facades\File;
 
 class AboutController extends Controller
 {
@@ -16,11 +17,11 @@ class AboutController extends Controller
      */
     public function index()
     {
-        $abouts = About::all();
-        if($abouts){
-            return view('abouts.show', compact('abouts'));
+        $abouts = About::first();
+        if(isset($abouts)){
+            return view('about.show', compact('abouts'));
         }else{
-            return view('abouts.create');
+            return view('about.create');
         }
     }
 
@@ -74,9 +75,9 @@ class AboutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(About $about)
     {
-        //
+        return view('about.edit', compact('about'));
     }
 
     /**
@@ -86,9 +87,32 @@ class AboutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, About $about)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string',
+            'description' => 'required',
+        ]);
+
+        $image = $about->image ?? [];
+        if ($request->filled('delete_images')) {
+            $imagesToDelete = explode(',', $request->delete_images);
+            foreach ($imagesToDelete as $imagePath) {
+                $fullPath = storage_path('app/public/' . $imagePath);
+                if ($imagePath && File::exists($fullPath)) {
+                    File::delete($fullPath);
+                }
+            }
+        }
+
+        if ($request->hasFile('image')) {
+            $image = $this->uploadFile($request->file('image'), 'about');
+        }
+
+
+        $about->update(array_merge($data, ['image' => $image]));
+
+        return redirect()->route('abouts.show', $about->id)->with('success', 'About updated successfully');
     }
 
     /**

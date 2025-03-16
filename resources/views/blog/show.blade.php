@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">About</h1>
+                <h1 class="m-0">Blog</h1>
             </div>
         </div>
     </div>
@@ -18,28 +18,33 @@
                 <div class="card">
                     <div class="card-header d-flex p-4">
                         <div class="mr-2">
-                            <a href="{{ route('abouts.edit', $about->id) }}" class="btn btn-outline-success">Edit Collection</a>
+                            <a href="{{ route('blogs.edit', $blog->id) }}" class="btn btn-outline-success">Edit Collection</a>
                         </div>
+                        <form action="{{ route('blogs.destroy', $blog->id) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <input type="submit" class="btn btn-outline-danger" value="Delete">
+                        </form>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-hover text-nowrap">
                             <tbody>
                                 <tr>
                                     <td>ID</td>
-                                    <td>{{ $about->id }}</td>
+                                    <td>{{ $blog->id }}</td>
                                 </tr>
                                 <tr>
                                     <td>Title</td>
-                                    <td>{{ $about->title }}</td>
+                                    <td>{{ $blog->title }}</td>
                                 </tr>
                                 <tr>
                                     <td>Description</td>
-                                    <td>{!! $about->description !!}</td>
+                                    <td>{!! $blog->description !!}</td>
                                 </tr>
-                                @if($about->image)
+                                @if($blog->image)
                                     <tr>
                                         <td>Image</td>
-                                        <td><img src="{{ asset('storage/'.$about->image[0]) }}" width="100" alt=""></td>
+                                        <td><img src="{{ asset('storage/'.$blog->image[0]) }}" width="100" alt=""></td>
                                     </tr>
                                 @endif
                             </tbody>

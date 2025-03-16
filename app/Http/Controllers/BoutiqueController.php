@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Boutique;
+use App\Traits\UploadFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class BoutiqueController extends Controller
 {
+    use UploadFile;
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +17,8 @@ class BoutiqueController extends Controller
      */
     public function index()
     {
-        //
+        $boutiques = Boutique::all();
+        return view('boutique.index', compact('boutiques'));
     }
 
     /**
@@ -23,7 +28,7 @@ class BoutiqueController extends Controller
      */
     public function create()
     {
-        //
+        return view('boutique.create');
     }
 
     /**
@@ -34,7 +39,19 @@ class BoutiqueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string',
+            'description' => 'required',
+        ]);
+        $image = [];
+
+        if ($request->hasFile('image')) {
+            $image = $this->uploadFile($request->file('image'), 'boutiques');
+        }
+
+        Boutique::create(array_merge($data, ['image' => $image]));
+
+        return redirect()->route('boutiques.index')->with('success', 'Boutique was added successfully');
     }
 
     /**
@@ -43,9 +60,9 @@ class BoutiqueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Boutique $boutique)
     {
-        //
+        return view('boutique.show', compact('boutique'));
     }
 
     /**
@@ -54,9 +71,9 @@ class BoutiqueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Boutique $boutique)
     {
-        //
+        return view('boutique.edit', compact('boutique'));
     }
 
     /**
@@ -66,9 +83,32 @@ class BoutiqueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Boutique $boutique)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string',
+            'description' => 'required',
+        ]);
+
+        $image = $about->image ?? [];
+        if ($request->filled('delete_images')) {
+            $imagesToDelete = explode(',', $request->delete_images);
+            foreach ($imagesToDelete as $imagePath) {
+                $fullPath = storage_path('app/public/' . $imagePath);
+                if ($imagePath && File::exists($fullPath)) {
+                    File::delete($fullPath);
+                }
+            }
+        }
+
+        if ($request->hasFile('image')) {
+            $image = $this->uploadFile($request->file('image'), 'boutiques');
+        }
+
+
+        $boutique->update(array_merge($data, ['image' => $image]));
+
+        return redirect()->route('boutiques.index')->with('success', 'Boutique updated successfully');
     }
 
     /**
@@ -77,8 +117,17 @@ class BoutiqueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Boutique $boutique)
     {
-        //
+        if ($boutique->image) {
+            $filePath = storage_path("app/public/{$boutique->image[0]}");
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+
+        $boutique->delete();
+
+        return redirect()->route('boutiques.index')->with('success', 'Boutique deleted successfully');
     }
 }

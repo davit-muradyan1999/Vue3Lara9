@@ -20,13 +20,13 @@
         <nav class="nav-bar">
           <menu class="menu-list--metro nav-bar__menu">
             <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/">Home</Link></li>
-            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/about">About</a></li>
+            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/about">About</Link></li>
             <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/collections">Collections</Link></li>
             <DropdownMenu />
             <li class="menu-list__item"><a @click.prevent="openPopup" class="link--underlineOnHover menu-list__link" href="#">Authenticity check</a></li>
             <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/private-club">Private club</a></li>
-            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/boutiques">Boutiques</a></li>
-            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/blog">Blog</a></li>
+            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/boutiques">Boutiques</Link></li>
+            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/blogs">Blog</Link></li>
             <SearchPopup ref="searchPopup" />
           </menu>
         </nav>

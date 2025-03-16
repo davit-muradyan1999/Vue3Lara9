@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Edit About</h1>
+                <h1 class="m-0">Edit Boutique</h1>
             </div>
         </div>
     </div>
@@ -14,23 +14,23 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <form action="{{ route('abouts.update', $about->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('boutiques.update', $boutique->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="card-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Title</label>
-                        <input type="text" name="title" value="{{ $about->title }}" class="form-control" id="exampleInputEmail1" placeholder="Enter tag name">
+                        <input type="text" name="title" value="{{ $boutique->title }}" class="form-control" id="exampleInputEmail1" placeholder="Enter tag name">
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea name="description" class="form-control" id="editor" >{{ $about->description }}</textarea>
+                        <textarea name="description" class="form-control" id="editor" >{{ $boutique->description }}</textarea>
                     </div>
-                    @if ($about->image)
+                    @if ($boutique->image)
                         <div id="existingImages" class="row mt-3">
                             <div class="col-md-3 position-relative mb-3">
-                                <img src="{{ asset( 'storage/' . $about->image[0]) }}" class="img-fluid rounded" alt="Image preview">
-                                <button type="button" class="btn btn-danger btn-sm remove-image" data-path="{{ $about->image[0] }}" style="position: absolute; top: 5px; right: 5px;">&times;</button>
+                                <img src="{{ asset( 'storage/' . $boutique->image[0]) }}" class="img-fluid rounded" alt="Image preview">
+                                <button type="button" class="btn btn-danger btn-sm remove-image" data-path="{{ $boutique->image[0] }}" style="position: absolute; top: 5px; right: 5px;">&times;</button>
                             </div>
                         </div>
                     @endif

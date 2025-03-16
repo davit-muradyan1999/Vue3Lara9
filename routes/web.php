@@ -35,6 +35,9 @@ Route::get('/admin', AdminController::class)->name('admin.dashboard');
 
 Route::get('/', HomeController::class)->name('home');
 Route::get('/collections', [HomeController::class, 'collections'])->name('collections');
+Route::get('/about', [HomeController::class, 'abouts'])->name('about');
+Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
+Route::get('/boutiques', [HomeController::class, 'boutiques'])->name('boutiques');
 
 Route::group(['prefix'=>'admin', 'middleware' => 'isAdmin'], function(){
     Route::resource('categories', CategoryController::class);
