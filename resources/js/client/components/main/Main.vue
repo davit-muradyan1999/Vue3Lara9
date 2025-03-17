@@ -1,5 +1,5 @@
 <template>
-            <Collage />
+            <Collage :categories="categories" />
             <Video />
             <Testimonies />
 </template>
@@ -8,6 +8,11 @@
 import Collage from './collage/Collage.vue';
 import Video from './video/Video.vue';
 import Testimonies from './testimonies/Testimonies.vue';
+
+defineProps({
+    categories: Array
+});
+
 </script>
 
 <style lang="scss" scoped>

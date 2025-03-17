@@ -38,6 +38,8 @@ Route::get('/collections', [HomeController::class, 'collections'])->name('collec
 Route::get('/about', [HomeController::class, 'abouts'])->name('about');
 Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
 Route::get('/boutiques', [HomeController::class, 'boutiques'])->name('boutiques');
+Route::get('/private-club', [HomeController::class, 'privateClub'])->name('private-club');
+Route::get('/categories/{category}', [HomeController::class, 'categoriesProducts'])->name('categories.products');
 
 Route::group(['prefix'=>'admin', 'middleware' => 'isAdmin'], function(){
     Route::resource('categories', CategoryController::class);

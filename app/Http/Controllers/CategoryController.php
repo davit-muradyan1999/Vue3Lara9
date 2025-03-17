@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Traits\UploadFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
+    use UploadFile;
     /**
      * Display a listing of the resource.
      *
@@ -35,12 +38,18 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
-        // dd($data);
-        Category::firstOrCreate($data);
+        $data = $request->validate([
+            'title' => 'required|string',
+        ]);
+        $image = [];
 
+        if ($request->hasFile('image')) {
+            $image = $this->uploadFile($request->file('image'), 'categories');
+        }
+
+        Category::create(array_merge($data, ['image' => $image]));
         return redirect()->route('categories.index')->with('success','Category was added successfully');
     }
 
@@ -73,10 +82,28 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(Request $request, Category $category)
     {
-        $data = $request->validated();
-        $category->update($data);
+        $data = $request->validate([
+            'title' => 'required|string',
+        ]);
+
+        $image = $about->image ?? [];
+        if ($request->filled('delete_images')) {
+            $imagesToDelete = explode(',', $request->delete_images);
+            foreach ($imagesToDelete as $imagePath) {
+                $fullPath = storage_path('app/public/' . $imagePath);
+                if ($imagePath && File::exists($fullPath)) {
+                    File::delete($fullPath);
+                }
+            }
+        }
+
+        if ($request->hasFile('image')) {
+            $image = $this->uploadFile($request->file('image'), 'categories');
+        }
+
+        $category->update(array_merge($data, ['image' => $image]));
 
         return view('category.show', compact('category'));
     }
@@ -89,6 +116,13 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if ($category->image) {
+            $filePath = storage_path("app/public/{$category->image[0]}");
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+
         $category->delete();
 
         return redirect()->route('categories.index')->with('success','Category was deleted successfully');

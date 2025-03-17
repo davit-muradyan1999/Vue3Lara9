@@ -8,7 +8,7 @@
 
       <ul v-show="isOpen" class="menu-list__sub-list">
         <li v-for="item in menuItems" :key="item.id" class="menu-list__sub-list-item">
-          <a class="link--plain menu-list__sub-list-link" :href="`/categories/${item.id}`">{{ item.title }}</a>
+          <Link class="link--plain menu-list__sub-list-link" :href="`/categories/${item.id}`">{{ item.title }}</Link>
         </li>
       </ul>
     </li>
@@ -16,6 +16,7 @@
 
   <script setup>
   import { ref, onMounted, computed } from 'vue';
+  import { Link } from '@inertiajs/vue3';
   import axios from 'axios';
 
   const isOpen = ref(false);

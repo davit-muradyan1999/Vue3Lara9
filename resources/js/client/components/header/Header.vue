@@ -24,7 +24,7 @@
             <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/collections">Collections</Link></li>
             <DropdownMenu />
             <li class="menu-list__item"><a @click.prevent="openPopup" class="link--underlineOnHover menu-list__link" href="#">Authenticity check</a></li>
-            <li class="menu-list__item"><a class="link--underlineOnHover menu-list__link" href="/private-club">Private club</a></li>
+            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/private-club">Private club</Link></li>
             <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/boutiques">Boutiques</Link></li>
             <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/blogs">Blog</Link></li>
             <SearchPopup ref="searchPopup" />

@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-header d-flex p-4">
                         <div class="mr-2">
-                            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-outline-success">Edit Category</a>                            
+                            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-outline-success">Edit Category</a>
                         </div>
                         <form action="{{ route('categories.destroy', $category->id) }}" method="post">
                         @csrf
@@ -32,11 +32,17 @@
                                 <tr>
                                     <td>ID</td>
                                     <td>{{ $category->id }}</td>
-                                </tr>         
+                                </tr>
                                 <tr>
                                     <td>Title</td>
                                     <td>{{ $category->title }}</td>
-                                </tr>         
+                                </tr>
+                                @if($category->image)
+                                    <tr>
+                                        <td>Image</td>
+                                        <td><img src="{{ asset('storage/'.$category->image[0]) }}" width="100" alt=""></td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
