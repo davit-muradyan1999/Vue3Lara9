@@ -7,11 +7,11 @@
                 <p>Filter:</p>
                 <div class="w-full max-w-sm min-w-[200px]">
                     <div class="relative">
-                        <select
+                        <select v-model="availabilityFilter"
                             class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer">
                             <option value="">Availability</option>
-                            <option value="bucharest">In stock</option>
-                            <option value="london">Out of stock</option>
+                            <option value="in_stock">In stock</option>
+                            <option value="out_of_stock">Out of stock</option>
                         </select>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2"
                              stroke="currentColor" class="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700">
@@ -25,7 +25,7 @@
                 <p class="w-full">Sort by:</p>
                 <div class="w-full max-w-sm min-w-[200px]">
                     <div class="relative">
-                        <select
+                        <select v-model="sortFilter"
                             class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer">
                             <option value="best">Best selling</option>
                             <option value="a_z">Alphabetically, A-Z</option>
@@ -48,7 +48,7 @@
             <div class="paginator__wrapper">
                 <a v-for="product in products" :key="product.id" class="link-product--imageExpandOnHover list-product__products__item" href="/react-based-shopify-craft-theme/products/the-napkins">
                     <span class="link-product__image-wrapper">
-                        <img class="link-product__image" :src="'storage/'+product.image[0]" :alt="product.title">
+                        <img class="link-product__image" :src="product.images.length ? `/storage/${product.images[0]}` : 'https:\\/\\/via.placeholder.com\\/200'" :alt="product.title">
                     </span>
                     <span class="link-product__title">{{ product.title }}</span>
                     <span class="text-price link-product__price">
@@ -68,12 +68,32 @@
 </template>
 
 <script setup>
-import {defineProps} from 'vue';
+import { ref, watch } from "vue";
+import { router } from "@inertiajs/vue3";
 
-defineProps({
+const props = defineProps({
     private: Boolean,
     category: Object,
     products: Array
+});
+
+const availabilityFilter = ref("");
+const sortFilter = ref("best");
+
+watch([availabilityFilter, sortFilter], () => {
+    if (props.private) {
+        // Если показываем приватные продукты
+        router.get("/private-club", {
+            availability: availabilityFilter.value,
+            sort: sortFilter.value,
+        }, { preserveState: true, replace: true });
+    } else {
+        // Если показываем продукты конкретной категории
+        router.get(`/categories/${props.category?.id}`, {
+            availability: availabilityFilter.value,
+            sort: sortFilter.value,
+        }, { preserveState: true, replace: true });
+    }
 });
 </script>
 <style lang="scss" scoped>

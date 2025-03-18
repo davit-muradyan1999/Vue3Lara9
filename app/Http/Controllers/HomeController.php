@@ -49,21 +49,100 @@ class HomeController extends Controller
         ]);
     }
 
-    public function categoriesProducts(Category $category)
+    public function categoriesProducts(Category $category, Request $request)
     {
+        $query = $category->products()->where('is_published', 1)->where('is_private', 0);
+
+        if ($request->availability === 'in_stock') {
+            $query->where('count', '>', 0);
+        } elseif ($request->availability === 'out_of_stock') {
+            $query->where('count', '=', 0);
+        }
+
+        // Сортировка
+        switch ($request->sort) {
+            case 'a_z':
+                $query->orderBy('title', 'asc');
+                break;
+            case 'z_a':
+                $query->orderBy('title', 'desc');
+                break;
+            case 'price_low':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price_high':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'asc':
+                $query->orderBy('created_at', 'asc');
+                break;
+            case 'desc':
+                $query->orderBy('created_at', 'desc');
+                break;
+            case 'best':
+                $query->orderBy('id', 'asc');
+                break;
+            default:
+                $query->orderBy('id', 'desc');
+                break;
+        }
+
         return Inertia::render('products/Products', [
             'private' => false,
             'category' => $category,
-            'products' => $category->products()->where('is_published', 1)->where('is_private', 0)->get()
+            'products' => $query->get(),
         ]);
+//        return Inertia::render('products/Products', [
+//            'private' => false,
+//            'category' => $category,
+//            'products' => $category->products()->where('is_published', 1)->where('is_private', 0)->get()
+//        ]);
     }
 
-    public function privateClub()
+    public function privateClub(Request $request)
     {
+        $query = Product::where('is_published', 1)->where('is_private', 1);
+
+        // Фильтр по наличию
+        if ($request->availability === 'in_stock') {
+            $query->where('count', '>', 0);
+        } elseif ($request->availability === 'out_of_stock') {
+            $query->where('count', '=', 0);
+        }
+
+        // Сортировка
+        switch ($request->sort) {
+            case 'a_z':
+                $query->orderBy('title', 'asc');
+                break;
+            case 'z_a':
+                $query->orderBy('title', 'desc');
+                break;
+            case 'price_low':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price_high':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'asc':
+                $query->orderBy('created_at', 'asc');
+                break;
+            case 'desc':
+                $query->orderBy('created_at', 'desc');
+                break;
+            case 'best':
+                $query->orderBy('id', 'asc');
+                break;
+            default:
+                $query->orderBy('id', 'desc');
+                break;
+        }
+
         return Inertia::render('products/Products', [
             'private' => true,
             'category' => null,
-            'products' => Product::where('is_published', 1)->where('is_private', 1)->get()
+            'products' => $query->get(),
         ]);
     }
+
 }
