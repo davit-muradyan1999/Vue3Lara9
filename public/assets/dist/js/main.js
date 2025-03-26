@@ -127,4 +127,6 @@ const editorConfig = {
     }
 };
 
-ClassicEditor.create(document.querySelector('#editor'), editorConfig);
+ClassicEditor.create(document.querySelector('#editor_am'), editorConfig);
+ClassicEditor.create(document.querySelector('#editor_en'), editorConfig);
+ClassicEditor.create(document.querySelector('#editor_ru'), editorConfig);
