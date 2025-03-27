@@ -19,8 +19,16 @@
                 @method('PATCH')
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Title</label>
-                        <input type="text" name="title" value="{{ $category->title }}" class="form-control" id="exampleInputEmail1" placeholder="Enter category name">
+                        <label for="title"> Title AM</label>
+                        <input type="text" name="title[am]" value="{{ $category->title['am'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title AM">
+                    </div>
+                    <div class="form-group">
+                        <label for="title"> Title EN</label>
+                        <input type="text" name="title[en]" value="{{ $category->title['en'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title EN">
+                    </div>
+                    <div class="form-group">
+                        <label for="title"> Title RU</label>
+                        <input type="text" name="title[ru]" value="{{ $category->title['ru'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title RU">
                     </div>
                     @if ($category->image)
                         <div id="existingImages" class="row mt-3">

@@ -11,6 +11,8 @@ class About extends Model
     protected $fillable = ['title', 'description', 'image'];
 
     protected $casts = [
+        'title' => 'array',
+        'description' => 'array',
         'image' => 'array'
     ];
 }

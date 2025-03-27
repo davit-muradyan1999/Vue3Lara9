@@ -20,15 +20,15 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="title"> Title AM</label>
-                        <input type="text" name="title[am]" value="{{ $product->title['am'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title">
+                        <input type="text" name="title[am]" value="{{ $product->title['am'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title AM">
                     </div>
                     <div class="form-group">
                         <label for="title"> Title EN</label>
-                        <input type="text" name="title[en]" value="{{ $product->title['en'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title">
+                        <input type="text" name="title[en]" value="{{ $product->title['en'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title EN">
                     </div>
                     <div class="form-group">
                         <label for="title"> Title RU</label>
-                        <input type="text" name="title[ru]" value="{{ $product->title['ru'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title">
+                        <input type="text" name="title[ru]" value="{{ $product->title['ru'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title RU">
                     </div>
                     <div class="form-group">
                         <label for="description">Description AM</label>

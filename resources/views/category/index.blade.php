@@ -31,7 +31,7 @@
                                     @foreach ($categories as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td><a href="{{ route('categories.show', $item->id) }}">{{ $item->title }}</a></td>
+                                        <td><a href="{{ route('categories.show', $item->id) }}">{{ $item->title['am'] }}</a></td>
                                         @if($item->image)
                                             <td><img src="{{ asset('storage/'.$item->image[0]) }}" alt="" width="50" height="50"></td>
                                         @endif

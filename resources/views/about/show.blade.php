@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-header d-flex p-4">
                         <div class="mr-2">
-                            <a href="{{ route('abouts.edit', $about->id) }}" class="btn btn-outline-success">Edit Collection</a>
+                            <a href="{{ route('abouts.edit', $about->id) }}" class="btn btn-outline-success">Edit About</a>
                         </div>
                     </div>
                     <div class="card-body table-responsive p-0">
@@ -30,11 +30,11 @@
                                 </tr>
                                 <tr>
                                     <td>Title</td>
-                                    <td>{{ $about->title }}</td>
+                                    <td>{{ $about->title['am'] }}</td>
                                 </tr>
                                 <tr>
                                     <td>Description</td>
-                                    <td>{!! $about->description !!}</td>
+                                    <td>{!! $about->description['am'] !!}</td>
                                 </tr>
                                 @if($about->image)
                                     <tr>

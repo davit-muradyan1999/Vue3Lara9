@@ -152,15 +152,23 @@ class ProductController extends Controller
 
         $allImages = array_merge($currentImages, $newImages);
 
+        $title = [
+            'am' => $data['title']['am'],
+            'en' => $data['title']['en'],
+            'ru' => $data['title']['ru']
+        ];
+
         $description = [
             'am' => $data['description']['am'],
             'en' => $data['description']['en'],
             'ru' => $data['description']['ru']
         ];
-        unset($data['description']);
+
+        unset($data['title'], $data['description']);
 
         $product->update(array_merge($data, [
             'images' => $allImages,
+            'title' => $title,
             'description' => $description
         ]));
 

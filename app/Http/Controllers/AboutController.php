@@ -44,8 +44,12 @@ class AboutController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required',
+            'title.am' => 'required|string',
+            'title.en' => 'required|string',
+            'title.ru' => 'required|string',
+            'description.am' => 'required|string',
+            'description.en' => 'required|string',
+            'description.ru' => 'required|string',
         ]);
         $image = [];
 
@@ -53,7 +57,25 @@ class AboutController extends Controller
             $image = $this->uploadFile($request->file('image'), 'about');
         }
 
-        $about = About::create(array_merge($data, ['image' => $image]));
+        $title = [
+            'am' => $data['title']['am'],
+            'en' => $data['title']['en'],
+            'ru' => $data['title']['ru']
+        ];
+
+        $description = [
+            'am' => $data['description']['am'],
+            'en' => $data['description']['en'],
+            'ru' => $data['description']['ru']
+        ];
+
+        unset($data['title'], $data['description']);
+
+        $about = About::create(array_merge($data, [
+            'image' => $image,
+            'title' => $title,
+            'description' => $description
+        ]));
 
         return redirect()->route('abouts.show', $about->id)->with('success', 'About was added successfully');
     }
@@ -90,8 +112,12 @@ class AboutController extends Controller
     public function update(Request $request, About $about)
     {
         $data = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required',
+            'title.am' => 'required|string',
+            'title.en' => 'required|string',
+            'title.ru' => 'required|string',
+            'description.am' => 'required|string',
+            'description.en' => 'required|string',
+            'description.ru' => 'required|string',
         ]);
 
         $image = $about->image ?? [];
@@ -109,8 +135,25 @@ class AboutController extends Controller
             $image = $this->uploadFile($request->file('image'), 'about');
         }
 
+        $title = [
+            'am' => $data['title']['am'],
+            'en' => $data['title']['en'],
+            'ru' => $data['title']['ru']
+        ];
 
-        $about->update(array_merge($data, ['image' => $image]));
+        $description = [
+            'am' => $data['description']['am'],
+            'en' => $data['description']['en'],
+            'ru' => $data['description']['ru']
+        ];
+
+        unset($data['title'], $data['description']);
+
+        $about->update(array_merge($data, [
+            'image' => $image,
+            'title' => $title,
+            'description' => $description
+        ]));
 
         return redirect()->route('abouts.show', $about->id)->with('success', 'About updated successfully');
     }

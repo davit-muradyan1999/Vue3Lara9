@@ -19,12 +19,28 @@
                 @method('PATCH')
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Title</label>
-                        <input type="text" name="title" value="{{ $boutique->title }}" class="form-control" id="exampleInputEmail1" placeholder="Enter tag name">
+                        <label for="title"> Title AM</label>
+                        <input type="text" name="title[am]" value="{{ $boutique->title['am'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title AM">
                     </div>
                     <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea name="description" class="form-control" id="editor" >{{ $boutique->description }}</textarea>
+                        <label for="title"> Title EN</label>
+                        <input type="text" name="title[en]" value="{{ $boutique->title['en'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title EN">
+                    </div>
+                    <div class="form-group">
+                        <label for="title"> Title RU</label>
+                        <input type="text" name="title[ru]" value="{{ $boutique->title['ru'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title RU">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description AM</label>
+                        <textarea class="form-control" id="editor_am" name="description[am]" rows="3">{{ $boutique->description['am'] }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description EN</label>
+                        <textarea class="form-control" id="editor_en" name="description[en]" rows="3">{{ $boutique->description['en'] }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description RU</label>
+                        <textarea class="form-control" id="editor_ru" name="description[ru]" rows="3">{{ $boutique->description['ru'] }}</textarea>
                     </div>
                     @if ($boutique->image)
                         <div id="existingImages" class="row mt-3">

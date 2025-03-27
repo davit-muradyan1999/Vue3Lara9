@@ -19,8 +19,16 @@
                     @method('POST')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Title</label>
-                            <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="Enter category name">
+                            <label for="title"> Title AM</label>
+                            <input type="text" name="title[am]" value="{{ old('title.am') }}" class="form-control" id="title" placeholder="Title AM">
+                        </div>
+                        <div class="form-group">
+                            <label for="title"> Title EN</label>
+                            <input type="text" name="title[en]" value="{{ old('title.en') }}" class="form-control" id="title" placeholder="Title EN">
+                        </div>
+                        <div class="form-group">
+                            <label for="title"> Title RU</label>
+                            <input type="text" name="title[ru]" value="{{ old('title.ru') }}" class="form-control" id="title" placeholder="Title RU">
                         </div>
                         <div class="form-group">
                             <div class="input-group">
