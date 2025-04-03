@@ -13,7 +13,8 @@ use App\Http\Controllers\{AboutController,
     TagController,
     ShoesSizeController,
     UserController,
-    ProductController};
+    ProductController,
+    LanguageController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,7 @@ Route::get('/admin', AdminController::class)->name('admin.dashboard');
 
 
 Route::get('/', HomeController::class)->name('home');
+Route::get('/lang/{locale}', [LanguageController::class, 'changeLocale'])->name('lang.switch');
 Route::get('/collections', [HomeController::class, 'collections'])->name('collections');
 Route::get('/about', [HomeController::class, 'abouts'])->name('about');
 Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');

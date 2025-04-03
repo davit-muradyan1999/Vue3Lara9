@@ -40,8 +40,12 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required',
+            'title.am' => 'required|string',
+            'title.en' => 'required|string',
+            'title.ru' => 'required|string',
+            'description.am' => 'required|string',
+            'description.en' => 'required|string',
+            'description.ru' => 'required|string',
         ]);
         $image = [];
 
@@ -49,7 +53,25 @@ class BlogController extends Controller
             $image = $this->uploadFile($request->file('image'), 'blogs');
         }
 
-        Blog::create(array_merge($data, ['image' => $image]));
+        $title = [
+            'am' => $data['title']['am'],
+            'en' => $data['title']['en'],
+            'ru' => $data['title']['ru']
+        ];
+
+        $description = [
+            'am' => $data['description']['am'],
+            'en' => $data['description']['en'],
+            'ru' => $data['description']['ru']
+        ];
+
+        unset($data['title'], $data['description']);
+
+        Blog::create(array_merge($data, [
+            'image' => $image,
+            'title' => $title,
+            'description' => $description
+        ]));
 
         return redirect()->route('blogs.index')->with('success', 'Blog was added successfully');
     }
@@ -86,8 +108,12 @@ class BlogController extends Controller
     public function update(Request $request, Blog $blog)
     {
         $data = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required',
+            'title.am' => 'required|string',
+            'title.en' => 'required|string',
+            'title.ru' => 'required|string',
+            'description.am' => 'required|string',
+            'description.en' => 'required|string',
+            'description.ru' => 'required|string',
         ]);
 
         $image = $about->image ?? [];
@@ -105,8 +131,26 @@ class BlogController extends Controller
             $image = $this->uploadFile($request->file('image'), 'blogs');
         }
 
+        $title = [
+            'am' => $data['title']['am'],
+            'en' => $data['title']['en'],
+            'ru' => $data['title']['ru']
+        ];
 
-        $blog->update(array_merge($data, ['image' => $image]));
+        $description = [
+            'am' => $data['description']['am'],
+            'en' => $data['description']['en'],
+            'ru' => $data['description']['ru']
+        ];
+
+        unset($data['title'], $data['description']);
+
+
+        $blog->update(array_merge($data, [
+            'image' => $image,
+            'title' => $title,
+            'description' => $description
+            ]));
 
         return redirect()->route('blogs.index')->with('success', 'Blog updated successfully');
     }

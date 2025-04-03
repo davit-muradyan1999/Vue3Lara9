@@ -19,12 +19,28 @@
                     @method('POST')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="title"> Title </label>
-                            <input type="text" name="title" value="{{ old('title') }}" class="form-control" id="title" placeholder="Title">
+                            <label for="title"> Title AM</label>
+                            <input type="text" name="title[am]" value="{{ old('title.am') }}" class="form-control" id="title" placeholder="Title AM">
                         </div>
                         <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control" id="editor" name="description" rows="3">{{ old('description') }}</textarea>
+                            <label for="title"> Title EN</label>
+                            <input type="text" name="title[en]" value="{{ old('title.en') }}" class="form-control" id="title" placeholder="Title EN">
+                        </div>
+                        <div class="form-group">
+                            <label for="title"> Title RU</label>
+                            <input type="text" name="title[ru]" value="{{ old('title.ru') }}" class="form-control" id="title" placeholder="Title RU">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description AM</label>
+                            <textarea class="form-control" id="editor_am" name="description[am]" rows="3">{{ old('description.am') }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description EN</label>
+                            <textarea class="form-control" id="editor_en" name="description[en]" rows="3">{{ old('description.en') }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description RU</label>
+                            <textarea class="form-control" id="editor_ru" name="description[ru]" rows="3">{{ old('description.ru') }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="price"> Price </label>

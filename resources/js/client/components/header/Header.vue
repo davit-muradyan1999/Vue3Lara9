@@ -9,9 +9,11 @@
               <a aria-current="page" class="link--plain app-bar__company active" href="/">
                   <img class="icon logo link-icon__icon" src="/public/client/icons/logo.svg"  alt="logo">
               </a>
-            <button type="button" class="button--plain  button-icon--expandOnHover  app-bar__search">
-                <img src="/public/client/icons/search.svg" alt="search">
-            </button>
+              <div class="language-switcher">
+                  <button @click="changeLanguage('am')">AM</button>
+                  <button @click="changeLanguage('en')">EN</button>
+                  <button @click="changeLanguage('ru')">RU</button>
+              </div>
             <button type="button" class="button--plain  button-icon--expandOnHover  app-bar__menu">
                 <img src="/public/client/icons/burger.svg" alt="burger">
             </button>
@@ -38,9 +40,23 @@ import { ref } from 'vue';
 import DropdownMenu from './DropdownMenu.vue';
 import SearchPopup from '../searchPopup/SearchPopup.vue';
 import { Link } from '@inertiajs/vue3';
+import { Inertia } from '@inertiajs/inertia';
+
 
 const searchPopup = ref(null);
-
+const changeLanguage = (locale) => {
+    console.log(
+        'locale',
+        locale)
+    Inertia.get(route('lang.switch', { locale }), {}, {
+        preserveState: true,
+        preserveScroll: true,
+        onSuccess: () => {
+            // Обновление страницы после смены языка
+            Inertia.reload()
+        }
+    })
+}
 const openPopup = () => {
   searchPopup.value.openPopup();
 };

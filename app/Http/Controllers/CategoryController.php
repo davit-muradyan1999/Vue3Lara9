@@ -41,7 +41,9 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => 'required|string',
+            'title.am' => 'required|string',
+            'title.en' => 'required|string',
+            'title.ru' => 'required|string',
         ]);
         $image = [];
 
@@ -49,7 +51,18 @@ class CategoryController extends Controller
             $image = $this->uploadFile($request->file('image'), 'categories');
         }
 
-        Category::create(array_merge($data, ['image' => $image]));
+        $title = [
+            'am' => $data['title']['am'],
+            'en' => $data['title']['en'],
+            'ru' => $data['title']['ru']
+        ];
+
+        unset($data['title']);
+
+        Category::create(array_merge($data, [
+            'title' => $title,
+            'image' => $image
+        ]));
         return redirect()->route('categories.index')->with('success','Category was added successfully');
     }
 
@@ -85,7 +98,9 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $data = $request->validate([
-            'title' => 'required|string',
+            'title.am' => 'required|string',
+            'title.en' => 'required|string',
+            'title.ru' => 'required|string',
         ]);
 
         $image = $about->image ?? [];
@@ -103,7 +118,17 @@ class CategoryController extends Controller
             $image = $this->uploadFile($request->file('image'), 'categories');
         }
 
-        $category->update(array_merge($data, ['image' => $image]));
+        $title = [
+            'am' => $data['title']['am'],
+            'en' => $data['title']['en'],
+            'ru' => $data['title']['ru']
+        ];
+        unset($data['title']);
+
+        $category->update(array_merge($data, [
+            'title' => $title,
+            'image' => $image
+        ]));
 
         return view('category.show', compact('category'));
     }

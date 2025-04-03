@@ -12,6 +12,8 @@ class Product extends Model
         'title', 'description', 'price', 'count', 'images', 'is_published', 'is_private', 'category_id'
     ];
     protected $casts = [
+        'title' => 'array',
+        'description' => 'array',
         'images' => 'array'
     ];
 

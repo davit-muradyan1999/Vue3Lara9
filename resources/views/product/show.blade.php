@@ -35,11 +35,11 @@
                                 </tr>
                                 <tr>
                                     <td>Title</td>
-                                    <td>{{ $product->title }}</td>
+                                    <td>{{ $product->title['am'] }}</td>
                                 </tr>
                                 <tr>
                                     <td>Description</td>
-                                    <td>{{ $product->description }}</td>
+                                    <td>{{ $product->description['am'] }}</td>
                                 </tr>
                                 <tr>
                                     <td>Price</td>

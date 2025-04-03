@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-header d-flex p-4">
                         <div class="mr-2">
-                            <a href="{{ route('blogs.edit', $blog->id) }}" class="btn btn-outline-success">Edit Collection</a>
+                            <a href="{{ route('blogs.edit', $blog->id) }}" class="btn btn-outline-success">Edit Blog</a>
                         </div>
                         <form action="{{ route('blogs.destroy', $blog->id) }}" method="post">
                         @csrf
@@ -35,11 +35,11 @@
                                 </tr>
                                 <tr>
                                     <td>Title</td>
-                                    <td>{{ $blog->title }}</td>
+                                    <td>{{ $blog->title['am'] }}</td>
                                 </tr>
                                 <tr>
                                     <td>Description</td>
-                                    <td>{!! $blog->description !!}</td>
+                                    <td>{!! $blog->description['am'] !!}</td>
                                 </tr>
                                 @if($blog->image)
                                     <tr>

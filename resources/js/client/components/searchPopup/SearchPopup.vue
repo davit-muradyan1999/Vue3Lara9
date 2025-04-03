@@ -3,7 +3,7 @@
       <div class="popup">
         <h3>Authenticity Check</h3>
         <input v-model="barcode" type="text" placeholder="Enter barcode" @input="searchProduct" />
-        <!-- <button @click="searchProduct">Search</button> -->
+         <button @click="searchProduct">Search</button>
 
         <div class="product-info" v-if="product">
             <div class="product-header">
@@ -11,7 +11,7 @@
             </div>
 
             <div class="product-details">
-              <p><strong>Title:</strong> {{ product.title }}</p>
+<!--              <p><strong>Title:</strong> {{ product.title }}</p>-->
               <p><strong>Item:</strong> {{ product.item }}</p>
               <p><strong>Gold:</strong> {{ product.gold }}</p>
               <p><strong>Silver:</strong> {{ product.silver }}</p>
@@ -71,6 +71,14 @@
   </script>
 
   <style scoped>
+  h3{
+      font-size: 20px;
+      margin-bottom: 10px;
+  }
+  input{
+      width: 300px !important;
+      font-size: 16px;
+  }
   .product-info{
     display: flex;
     flex-direction: column;

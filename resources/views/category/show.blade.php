@@ -35,7 +35,7 @@
                                 </tr>
                                 <tr>
                                     <td>Title</td>
-                                    <td>{{ $category->title }}</td>
+                                    <td>{{ $category->title['am'] }}</td>
                                 </tr>
                                 @if($category->image)
                                     <tr>

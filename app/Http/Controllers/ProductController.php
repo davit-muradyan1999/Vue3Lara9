@@ -62,7 +62,24 @@ class ProductController extends Controller
             $images = $this->uploadFile($request->file('images'), 'products');
         }
 
-        $product = Product::create(array_merge($data, ['images' => $images]));
+        $title = [
+            'am' => $data['title']['am'],
+            'en' => $data['title']['en'],
+            'ru' => $data['title']['ru']
+        ];
+
+        $description = [
+            'am' => $data['description']['am'],
+            'en' => $data['description']['en'],
+            'ru' => $data['description']['ru']
+        ];
+        unset($data['title'], $data['description']);
+
+        $product = Product::create(array_merge($data, [
+            'title' => $title,
+            'images' => $images,
+            'description' => $description
+        ]));
 
         $product->tags()->sync($tagsIds);
 
@@ -104,8 +121,12 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $data = $request->validate([
-            'title' => 'nullable',
-            'description' => 'nullable',
+            'title.am' => 'required|string',
+            'title.en' => 'required|string',
+            'title.ru' => 'required|string',
+            'description.am' => 'required|string',
+            'description.en' => 'required|string',
+            'description.ru' => 'required|string',
             'price' => 'nullable',
             'count' => 'required',
             'category_id' => 'required|exists:categories,id',
@@ -131,7 +152,25 @@ class ProductController extends Controller
 
         $allImages = array_merge($currentImages, $newImages);
 
-        $product->update(array_merge($data, ['images' => $allImages]));
+        $title = [
+            'am' => $data['title']['am'],
+            'en' => $data['title']['en'],
+            'ru' => $data['title']['ru']
+        ];
+
+        $description = [
+            'am' => $data['description']['am'],
+            'en' => $data['description']['en'],
+            'ru' => $data['description']['ru']
+        ];
+
+        unset($data['title'], $data['description']);
+
+        $product->update(array_merge($data, [
+            'images' => $allImages,
+            'title' => $title,
+            'description' => $description
+        ]));
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully');
     }
