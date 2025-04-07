@@ -39,8 +39,7 @@
 import { ref } from 'vue';
 import DropdownMenu from './DropdownMenu.vue';
 import SearchPopup from '../searchPopup/SearchPopup.vue';
-import { Link } from '@inertiajs/vue3';
-import { Inertia } from '@inertiajs/inertia';
+import { Link, router } from '@inertiajs/vue3';
 
 
 const searchPopup = ref(null);
@@ -48,13 +47,9 @@ const changeLanguage = (locale) => {
     console.log(
         'locale',
         locale)
-    Inertia.get(route('lang.switch', { locale }), {}, {
+    router.get(route('lang.switch', locale), {}, {
         preserveState: true,
         preserveScroll: true,
-        onSuccess: () => {
-            // Обновление страницы после смены языка
-            Inertia.reload()
-        }
     })
 }
 const openPopup = () => {
