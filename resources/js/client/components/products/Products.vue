@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1 v-if="private">Private Product</h1>
-        <h1 v-else>Product Category: {{ category.title }}</h1>
+        <h1 v-else>Product Category: {{ category.title[locale] }}</h1>
         <div class="filters flex items-center justify-between mb-6">
             <div class="flex items-center justify-self-start gap-4">
                 <p>Filter:</p>
@@ -46,31 +46,25 @@
         </div>
         <div class="paginator list-product__products--three-column">
             <div class="paginator__wrapper">
-                <a v-for="product in products" :key="product.id" class="link-product--imageExpandOnHover list-product__products__item" href="/react-based-shopify-craft-theme/products/the-napkins">
+                <Link v-for="product in products" :key="product.id" :href="'/product/'+product.id" class="link-product--imageExpandOnHover list-product__products__item">
                     <span class="link-product__image-wrapper">
                         <img class="link-product__image" :src="product.images.length ? `/storage/${product.images[0]}` : 'https:\\/\\/via.placeholder.com\\/200'" :alt="product.title">
                     </span>
-                    <span class="link-product__title">{{ product.title }}</span>
+                    <span class="link-product__title">{{ product.title[locale] }}</span>
                     <span class="text-price link-product__price">
                         <span>{{ product.price }}$</span>
                     </span>
-                </a>
+                </Link>
             </div>
         </div>
-<!--        <ul>-->
-<!--            <li v-for="product in products" :key="product.id">-->
-<!--                <h3>{{ product.title }}</h3>-->
-<!--                <p v-html="product.description"></p>-->
-<!--                <p>Price: {{ product.price }}$</p>-->
-<!--            </li>-->
-<!--        </ul>-->
     </div>
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import { router } from "@inertiajs/vue3";
+import {computed, ref, watch} from "vue";
+import {Link, router, usePage} from "@inertiajs/vue3";
 
+const locale = computed(() => usePage().props.locale);
 const props = defineProps({
     private: Boolean,
     category: Object,
@@ -237,5 +231,6 @@ watch([availabilityFilter, sortFilter], () => {
         }
     }
 }
+
 
 </style>

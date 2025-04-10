@@ -42,6 +42,7 @@ Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
 Route::get('/boutiques', [HomeController::class, 'boutiques'])->name('boutiques');
 Route::get('/private-club', [HomeController::class, 'privateClub'])->name('private-club');
 Route::get('/categories/{category}', [HomeController::class, 'categoriesProducts'])->name('categories.products');
+Route::get('/product/{id}', [HomeController::class, 'getProduct'])->name('product');
 
 Route::group(['prefix'=>'admin', 'middleware' => 'isAdmin'], function(){
     Route::resource('categories', CategoryController::class);

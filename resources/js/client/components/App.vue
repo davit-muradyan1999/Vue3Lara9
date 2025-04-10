@@ -15,7 +15,6 @@ import Main from "./main/Main.vue";
 import { usePage } from '@inertiajs/vue3';
 
 const page = usePage().props;
-console.log(page, 'page')
 </script>
 
 <style lang="scss" scoped>

@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Collections;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
 class HomeController extends Controller
@@ -51,6 +52,7 @@ class HomeController extends Controller
 
     public function categoriesProducts(Category $category, Request $request)
     {
+        $locale = App::getLocale();
         $query = $category->products()->where('is_published', 1)->where('is_private', 0);
 
         if ($request->availability === 'in_stock') {
@@ -59,13 +61,12 @@ class HomeController extends Controller
             $query->where('count', '=', 0);
         }
 
-        // Сортировка
         switch ($request->sort) {
             case 'a_z':
-                $query->orderBy('title', 'asc');
+                $query->orderByRaw("JSON_EXTRACT(title, '$.\"$locale\"') ASC");
                 break;
             case 'z_a':
-                $query->orderBy('title', 'desc');
+                $query->orderByRaw("JSON_EXTRACT(title, '$.\"$locale\"') DESC");
                 break;
             case 'price_low':
                 $query->orderBy('price', 'asc');
@@ -92,11 +93,6 @@ class HomeController extends Controller
             'category' => $category,
             'products' => $query->get(),
         ]);
-//        return Inertia::render('products/Products', [
-//            'private' => false,
-//            'category' => $category,
-//            'products' => $category->products()->where('is_published', 1)->where('is_private', 0)->get()
-//        ]);
     }
 
     public function privateClub(Request $request)
@@ -142,6 +138,12 @@ class HomeController extends Controller
             'private' => true,
             'category' => null,
             'products' => $query->get(),
+        ]);
+    }
+    public function getProduct(Request $request)
+    {
+        return Inertia::render('products/ProductItem', [
+            'product' => Product::where('id', $request->id)->first(),
         ]);
     }
 

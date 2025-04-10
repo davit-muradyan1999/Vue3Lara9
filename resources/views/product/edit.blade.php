@@ -76,7 +76,7 @@
                             <select name="category_id" class="select2" data-placeholder="Select a Category" data-dropdown-css-class="select2-purple" style="width: 100%;">
                                 <option value="" disabled selected></option>
                                 @foreach($categories as $category)
-                                    <option value="{{$category->id}}" {{$category->id == $product->category_id ? 'selected' : ''}}>{{$category->title}}</option>
+                                    <option value="{{$category->id}}" {{$category->id == $product->category_id ? 'selected' : ''}}>{{$category->title['am']}}</option>
                                 @endforeach
                             </select>
                         </div>

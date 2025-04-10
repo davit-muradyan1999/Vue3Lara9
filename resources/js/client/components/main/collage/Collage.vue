@@ -5,7 +5,7 @@
             <Link class="link-image landing__multi-link-collage-item" :href="`/categories/${category.id}`">
                 <span class="link-image__image" :style="{ backgroundImage: `url(${'storage/'+category.image ?? ''})` }"></span>
                 <span class="link-image__title">
-          <span class="link-image__title-text">{{ category.title }}</span>
+          <span class="link-image__title-text">{{ category.title[locale] }}</span>
           <img class="icon arrow-right link-image__title-icon" src="/public/client/icons/right.svg" alt="right">
         </span>
             </Link>
@@ -13,7 +13,11 @@
     </ul>
 </template>
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import {Link, usePage} from '@inertiajs/vue3';
+import {computed} from "vue";
+
+
+const locale = computed(() => usePage().props.locale);
 let props = defineProps({
     categories: Array
 });

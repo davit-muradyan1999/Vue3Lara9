@@ -18,17 +18,24 @@ class ProductsSeeder extends Seeder
         $products = [];
         for ($i = 1; $i <= 20; $i++) {
             $products[] = [
-                'title' => 'Product ' . $i,
-                'description' => 'Description for product ' . $i,
+                'title' => json_encode([
+                    'am' => 'Ապրանք ' . $i,
+                    'en' => 'Product ' . $i,
+                    'ru' => 'Продукт ' . $i,
+                ]),
+                'description' => json_encode([
+                    'am' => 'Նկարագրություն ապրանքի համար ' . $i,
+                    'en' => 'Description for product ' . $i,
+                    'ru' => 'Описание для продукта ' . $i,
+                ]),
                 'price' => rand(100, 1000),
                 'count' => rand(1, 50),
                 'images' => json_encode([
-                    'https://via.placeholder.com/150',
-                    'https://via.placeholder.com/200'
+                    "products/image.jpg"
                 ]),
                 'is_published' => rand(0, 1),
                 'is_private' => rand(0, 1),
-                'category_id' => rand(1, 5),
+                'category_id' => 1,
             ];
         }
         return $products;

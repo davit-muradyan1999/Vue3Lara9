@@ -10,9 +10,24 @@
                   <img class="icon logo link-icon__icon" src="/public/client/icons/logo.svg"  alt="logo">
               </a>
               <div class="language-switcher">
-                  <button @click="changeLanguage('am')">AM</button>
-                  <button @click="changeLanguage('en')">EN</button>
-                  <button @click="changeLanguage('ru')">RU</button>
+                  <button
+                      @click="changeLanguage('am')"
+                      :class="{ active: locale === 'am' }"
+                  >
+                      AM
+                  </button>
+                  <button
+                      @click="changeLanguage('en')"
+                      :class="{ active: locale === 'en' }"
+                  >
+                      EN
+                  </button>
+                  <button
+                      @click="changeLanguage('ru')"
+                      :class="{ active: locale === 'ru' }"
+                  >
+                      RU
+                  </button>
               </div>
             <button type="button" class="button--plain  button-icon--expandOnHover  app-bar__menu">
                 <img src="/public/client/icons/burger.svg" alt="burger">
@@ -36,19 +51,18 @@
     </div>
 </template>
 <script setup>
-import { ref } from 'vue';
+import {computed, ref} from 'vue';
 import DropdownMenu from './DropdownMenu.vue';
 import SearchPopup from '../searchPopup/SearchPopup.vue';
-import { Link, router } from '@inertiajs/vue3';
+import { Link, router, usePage } from '@inertiajs/vue3';
 
-
+const locale = computed(() => usePage().props.locale);
 const searchPopup = ref(null);
 const changeLanguage = (locale) => {
     console.log(
         'locale',
         locale)
     router.get(route('lang.switch', locale), {}, {
-        preserveState: true,
         preserveScroll: true,
     })
 }
@@ -74,4 +88,31 @@ const openPopup = () => {
       text-align: center;
       background-color: #212121;
   }
+.language-switcher {
+    display: flex;
+    gap: 10px; /* Расстояние между кнопками */
+}
+
+.language-switcher button {
+    padding: 6px 12px;
+    background-color: #e5e7eb; /* Серый фон по умолчанию */
+    color: #374151; /* Темно-серый текст */
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.language-switcher button:hover {
+    background-color: #3b82f6; /* Синий при наведении */
+    color: white;
+}
+
+.language-switcher button.active {
+    background-color: #2563eb; /* Более темный синий для активного языка */
+    color: white;
+}
 </style>

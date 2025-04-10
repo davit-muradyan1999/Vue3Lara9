@@ -8,7 +8,7 @@
 
       <ul v-show="isOpen" class="menu-list__sub-list">
         <li v-for="item in menuItems" :key="item.id" class="menu-list__sub-list-item">
-          <Link class="link--plain menu-list__sub-list-link" :href="`/categories/${item.id}`">{{ item.title }}</Link>
+          <Link class="link--plain menu-list__sub-list-link" :href="`/categories/${item.id}`">{{ item.title[locale] }}</Link>
         </li>
       </ul>
     </li>
@@ -16,9 +16,11 @@
 
   <script setup>
   import { ref, onMounted, computed } from 'vue';
-  import { Link } from '@inertiajs/vue3';
+  import { Link, usePage } from '@inertiajs/vue3';
   import axios from 'axios';
 
+
+  const locale = computed(() => usePage().props.locale);
   const isOpen = ref(false);
   const menuItems = ref([]);
 
