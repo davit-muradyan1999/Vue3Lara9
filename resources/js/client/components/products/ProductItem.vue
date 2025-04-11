@@ -70,18 +70,18 @@
                     <hgroup class="product-template__info__heading-group"><h1 class="text-heading-1 heading">{{ product.title[locale] }}</h1></hgroup>
                     <span class="text-price product-template__info__price "><span>{{ product.price }}</span></span>
                     <div class="product-template__info__cart"><span class="product-template__info__cart__qty-label">Quantity</span>
-                        <div class="button-quantity disable product-template__info__cart__qty">
-                            <button type="button"
-                                    class="button--plain  button-icon--expandOnHover disable button-quantity__minus">
+                        <div class="button-quantity product-template__info__cart__qty">
+                            <button type="button" @click="decreaseQty"
+                                    class="button--plain  button-icon button-quantity__minus">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 1024 1024" class="icon minus button-icon__icon">
                                     <path class="icon__path"
                                           d="M213.333 554.667h597.333c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-597.333c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"></path>
                                 </svg>
                             </button>
-                            <span class="button-quantity__quantity">0</span>
-                            <button type="button"
-                                    class="button--plain  button-icon--expandOnHover disable button-quantity__plus">
+                            <span class="button-quantity__quantity">{{ quantity }}</span>
+                            <button type="button"  @click="increaseQty"
+                                    class="button--plain  button-icon button-quantity__plus">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 1024 1024" class="icon plus button-icon__icon">
                                     <path class="icon__path"
@@ -89,11 +89,8 @@
                                 </svg>
                             </button>
                         </div>
-                        <button type="button"
-                                class="button--outlined button--disabled product-template__info__cart__add">Add to cart
-                        </button>
-                        <button type="button" class="button--filled button--disabled product-template__info__cart__buy">
-                            Buy it now
+                        <button type="button" :disabled="!isAvailable" @click="addToCart"
+                                class="button--outlined product-template__info__cart__add">Add to cart
                         </button>
                     </div>
                     <div class="product-template__info__content-wrapper">
@@ -110,6 +107,16 @@
 import {computed, ref, watch} from "vue";
 import {Link, router, usePage} from "@inertiajs/vue3";
 
+const cartCount = computed(() => usePage().props.cartCount);
+const quantity = ref(1);
+const isAvailable = computed(() => props.product.count > 0);
+const increaseQty = () => {
+    quantity.value++;
+};
+
+const decreaseQty = () => {
+    if (quantity.value > 1) quantity.value--;
+};
 const isZoomOpen = ref(false);
 const selectedImage = ref(null);
 const locale = computed(() => usePage().props.locale);
@@ -118,7 +125,18 @@ const props = defineProps({
     product: Object
 });
 console.log(props.product)
-
+const addToCart = () => {
+    router.post(route('cart.add'), {
+        product_id: props.product.id,
+        quantity: quantity.value
+    }, {
+        preserveScroll: true,
+        onSuccess: (response) => {
+            alert('Product added to cart!');
+            cartCount.value = response.cartCount;
+        }
+    })
+}
 const getImageUrl = (imagePath) => {
     return `/storage/${imagePath}`;
 };

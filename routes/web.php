@@ -6,6 +6,7 @@ use App\Http\Controllers\{AboutController,
     AuthenticityCheckController,
     BlogController,
     BoutiqueController,
+    CartController,
     CategoryController,
     CollectionController,
     ColorController,
@@ -43,7 +44,10 @@ Route::get('/boutiques', [HomeController::class, 'boutiques'])->name('boutiques'
 Route::get('/private-club', [HomeController::class, 'privateClub'])->name('private-club');
 Route::get('/categories/{category}', [HomeController::class, 'categoriesProducts'])->name('categories.products');
 Route::get('/product/{id}', [HomeController::class, 'getProduct'])->name('product');
-
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::group(['prefix'=>'admin', 'middleware' => 'isAdmin'], function(){
     Route::resource('categories', CategoryController::class);
     Route::resource('collections', CollectionController::class);

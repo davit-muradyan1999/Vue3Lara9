@@ -3,9 +3,10 @@
       <header class="app__header">
         <div class="app-bar">
           <div class="app-bar__wrapper">
-            <a class="link--plain link-icon--expandOnHover app-bar__cart" href="/react-based-shopify-craft-theme/cart">
+            <Link class="link--plain link-icon--expandOnHover app-bar__cart" href="/cart">
               <img src="/public/client/icons/bascet.svg" alt="bascet">
-              <span class="badge link-icon__badge">0</span></a>
+                <span class="badge link-icon__badge" v-if="cartCount > 0">{{ cartCount }}</span>
+            </Link>
               <a aria-current="page" class="link--plain app-bar__company active" href="/">
                   <img class="icon logo link-icon__icon" src="/public/client/icons/logo.svg"  alt="logo">
               </a>
@@ -56,6 +57,8 @@ import DropdownMenu from './DropdownMenu.vue';
 import SearchPopup from '../searchPopup/SearchPopup.vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
 
+
+const cartCount = computed(() => usePage().props.cartCount);
 const locale = computed(() => usePage().props.locale);
 const searchPopup = ref(null);
 const changeLanguage = (locale) => {

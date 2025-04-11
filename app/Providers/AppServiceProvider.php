@@ -3,7 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\View;
+use Inertia\Inertia;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Inertia::share('cartCount', function () {
+            $cartKey = \App\Services\CartService::getCartIdentifier();
+            return \App\Models\CartItem::where($cartKey)->sum('quantity');
+        });
     }
 }

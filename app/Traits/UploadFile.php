@@ -14,7 +14,7 @@ trait UploadFile
         $allowedFileFormats = [
             'jpg', 'jpeg', 'gif', 'png', 'svg',
             'docx', 'xls', 'xlsx', 'pdf',
-            'mp3', 'mp4', 'webp'
+            'mp3', 'mp4', 'webp', 'avif'
         ];
 
         if (!Storage::disk($disk)->exists($folder)) {

@@ -35,7 +35,7 @@ class ProductsSeeder extends Seeder
                 ]),
                 'is_published' => rand(0, 1),
                 'is_private' => rand(0, 1),
-                'category_id' => 1,
+                'category_id' => 7,
             ];
         }
         return $products;
