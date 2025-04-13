@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-    base: 'https://orca-app-klnqq.ondigitalocean.app/build/',
+    base: '/build/',
     plugins: [
         tailwindcss(),
         laravel({
