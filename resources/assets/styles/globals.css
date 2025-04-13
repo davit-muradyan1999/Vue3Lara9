@@ -277,7 +277,7 @@ textarea {
   width: 100%;
   height: 100%;
 }
-@media (max-width: 1000px) {
+@media (max-width: 1175px) {
   .app-bar__company {
     height: 4rem;
     width: 4rem;
@@ -295,7 +295,7 @@ textarea {
   order: 1;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1175px) {
   .app-bar__search {
     order: 3;
     position: absolute;
@@ -308,13 +308,13 @@ textarea {
 .app-bar__menu {
   display: none !important;
 }
-@media (max-width: 1000px) {
+@media (max-width: 1175px) {
   .app-bar__menu {
     display: block !important;
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1175px) {
   .nav-bar {
     display: none;
   }

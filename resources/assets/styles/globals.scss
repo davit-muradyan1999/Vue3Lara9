@@ -47,7 +47,7 @@ input,
 textarea {
   font-family: typography.$body !important;
 }
-$breakPoint: 1000px;
+$breakPoint: 1175px;
 $breakPoint2: 500px;
 
 .app-bar {
@@ -111,7 +111,7 @@ $breakPoint2: 500px;
   }
 }
 .nav-bar {
-  @media (max-width: 1000px) {
+  @media (max-width: 1175px) {
     display: none;
   }
 }

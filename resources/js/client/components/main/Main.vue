@@ -20,7 +20,7 @@ defineProps({
 @use "../../../../assets/styles/typography.scss";
 @use "../../../../assets/styles/shared.scss";
 
-$breakPoint: 1000px;
+$breakPoint: 1175px;
 .source-code-link {
   position: fixed;
   bottom: 0;

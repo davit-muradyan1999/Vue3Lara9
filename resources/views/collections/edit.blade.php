@@ -44,7 +44,7 @@
                         <div class="select2-purple">
                             <select name="products[]" class="select2" multiple="multiple" data-placeholder="Select a Tags" data-dropdown-css-class="select2-purple" style="width: 100%;">
                                 @foreach($products as $product)
-                                    <option value="{{ $product->id }}" {{ $collection->products->contains($product->id) ? 'selected' : '' }}>{{$product->title}}</option>
+                                    <option value="{{ $product->id }}" {{ $collection->products->contains($product->id) ? 'selected' : '' }}>{{$product->title['am']}}</option>
                                 @endforeach
                             </select>
                         </div>

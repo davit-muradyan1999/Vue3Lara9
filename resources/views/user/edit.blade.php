@@ -32,10 +32,12 @@
                         </div>
                         <div class="form-group">
                             <label class="form-check-label mr-4" for="is_admin">Is Admin:</label>
+                            <input type="hidden" name="is_admin" value="0">
                             <input type="checkbox" name="is_admin" value="1" {{ $user->is_admin ? 'checked' : '' }} class="form-check-input mt-1" id="is_admin">
                         </div>
                         <div class="form-group">
                             <label class="form-check-label mr-4" for="is_private">Is Private:</label>
+                            <input type="hidden" name="is_private" value="0">
                             <input type="checkbox" name="is_private" value="1" {{ $user->is_private ? 'checked' : '' }} class="form-check-input mt-1" id="is_private">
                         </div>
                 </div>

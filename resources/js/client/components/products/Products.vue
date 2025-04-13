@@ -76,13 +76,11 @@ const sortFilter = ref("best");
 
 watch([availabilityFilter, sortFilter], () => {
     if (props.private) {
-        // Если показываем приватные продукты
         router.get("/private-club", {
             availability: availabilityFilter.value,
             sort: sortFilter.value,
         }, { preserveState: true, replace: true });
     } else {
-        // Если показываем продукты конкретной категории
         router.get(`/categories/${props.category?.id}`, {
             availability: availabilityFilter.value,
             sort: sortFilter.value,

@@ -21,7 +21,6 @@ const locale = computed(() => usePage().props.locale);
 let props = defineProps({
     categories: Array
 });
-console.log(props.categories);
 </script>
 
 <style lang="scss" scoped>

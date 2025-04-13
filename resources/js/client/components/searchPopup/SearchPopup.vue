@@ -11,7 +11,7 @@
             </div>
 
             <div class="product-details">
-<!--              <p><strong>Title:</strong> {{ product.title }}</p>-->
+              <p><strong>Title:</strong> {{ product.title }}</p>
               <p><strong>Item:</strong> {{ product.item }}</p>
               <p><strong>Gold:</strong> {{ product.gold }}</p>
               <p><strong>Silver:</strong> {{ product.silver }}</p>
@@ -20,12 +20,21 @@
             </div>
 
             <div class="product-pricing">
-              <p><strong>Price:</strong> ${{ product.price_exclusive }}</p>
+              <p><strong>Price:</strong> {{ product.price_exclusive }}</p>
               <p><strong>Handcrafted:</strong> {{ product.handcrafted ? 'Yes' : 'No' }}</p>
               <p><strong>Exclusive Edition:</strong> {{ product.exclusive_edition ? 'Yes' : 'No' }}</p>
+              <p><strong>Show Product:</strong>
+                  <Link :href="'/auth-check/'+product.product_id" @click="closePopup">
+                      <p>
+                        {{ product.title }}
+                      </p>
+                  </Link>
+              </p>
             </div>
           </div>
-
+          <div v-if="errorMessage" class="error-message">
+              <p style="color: red; font-size: 15px">{{ errorMessage }}</p>
+          </div>
         <!-- <button @click="closePopup">Close</button> -->
       </div>
     </div>
@@ -34,37 +43,47 @@
   <script setup>
   import { ref } from 'vue';
   import axios from 'axios';
+  import {Link, router, usePage} from "@inertiajs/vue3";
 
   const isOpen = ref(false);
   const barcode = ref('');
   const product = ref(null);
+  const errorMessage = ref('');
 
-  // Метод для открытия попапа
   const openPopup = () => {
     isOpen.value = true;
   };
 
-  // Метод для закрытия попапа
   const closePopup = () => {
     isOpen.value = false;
     barcode.value = '';
     product.value = null;
   };
 
-  // Метод для поиска продукта
   const searchProduct = async () => {
-    if (barcode.value.trim() === '') return;
+      if (barcode.value.trim() === '') return;
 
-    try {
-      const response = await axios.get(`/api/authenticity-check/${barcode.value}`);
-      product.value = response.data;
-    } catch (error) {
-      console.error('Product not found:', error);
-      product.value = null;
-    }
+      try {
+          if (barcode.value.length < 3) {
+              return;
+          }
+          if (!/^\d+$/.test(barcode.value)) {
+              errorMessage.value = "Barcode must be numeric";
+              return;
+          }
+          const response = await axios.get(`/api/authenticity-check/${barcode.value}`);
+          product.value = response.data;
+          errorMessage.value = '';
+      } catch (error) {
+          product.value = null;
+          if (error.response && error.response.status === 404) {
+              errorMessage.value = 'Product not found';
+          } else {
+              errorMessage.value = 'An error occurred while searching';
+          }
+      }
   };
 
-  // Открытие метода openPopup для родителя через defineExpose
   defineExpose({
     openPopup,
   });

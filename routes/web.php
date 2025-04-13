@@ -3,6 +3,8 @@
 use App\Http\Controllers\{AboutController,
     AdminController,
     AdminLoginController,
+    Auth\InertiaLoginController,
+    Auth\InertiaRegisterController,
     AuthenticityCheckController,
     BlogController,
     BoutiqueController,
@@ -11,6 +13,7 @@ use App\Http\Controllers\{AboutController,
     CollectionController,
     ColorController,
     HomeController,
+    OrderController,
     TagController,
     ShoesSizeController,
     UserController,
@@ -34,7 +37,14 @@ Route::post('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 
 Route::get('/admin', AdminController::class)->name('admin.dashboard');
 
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [InertiaRegisterController::class, 'show'])->name('register');
+    Route::post('/register', [InertiaRegisterController::class, 'store']);
+    Route::get('/login', [InertiaLoginController::class, 'show'])->name('login');
+    Route::post('/login', [InertiaLoginController::class, 'login']);
+});
 
+Route::post('/client/logout', [InertiaLoginController::class, 'logout'])->name('client.logout');
 Route::get('/', HomeController::class)->name('home');
 Route::get('/lang/{locale}', [LanguageController::class, 'changeLocale'])->name('lang.switch');
 Route::get('/collections', [HomeController::class, 'collections'])->name('collections');
@@ -44,10 +54,15 @@ Route::get('/boutiques', [HomeController::class, 'boutiques'])->name('boutiques'
 Route::get('/private-club', [HomeController::class, 'privateClub'])->name('private-club');
 Route::get('/categories/{category}', [HomeController::class, 'categoriesProducts'])->name('categories.products');
 Route::get('/product/{id}', [HomeController::class, 'getProduct'])->name('product');
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
-    Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::get('/auth-check/{id}', [HomeController::class, 'getAuthCheckProduct'])->name('product');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+
+
+
 Route::group(['prefix'=>'admin', 'middleware' => 'isAdmin'], function(){
     Route::resource('categories', CategoryController::class);
     Route::resource('collections', CollectionController::class);

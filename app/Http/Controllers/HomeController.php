@@ -99,14 +99,12 @@ class HomeController extends Controller
     {
         $query = Product::where('is_published', 1)->where('is_private', 1);
 
-        // Фильтр по наличию
         if ($request->availability === 'in_stock') {
             $query->where('count', '>', 0);
         } elseif ($request->availability === 'out_of_stock') {
             $query->where('count', '=', 0);
         }
 
-        // Сортировка
         switch ($request->sort) {
             case 'a_z':
                 $query->orderBy('title', 'asc');
@@ -144,6 +142,14 @@ class HomeController extends Controller
     {
         return Inertia::render('products/ProductItem', [
             'product' => Product::where('id', $request->id)->first(),
+        ]);
+    }
+
+    public function getAuthCheckProduct(Request $request)
+    {
+        return Inertia::render('products/ProductItem', [
+            'is_auth_check' => true,
+            'product' => Product::with('auth_check')->where('id', $request->id)->first(),
         ]);
     }
 

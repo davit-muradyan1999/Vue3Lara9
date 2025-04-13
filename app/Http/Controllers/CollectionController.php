@@ -45,7 +45,6 @@ class CollectionController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->hasFile('image'));
         $data = $request->validate([
             'name' => 'required|string',
             'products' => 'required',
@@ -97,7 +96,6 @@ class CollectionController extends Controller
      */
     public function update(Request $request, Collections $collection)
     {
-//        dd($request->all());
         $data = $request->validate([
             'name' => 'required|string',
             'products' => 'required',

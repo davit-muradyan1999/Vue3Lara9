@@ -23,4 +23,9 @@ class Product extends Model
     public function tags() {
         return $this->belongsToMany(Tag::class, 'product_tags');
     }
+
+    public function auth_check()
+    {
+        return $this->hasOne(AuthenticityCheck::class);
+    }
 }

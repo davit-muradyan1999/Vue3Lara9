@@ -21,13 +21,11 @@ trait UploadFile
             Storage::disk($disk)->makeDirectory($folder, 0775, true, true);
         }
 
-        // Если пришел массив файлов
         if (is_array($uploadedFiles)) {
             foreach ($uploadedFiles as $uploadedFile) {
                 $uploadedPaths[] = $this->processFile($uploadedFile, $folder, $disk, $filename, $allowedFileFormats);
             }
         } else {
-            // Если пришел одиночный файл
             $uploadedPaths[] = $this->processFile($uploadedFiles, $folder, $disk, $filename, $allowedFileFormats);
         }
 
@@ -40,7 +38,6 @@ trait UploadFile
         $filePath = null;
 
         if ($uploadedFile) {
-            // Если загружен файл в формате base64
             if (is_string($uploadedFile) && preg_match("/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).base64,.*/", $uploadedFile, $type)) {
                 $uploadedFile = substr($uploadedFile, strpos($uploadedFile, ',') + 1);
                 $type = strtolower(explode('/', $type[1])[1]);
@@ -61,7 +58,6 @@ trait UploadFile
                 $filePath = $pathAndName;
 
             } elseif ($uploadedFile instanceof \Illuminate\Http\UploadedFile) {
-                // Получаем расширение из оригинального имени файла
                 $extension = strtolower($uploadedFile->getClientOriginalExtension());
 
                 if (in_array($extension, $allowedFileFormats)) {

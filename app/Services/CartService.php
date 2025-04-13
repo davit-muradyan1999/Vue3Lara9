@@ -18,10 +18,8 @@ class CartService
         if (!$token) {
             $token = Str::uuid()->toString();
 
-            // ❗ сохраняем токен в static свойство, чтобы контроллер его получил
             static::$generatedToken = $token;
 
-            // очередь сработает, ТОЛЬКО если ты вернешь cookie с ответом
             Cookie::queue('cart_token', $token, 60 * 24 * 30);
         }
 

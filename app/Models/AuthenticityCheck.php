@@ -22,4 +22,8 @@ class AuthenticityCheck extends Model
         'handcrafted',
         'exclusive_edition',
     ];
+
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
 }

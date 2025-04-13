@@ -1,21 +1,23 @@
 <template>
-    <li :class="wrapperClass">
-      <button @click="toggleDropdown" type="button" class="button--plain menu-list__button">
-        <span>Categories</span>
-        <img v-if="!isOpen" class="icon chevron-down menu-list__button-icon down" src="/public/client/icons/arrow-down.svg" alt="arrow-down">
-        <img v-else class="icon chevron-up menu-list__button-icon up" src="/public/client/icons/arrow-up.svg" alt="arrow-up">
-      </button>
-
-      <ul v-show="isOpen" class="menu-list__sub-list">
-        <li v-for="item in menuItems" :key="item.id" class="menu-list__sub-list-item">
-          <Link class="link--plain menu-list__sub-list-link" :href="`/categories/${item.id}`">{{ item.title[locale] }}</Link>
-        </li>
-      </ul>
+    <li :class="wrapperClass" ref="dropdownRef">
+        <button @click="toggleDropdown" type="button" class="button--plain menu-list__button">
+            <span>Categories</span>
+            <img v-if="!isOpen" class="icon chevron-down menu-list__button-icon down" src="/public/client/icons/arrow-down.svg" alt="arrow-down">
+            <img v-else class="icon chevron-up menu-list__button-icon up" src="/public/client/icons/arrow-up.svg" alt="arrow-up">
+        </button>
+        <transition name="fade">
+            <ul v-show="isOpen" class="menu-list__sub-list">
+                <li v-for="item in menuItems" :key="item.id" class="menu-list__sub-list-item">
+                    <Link class="link--plain menu-list__sub-list-link" :href="`/categories/${item.id}`" @click="closeDropdown">
+                        {{ item.title[locale] }}
+                    </Link>
+                </li>
+            </ul>
+        </transition>
     </li>
-  </template>
-
+</template>
   <script setup>
-  import { ref, onMounted, computed } from 'vue';
+  import { ref, onMounted, computed, onBeforeUnmount, nextTick  } from 'vue';
   import { Link, usePage } from '@inertiajs/vue3';
   import axios from 'axios';
 
@@ -23,20 +25,35 @@
   const locale = computed(() => usePage().props.locale);
   const isOpen = ref(false);
   const menuItems = ref([]);
-
-  const toggleDropdown = () => {
-    isOpen.value = !isOpen.value;
+  const dropdownRef = ref(null);
+  const closeDropdown = () => {
+      isOpen.value = false;
+  };
+  const toggleDropdown = async () => {
+      isOpen.value = !isOpen.value;
+      if (isOpen.value) {
+          await nextTick();
+      }
+  };
+  const handleClickOutside = (event) => {
+      if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+          closeDropdown();
+      }
   };
 
   onMounted(async () => {
     try {
-        const response = await axios.get('/api/categories');
-        menuItems.value = response.data;
+            const response = await axios.get('/api/categories');
+            menuItems.value = response.data;
     } catch (error) {
-        console.error('Error:', error);
-    }
-    });
+            console.error('Error:', error);
+        }
 
+      document.addEventListener('click', handleClickOutside);
+    });
+  onBeforeUnmount(() => {
+      document.removeEventListener('click', handleClickOutside);
+  });
   const wrapperClass = computed(() => ({
   'menu-list__item': true,
   'menu-list__sub-wrapper': true,
@@ -47,7 +64,12 @@
 <style lang="scss" scoped>
 @use "../../../../assets/styles/colors.scss";
 @use "../../../../assets/styles/shared.scss";
-
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+.fade-enter-from, .fade-leave-to {
+    opacity: 0;
+}
 .menu-list--metro {
   text-align: center;
   line-height: 0;
@@ -202,8 +224,6 @@
   right: 0;
   z-index: 10;
 
-  // #region shared
-
   .menu-list__link,
   .menu-list__sub-list-link,
   .menu-list__button {
@@ -223,8 +243,6 @@
       background-color: colors.$charcoal500;
     }
   }
-
-  // #endregion
 
   .menu-list__item {
     .menu-list__button {

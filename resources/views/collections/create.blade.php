@@ -37,7 +37,7 @@
                             <div class="select2-purple">
                                 <select name="products[]" class="select2" multiple="multiple" data-placeholder="Select a Products" data-dropdown-css-class="select2-purple" style="width: 100%;">
                                     @foreach($products as $item)
-                                        <option value="{{$item->id}}">{{$item->title}}</option>
+                                        <option value="{{$item->id}}">{{$item->title['am']}}</option>
                                     @endforeach
                                 </select>
                             </div>

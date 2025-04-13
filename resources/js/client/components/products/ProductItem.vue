@@ -94,8 +94,19 @@
                         </button>
                     </div>
                     <div class="product-template__info__content-wrapper">
-                        <div class="content"><p>{{ product.description[locale] }}</p>
+                        <div class="content">
+                            <p v-html="product.description[locale]"></p>
                         </div>
+                        <template v-if="is_auth_check">
+                            <div class="content">
+                                <p><strong>Title:</strong> {{ product.auth_check.title }}</p>
+                                <p><strong>Item:</strong> {{ product.auth_check.item }}</p>
+                                <p><strong>Gold:</strong> {{ product.auth_check.gold }}</p>
+                                <p><strong>Silver:</strong> {{ product.auth_check.silver }}</p>
+                                <p><strong>Stone:</strong> {{ product.auth_check.stone }}</p>
+                                <p><strong>Other Materials:</strong> {{ product.auth_check.other_materials }}</p>
+                            </div>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -122,9 +133,9 @@ const selectedImage = ref(null);
 const locale = computed(() => usePage().props.locale);
 
 const props = defineProps({
-    product: Object
+    product: Object,
+    is_auth_check: Object
 });
-console.log(props.product)
 const addToCart = () => {
     router.post(route('cart.add'), {
         product_id: props.product.id,

@@ -17,7 +17,6 @@ class AuthenticityCheckController extends Controller
         return view('authenticity_checks.index', compact('authCheck', 'products'));
     }
 
-    // Импорт товаров из Excel
     public function import(Request $request)
     {
         $request->validate([
@@ -32,7 +31,6 @@ class AuthenticityCheckController extends Controller
         }
     }
 
-    // Обновить товар
     public function update(Request $request, $id)
     {
         $product = AuthenticityCheck::findOrFail($id);
@@ -44,7 +42,6 @@ class AuthenticityCheckController extends Controller
         return redirect()->route('authenticity.index')->with('success', 'Update successfully.');
     }
 
-    // Удалить товар
     public function destroy($id)
     {
         $product = AuthenticityCheck::findOrFail($id);

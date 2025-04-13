@@ -1,7 +1,11 @@
 <script setup>
+import {computed} from "vue";
+import {usePage} from "@inertiajs/vue3";
+
 defineProps({
     collections: Array,
 });
+const locale = computed(() => usePage().props.locale)
 </script>
 
 <template>
