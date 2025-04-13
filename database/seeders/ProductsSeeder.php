@@ -16,7 +16,7 @@ class ProductsSeeder extends Seeder
     private function generateProducts(): array
     {
         $products = [];
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 40; $i++) {
             $products[] = [
                 'title' => json_encode([
                     'am' => 'Ապրանք ' . $i,
@@ -35,7 +35,7 @@ class ProductsSeeder extends Seeder
                 ]),
                 'is_published' => rand(0, 1),
                 'is_private' => rand(0, 1),
-                'category_id' => 7,
+                'category_id' => rand(1, 2),
             ];
         }
         return $products;
