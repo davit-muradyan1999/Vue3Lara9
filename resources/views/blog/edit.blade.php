@@ -32,15 +32,15 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Description AM</label>
-                        <textarea class="form-control" id="editor_am" name="description[am]" rows="3">{{ $blog->description['am'] }}</textarea>
+                        <textarea class="form-control" id="description" name="description[am]" rows="3">{{ $blog->description['am'] }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="description">Description EN</label>
-                        <textarea class="form-control" id="editor_en" name="description[en]" rows="3">{{ $blog->description['en'] }}</textarea>
+                        <textarea class="form-control" id="description" name="description[en]" rows="3">{{ $blog->description['en'] }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="description">Description RU</label>
-                        <textarea class="form-control" id="editor_ru" name="description[ru]" rows="3">{{ $blog->description['ru'] }}</textarea>
+                        <textarea class="form-control" id="description" name="description[ru]" rows="3">{{ $blog->description['ru'] }}</textarea>
                     </div>
                     @if ($blog->image)
                         <div id="existingImages" class="row mt-3">
