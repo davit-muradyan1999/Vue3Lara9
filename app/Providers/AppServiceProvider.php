@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\URL;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -24,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
         Inertia::share('cartCount', function () {
             $cartKey = \App\Services\CartService::getCartIdentifier();
             return \App\Models\CartItem::where($cartKey)->sum('quantity');
