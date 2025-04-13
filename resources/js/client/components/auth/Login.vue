@@ -20,7 +20,8 @@
 </template>
 
 <script setup>
-import { useForm } from '@inertiajs/vue3'
+import {router, useForm} from '@inertiajs/vue3'
+import {route} from "ziggy-js";
 
 const form = useForm({
     email: '',
@@ -31,7 +32,7 @@ const form = useForm({
 const submit = () => {
     form.post('/login', {
         onSuccess: () => {
-            window.location.reload()
+            router.reload({ only: ['authUser'] });
         }
     })
 }

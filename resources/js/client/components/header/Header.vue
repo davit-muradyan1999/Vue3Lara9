@@ -112,7 +112,7 @@ const switchLanguage = (locale) => {
 function logout() {
     router.post('/client/logout', {}, {
         onSuccess: () => {
-            window.location.reload()
+            router.reload({ only: ['authUser'] });
         }
     })
 }

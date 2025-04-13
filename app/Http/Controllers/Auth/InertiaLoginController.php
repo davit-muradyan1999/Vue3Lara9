@@ -23,10 +23,9 @@ class InertiaLoginController extends Controller
 
         $remember = $request->boolean('remember');
 
-        // Проверка, что не админ
         if (Auth::attempt($credentials + ['is_admin' => 0], $remember)) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            return Inertia::location('/');
         }
 
         return back()->withErrors([
@@ -40,6 +39,6 @@ class InertiaLoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return Inertia::location('/');
     }
 }

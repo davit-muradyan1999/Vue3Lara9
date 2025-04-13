@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import {Link, router, useForm, usePage} from '@inertiajs/vue3';
 
 const form = useForm({
     full_name: '',
@@ -63,7 +63,7 @@ const form = useForm({
 const submit = () => {
     form.post('/register', {
         onSuccess: () => {
-            window.location.reload()
+            router.reload({ only: ['authUser'] });
         }
     })
 }
