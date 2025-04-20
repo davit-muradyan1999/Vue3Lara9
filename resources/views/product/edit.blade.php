@@ -43,9 +43,6 @@
                         <textarea class="form-control" id="editor_ru" name="description[ru]" rows="3">{{ $product->description['ru'] }}</textarea>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="price" value="{{ $product->price }}" class="form-control" id="exampleInputEmail1" placeholder="Price">
-                    </div>
-                    <div class="form-group">
                         <input type="text" name="count" value="{{ $product->count }}" class="form-control" id="exampleInputEmail1" placeholder="Count">
                     </div>
                     @if ($product->images)

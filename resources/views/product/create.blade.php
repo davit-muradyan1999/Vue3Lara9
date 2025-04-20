@@ -45,10 +45,6 @@
                             <textarea class="form-control" id="editor_ru" name="description[ru]" rows="3">{{ old('description.ru') }}</textarea>
                         </div>
                         <div class="form-group">
-                            <label for="price"> Price </label>
-                            <input type="text" name="price" value="{{ old('price') }}" class="form-control" id="price" placeholder="Price">
-                        </div>
-                        <div class="form-group">
                             <label for="count"> Count </label>
                             <input type="text" name="count" value="{{ old('count') }}" class="form-control" id="count" placeholder="Count">
                         </div>

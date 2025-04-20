@@ -46,26 +46,28 @@
         </div>
         <nav class="nav-bar">
           <menu class="menu-list--metro nav-bar__menu">
-            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/">{{ $t('home') }}</Link></li>
-            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/about">{{ $t('about') }}</Link></li>
-<!--            <li class="menu-list__item"><Link class="link&#45;&#45;underlineOnHover menu-list__link" href="/collections">{{ $t('collections') }}</Link></li>-->
-            <DropdownMenu type="collections" />
-            <DropdownMenu type="category" />
-            <li class="menu-list__item"><a @click.prevent="openPopup" class="link--underlineOnHover menu-list__link" href="#">{{ $t('auth_check') }}</a></li>
-            <li v-if="authUser && authUser.is_private" class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/private-club">{{ $t('private_club') }}</Link></li>
-            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/boutiques">{{ $t('boutiques') }}</Link></li>
-            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/blogs">{{ $t('blog') }}</Link></li>
-            <template v-if="!authUser">
-                <li class="menu-list__item"><Link href="/login" class="link--underlineOnHover menu-list__link text-blue-600">{{ $t('login') }}</Link></li>
-                <li class="menu-list__item"><Link href="/register" class="link--underlineOnHover menu-list__link text-green-600">{{ $t('register') }}</Link></li>
-            </template>
+            <ul>
+                <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/">{{ $t('home') }}</Link></li>
+                <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/about">{{ $t('about') }}</Link></li>
+                <!--            <li class="menu-list__item"><Link class="link&#45;&#45;underlineOnHover menu-list__link" href="/collections">{{ $t('collections') }}</Link></li>-->
+                <DropdownMenu type="collections" />
+                <DropdownMenu type="category" />
+                <li class="menu-list__item"><a @click.prevent="openPopup" class="link--underlineOnHover menu-list__link" href="#">{{ $t('auth_check') }}</a></li>
+                <li v-if="authUser && authUser.is_private" class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/private-club">{{ $t('private_club') }}</Link></li>
+                <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/boutiques">{{ $t('boutiques') }}</Link></li>
+                <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/blogs">{{ $t('blog') }}</Link></li>
+                <template v-if="!authUser">
+                    <li class="menu-list__item"><Link href="/login" class="link--underlineOnHover menu-list__link text-blue-600">{{ $t('login') }}</Link></li>
+                    <li class="menu-list__item"><Link href="/register" class="link--underlineOnHover menu-list__link text-green-600">{{ $t('register') }}</Link></li>
+                </template>
 
-            <template v-else>
-                <li class="menu-list__item"><span class="link--underlineOnHover menu-list__link text-gray-700">{{ authUser.full_name }}</span></li>
-                <li class="menu-list__item"><button @click="logout" class="link--underlineOnHover menu-list__link text-red-600">
-                    {{ $t('logout') }}
-                </button></li>
-            </template>
+                <template v-else>
+                    <li class="menu-list__item"><span class="link--underlineOnHover menu-list__link text-gray-700">{{ authUser.full_name }}</span></li>
+                    <li class="menu-list__item"><button @click="logout" class="link--underlineOnHover menu-list__link text-red-600">
+                        {{ $t('logout') }}
+                    </button></li>
+                </template>
+            </ul>
           </menu>
         </nav>
       </header>
@@ -73,8 +75,8 @@
             <menu class="menu-list--stack nav-drawer__menu">
                     <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/">{{ $t('home') }}</Link></li>
                     <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/about">{{ $t('about') }}</Link></li>
-                    <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/collections">{{ $t('collections') }}</Link></li>
-                    <DropdownMenu />
+                    <DropdownMenu type="collections" />
+                    <DropdownMenu type="category" />
                     <li class="menu-list__item"><a @click.prevent="openPopup" class="link--underlineOnHover menu-list__link" href="#">{{ $t('auth_check') }}</a></li>
                     <li v-if="authUser && authUser.is_private" class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/private-club">{{ $t('private_club') }}</Link></li>
                     <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/boutiques">{{ $t('boutiques') }}</Link></li>
@@ -130,6 +132,7 @@ const toggleDrawer = () => {
 };
 
 const closeDrawer = () => {
+    document.body.classList.remove('lock');
     isDrawerOpen.value = false;
 };
 const openPopup = () => {
