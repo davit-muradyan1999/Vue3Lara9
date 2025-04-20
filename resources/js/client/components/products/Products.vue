@@ -76,7 +76,9 @@ const props = defineProps({
 console.log(props.products, "products");
 const availabilityFilter = ref("");
 const sortFilter = ref("best");
-
+const path = props.category?.id
+    ? `/categories/${props.category.id}`
+    : `/collections/${props.collection.id}`;
 watch([availabilityFilter, sortFilter], () => {
     if (props.private) {
         router.get("/private-club", {
@@ -84,7 +86,7 @@ watch([availabilityFilter, sortFilter], () => {
             sort: sortFilter.value,
         }, { preserveState: true, replace: true });
     } else {
-        router.get(`/categories/${props.category?.id ?? props.collection?.id}`, {
+        router.get(path, {
             availability: availabilityFilter.value,
             sort: sortFilter.value,
         }, { preserveState: true, replace: true });
