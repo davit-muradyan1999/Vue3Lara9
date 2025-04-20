@@ -1,17 +1,18 @@
 <template>
     <div>
-        <h1 v-if="private">Private Product</h1>
-        <h1 v-else>Product Category: {{ category.title[locale] }}</h1>
-        <div class="filters flex items-center justify-between mb-6">
+        <h1 v-if="private">{{ $t('product_private') }}</h1>
+        <h1 v-else-if="category">{{ $t('product_category') }} {{ category.title[locale] }}</h1>
+        <h1 v-else-if="collection">{{ $t('product_category') }} {{ collection.name[locale] }}</h1>
+        <div class="filters flex items-center justify-between mb-6 w-full flex-wrap gap-4">
             <div class="flex items-center justify-self-start gap-4">
-                <p>Filter:</p>
+                <p>{{ $t('filter') }}</p>
                 <div class="w-full max-w-sm min-w-[200px]">
                     <div class="relative">
                         <select v-model="availabilityFilter"
                             class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer">
-                            <option value="">Availability</option>
-                            <option value="in_stock">In stock</option>
-                            <option value="out_of_stock">Out of stock</option>
+                            <option value="">{{ $t('availability') }}</option>
+                            <option value="in_stock">{{ $t('in_stock') }}</option>
+                            <option value="out_of_stock">{{ $t('out_stock') }}</option>
                         </select>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2"
                              stroke="currentColor" class="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700">
@@ -22,18 +23,19 @@
                 </div>
             </div>
             <div class="flex items-center justify-self-start gap-4">
-                <p class="w-full">Sort by:</p>
+                <p class="w-full">{{ $t('sort_by') }}</p>
                 <div class="w-full max-w-sm min-w-[200px]">
                     <div class="relative">
                         <select v-model="sortFilter"
                             class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer">
-                            <option value="best">Best selling</option>
-                            <option value="a_z">Alphabetically, A-Z</option>
-                            <option value="z_a">Alphabetically, Z-A</option>
-                            <option value="price_low">Price, low to high</option>
-                            <option value="price_high">Price, high to low</option>
-                            <option value="asc">Date, old to new</option>
-                            <option value="desc">Date, new to old</option>
+                            <option disabled>&nbsp;</option>
+                            <option value="best">{{ $t('best_selling') }}</option>
+                            <option value="a_z">{{ $t('a_z') }}</option>
+                            <option value="z_a">{{ $t('z_a') }}</option>
+                            <option value="price_low">{{ $t('low_high') }}</option>
+                            <option value="price_high">{{ $t('high_low') }}</option>
+                            <option value="desc">{{ $t('new_old') }}</option>
+                            <option value="asc">{{ $t('old_new') }}</option>
                         </select>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2"
                              stroke="currentColor" class="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-slate-700">
@@ -68,9 +70,10 @@ const locale = computed(() => usePage().props.locale);
 const props = defineProps({
     private: Boolean,
     category: Object,
+    collection: Object,
     products: Array
 });
-
+console.log(props.products, "products");
 const availabilityFilter = ref("");
 const sortFilter = ref("best");
 
@@ -81,7 +84,7 @@ watch([availabilityFilter, sortFilter], () => {
             sort: sortFilter.value,
         }, { preserveState: true, replace: true });
     } else {
-        router.get(`/categories/${props.category?.id}`, {
+        router.get(`/categories/${props.category?.id ?? props.collection?.id}`, {
             availability: availabilityFilter.value,
             sort: sortFilter.value,
         }, { preserveState: true, replace: true });

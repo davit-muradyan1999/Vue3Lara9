@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import './../../assets/styles/globals.scss';
 
-import {ZiggyVue} from "ziggy-js"; // путь может быть другим
+import {ZiggyVue} from '../../../vendor/tightenco/ziggy';
 import route from 'ziggy-js';
 
 import App from './components/App.vue';

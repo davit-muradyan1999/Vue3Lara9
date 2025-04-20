@@ -35,7 +35,7 @@
                                 </tr>
                                 <tr>
                                     <td>Title</td>
-                                    <td>{{ $collection->name }}</td>
+                                    <td>{{ $collection->name['am'] }}</td>
                                 </tr>
                                 @if($collection->image)
                                     <tr>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthenticityCheckController;
 use App\Http\Controllers\Api\CategoryCantroller;
+use App\Http\Controllers\Api\CollectionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/categories', [CategoryCantroller::class, 'index']);
+Route::get('/collections', [CollectionController::class, 'index']);
 Route::get('/authenticity-check/{barcode}', [AuthenticityCheckController::class, 'check']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

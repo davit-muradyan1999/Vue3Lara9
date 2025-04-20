@@ -19,12 +19,28 @@
                     @method('POST')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Title</label>
-                            <input type="text" name="title" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
+                            <label for="exampleInputEmail1">Title AM</label>
+                            <input type="text" name="title[am]" class="form-control" id="exampleInputEmail1" placeholder="Title AM">
                         </div>
                         <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea name="description" class="form-control" id="editor" ></textarea>
+                            <label for="exampleInputEmail1">Title EN</label>
+                            <input type="text" name="title[en]" class="form-control" id="exampleInputEmail1" placeholder="Title EN">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Title RU</label>
+                            <input type="text" name="title[ru]" class="form-control" id="exampleInputEmail1" placeholder="Title RU">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description AM</label>
+                            <textarea class="form-control" id="editor_am" name="description[am]" rows="3">{{ old('description.am') }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description EN</label>
+                            <textarea class="form-control" id="editor_en" name="description[en]" rows="3">{{ old('description.en') }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description RU</label>
+                            <textarea class="form-control" id="editor_ru" name="description[ru]" rows="3">{{ old('description.ru') }}</textarea>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
@@ -71,6 +87,23 @@
             $('#imagePreview').on('click', '.remove-image', function () {
                 $(this).parent().remove();
             });
+            ClassicEditor
+                .create(document.querySelector('#editor_am'))
+                .catch(error => {
+                    console.error(error);
+                });
+            ClassicEditor
+                .create(document.querySelector('#editor_en'))
+                .catch(error => {
+                    console.error(error);
+                });
+
+            ClassicEditor
+                .create(document.querySelector('#editor_ru'))
+                .catch(error => {
+                    console.error(error);
+                });
+
         });
     </script>
 @endsection

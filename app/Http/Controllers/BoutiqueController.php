@@ -40,16 +40,36 @@ class BoutiqueController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required',
+            'title.am' => 'required|string',
+            'title.en' => 'required|string',
+            'title.ru' => 'required|string',
+            'description.am' => 'required|string',
+            'description.en' => 'required|string',
+            'description.ru' => 'required|string',
         ]);
         $image = [];
 
         if ($request->hasFile('image')) {
             $image = $this->uploadFile($request->file('image'), 'boutiques');
         }
+        $title = [
+            'am' => $data['title']['am'],
+            'en' => $data['title']['en'],
+            'ru' => $data['title']['ru']
+        ];
 
-        Boutique::create(array_merge($data, ['image' => $image]));
+        $description = [
+            'am' => $data['description']['am'],
+            'en' => $data['description']['en'],
+            'ru' => $data['description']['ru']
+        ];
+
+        unset($data['title'], $data['description']);
+        Boutique::create(array_merge($data, [
+            'image' => $image,
+            'title' => $title,
+            'description' => $description
+        ]));
 
         return redirect()->route('boutiques.index')->with('success', 'Boutique was added successfully');
     }
@@ -86,8 +106,12 @@ class BoutiqueController extends Controller
     public function update(Request $request, Boutique $boutique)
     {
         $data = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required',
+            'title.am' => 'required|string',
+            'title.en' => 'required|string',
+            'title.ru' => 'required|string',
+            'description.am' => 'required|string',
+            'description.en' => 'required|string',
+            'description.ru' => 'required|string',
         ]);
 
         $image = $about->image ?? [];
@@ -106,7 +130,25 @@ class BoutiqueController extends Controller
         }
 
 
-        $boutique->update(array_merge($data, ['image' => $image]));
+        $title = [
+            'am' => $data['title']['am'],
+            'en' => $data['title']['en'],
+            'ru' => $data['title']['ru']
+        ];
+
+        $description = [
+            'am' => $data['description']['am'],
+            'en' => $data['description']['en'],
+            'ru' => $data['description']['ru']
+        ];
+
+        unset($data['title'], $data['description']);
+
+        $boutique->update(array_merge($data, [
+            'image' => $image,
+            'title' => $title,
+            'description' => $description
+        ]));
 
         return redirect()->route('boutiques.index')->with('success', 'Boutique updated successfully');
     }

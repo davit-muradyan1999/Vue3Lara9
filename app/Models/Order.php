@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-
     protected $fillable = ['items', 'total'];
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

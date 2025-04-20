@@ -36,8 +36,11 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $locale = App::getLocale();
+        $langPath = base_path("lang/{$locale}/general.php");
         return array_merge(parent::share($request), [
-            'locale' => fn () => App::getLocale(),
+            'locale' => $locale,
+            'translations' => file_exists($langPath) ? include $langPath : [],
             'auth' => [
                 'user' => fn () => $request->user()?->only('id', 'full_name', 'email', 'is_private'),
             ],

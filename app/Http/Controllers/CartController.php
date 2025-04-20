@@ -13,7 +13,7 @@ class CartController extends Controller
     {
         $cartKey = CartService::getCartIdentifier();
 
-        $items = CartItem::with('product')
+        $items = CartItem::with('product', 'user')
             ->where($cartKey)
             ->get();
         $totalQuantity = $items->sum('quantity');

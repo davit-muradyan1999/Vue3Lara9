@@ -11,6 +11,8 @@ class Boutique extends Model
     protected $fillable = ['title', 'description', 'image'];
 
     protected $casts = [
-        'image' => 'array'
+        'image' => 'array',
+        'description' => 'array',
+        'title' => 'array'
     ];
 }

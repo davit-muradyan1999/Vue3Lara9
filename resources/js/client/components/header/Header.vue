@@ -1,5 +1,7 @@
 <template>
     <div>
+
+        <SearchPopup ref="searchPopup" />
       <header class="app__header">
         <div class="app-bar">
           <div class="app-bar__wrapper">
@@ -44,48 +46,48 @@
         </div>
         <nav class="nav-bar">
           <menu class="menu-list--metro nav-bar__menu">
-            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/">Home</Link></li>
-            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/about">About</Link></li>
-            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/collections">Collections</Link></li>
-            <DropdownMenu />
-            <li class="menu-list__item"><a @click.prevent="openPopup" class="link--underlineOnHover menu-list__link" href="#">Authenticity check</a></li>
-            <li v-if="authUser && authUser.is_private" class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/private-club">Private club</Link></li>
-            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/boutiques">Boutiques</Link></li>
-            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/blogs">Blog</Link></li>
+            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/">{{ $t('home') }}</Link></li>
+            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/about">{{ $t('about') }}</Link></li>
+<!--            <li class="menu-list__item"><Link class="link&#45;&#45;underlineOnHover menu-list__link" href="/collections">{{ $t('collections') }}</Link></li>-->
+            <DropdownMenu type="collections" />
+            <DropdownMenu type="category" />
+            <li class="menu-list__item"><a @click.prevent="openPopup" class="link--underlineOnHover menu-list__link" href="#">{{ $t('auth_check') }}</a></li>
+            <li v-if="authUser && authUser.is_private" class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/private-club">{{ $t('private_club') }}</Link></li>
+            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/boutiques">{{ $t('boutiques') }}</Link></li>
+            <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/blogs">{{ $t('blog') }}</Link></li>
             <template v-if="!authUser">
-                <li class="menu-list__item"><Link href="/login" class="link--underlineOnHover menu-list__link text-blue-600">Login</Link></li>
-                <li class="menu-list__item"><Link href="/register" class="link--underlineOnHover menu-list__link text-green-600">Register</Link></li>
+                <li class="menu-list__item"><Link href="/login" class="link--underlineOnHover menu-list__link text-blue-600">{{ $t('login') }}</Link></li>
+                <li class="menu-list__item"><Link href="/register" class="link--underlineOnHover menu-list__link text-green-600">{{ $t('register') }}</Link></li>
             </template>
 
             <template v-else>
-                <li class="menu-list__item"><span class="link--underlineOnHover menu-list__link text-gray-700">Hi, {{ authUser.full_name }}</span></li>
+                <li class="menu-list__item"><span class="link--underlineOnHover menu-list__link text-gray-700">{{ authUser.full_name }}</span></li>
                 <li class="menu-list__item"><button @click="logout" class="link--underlineOnHover menu-list__link text-red-600">
-                    Logout
+                    {{ $t('logout') }}
                 </button></li>
             </template>
-            <SearchPopup ref="searchPopup" />
           </menu>
         </nav>
       </header>
         <aside class="nav-drawer" :class="{ expand: isDrawerOpen }" @click="closeDrawer" style="top: 145.922px">
             <menu class="menu-list--stack nav-drawer__menu">
-                    <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/">Home</Link></li>
-                    <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/about">About</Link></li>
-                    <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/collections">Collections</Link></li>
+                    <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/">{{ $t('home') }}</Link></li>
+                    <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/about">{{ $t('about') }}</Link></li>
+                    <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/collections">{{ $t('collections') }}</Link></li>
                     <DropdownMenu />
-                    <li class="menu-list__item"><a @click.prevent="openPopup" class="link--underlineOnHover menu-list__link" href="#">Authenticity check</a></li>
-                    <li v-if="authUser && authUser.is_private" class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/private-club">Private club</Link></li>
-                    <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/boutiques">Boutiques</Link></li>
-                    <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/blogs">Blog</Link></li>
+                    <li class="menu-list__item"><a @click.prevent="openPopup" class="link--underlineOnHover menu-list__link" href="#">{{ $t('auth_check') }}</a></li>
+                    <li v-if="authUser && authUser.is_private" class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/private-club">{{ $t('private_club') }}</Link></li>
+                    <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/boutiques">{{ $t('boutiques') }}</Link></li>
+                    <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/blogs">{{ $t('blog') }}</Link></li>
                     <template v-if="!authUser">
-                        <li class="menu-list__item"><Link href="/login" class="link--underlineOnHover menu-list__link text-blue-600">Login</Link></li>
-                        <li class="menu-list__item"><Link href="/register" class="link--underlineOnHover menu-list__link text-green-600">Register</Link></li>
+                        <li class="menu-list__item"><Link href="/login" class="link--underlineOnHover menu-list__link text-blue-600">{{ $t('login') }}</Link></li>
+                        <li class="menu-list__item"><Link href="/register" class="link--underlineOnHover menu-list__link text-green-600">{{ $t('register') }}</Link></li>
                     </template>
 
                     <template v-else>
-                        <li class="menu-list__item"><span class="link--underlineOnHover menu-list__link text-gray-700">Hi, {{ authUser.full_name }}</span></li>
+                        <li class="menu-list__item"><span class="link--underlineOnHover menu-list__link text-gray-700">{{ authUser.full_name }}</span></li>
                         <li class="menu-list__item"><button @click="logout" class="link--underlineOnHover menu-list__link text-red-600">
-                            Logout
+                            {{ $t('logout') }}
                         </button></li>
                     </template>
             </menu>
@@ -97,6 +99,7 @@ import {computed, ref} from 'vue';
 import DropdownMenu from './DropdownMenu.vue';
 import SearchPopup from '../searchPopup/SearchPopup.vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
+import { i18n } from '@/i18n'
 
 const isDrawerOpen = ref(false);
 const authUser = usePage().props.auth?.user || null
@@ -107,6 +110,11 @@ const selectedLanguage = ref(locale.value)
 const switchLanguage = (locale) => {
     router.get(route('lang.switch', locale), {}, {
         preserveScroll: true,
+        onSuccess: (page) => {
+            const translations = page.props.translations
+            i18n.global.setLocaleMessage(locale, translations)
+            i18n.global.locale.value = locale
+        }
     })
 }
 function logout() {
@@ -118,6 +126,7 @@ function logout() {
 }
 const toggleDrawer = () => {
     isDrawerOpen.value = !isDrawerOpen.value;
+    document.body.classList.toggle('lock');
 };
 
 const closeDrawer = () => {

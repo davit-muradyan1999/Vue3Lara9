@@ -1,6 +1,9 @@
 @extends('../admin')
 @section('content')
 <div class="card">
+    <div class="card-header">
+        <a href="{{ route('authenticity.add') }}" class="btn btn-outline-primary">Add Auth Check</a>
+    </div>
     <div class="card-body">
 
         <form action="{{ route('authenticity.import') }}" method="POST" enctype="multipart/form-data">
@@ -14,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary">Add Document</button>
         </form>
 
         <hr>
@@ -33,6 +36,7 @@
                         <th>Silver</th>
                         <th>Stone</th>
                         <th>Other Materials</th>
+                        <th>Handcrafted</th>
                         <th>Exclusive Price</th>
                         <th>Action</th>
                     </tr>
@@ -60,6 +64,7 @@
                                 <td><input type="text" name="silver" value="{{ $item->silver }}" class="form-control"></td>
                                 <td><input type="text" name="stone" value="{{ $item->stone }}" class="form-control"></td>
                                 <td><input type="text" name="other_materials" value="{{ $item->other_materials }}" class="form-control"></td>
+                                <td><input type="text" name="handcrafted" value="{{ $item->handcrafted }}" class="form-control"></td>
                                 <td><input type="text" name="price_exclusive" value="{{ $item->price_exclusive }}" class="form-control"></td>
                                 <td class="d-flex">
                                     <button type="submit" class="btn btn-sm btn-success mr-2">Update</button>

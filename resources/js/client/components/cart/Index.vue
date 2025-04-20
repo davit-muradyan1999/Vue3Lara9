@@ -71,7 +71,7 @@
 import { router, usePage, Link } from '@inertiajs/vue3'
 import { computed } from 'vue'
 
-const props = defineProps({
+        const props = defineProps({
     items: Array
 })
 const locale = computed(() => usePage().props.locale)

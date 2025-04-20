@@ -130,6 +130,8 @@ class ProductController extends Controller
             'price' => 'nullable',
             'count' => 'required',
             'category_id' => 'required|exists:categories,id',
+            'is_published' => 'nullable',
+            'is_private' => 'nullable',
         ]);
 
         $currentImages = $product->images ?? [];

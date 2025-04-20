@@ -10,14 +10,17 @@ const locale = computed(() => usePage().props.locale)
 </script>
 
 <template>
-    <div>
-        <h1>{{ about?.title[locale] }}</h1>
+    <div class="flex flex-col items-center gap-4">
+        <p>{{ about?.title[locale] }}</p>
         <div v-html="about?.description[locale]"></div>
-        <img :src="'storage/' + about?.image">
+        <img class="rounded-2xl" :src="'storage/' + about?.image">
     </div>
 </template>
 
 <style scoped lang="scss">
+p{
+    font-size: 1.5rem;
+}
 img{
     width: 100%;
 }

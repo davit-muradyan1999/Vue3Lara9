@@ -25,6 +25,8 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Is Admin</th>
+                                        <th>Is Private</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -33,6 +35,20 @@
                                         <td><a href="{{ route('users.show', $item->id) }}">{{ $item->id }}</a></td>
                                         <td> {{ $item->full_name }} </td>
                                         <td> {{ $item->email }} </td>
+                                        <td>
+                                            <input type="checkbox"
+                                                   data-id="{{ $item->id }}"
+                                                   data-field="is_admin"
+                                                   class="toggle-user-field"
+                                                {{ $item->is_admin ? 'checked' : '' }}>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox"
+                                                   data-id="{{ $item->id }}"
+                                                   data-field="is_private"
+                                                   class="toggle-user-field"
+                                                {{ $item->is_private ? 'checked' : '' }}>
+                                        </td>
                                     </tr>
                                     @endforeach
                                     </tbody>
@@ -45,4 +61,37 @@
             </div>
         </div>
     </section>
+@endsection
+@section('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.toggle-user-field').forEach(function (checkbox) {
+                checkbox.addEventListener('change', function () {
+                    const userId = this.dataset.id;
+                    const field = this.dataset.field;
+                    const value = this.checked ? 1 : 0;
+
+                    fetch(`/admin/users/${userId}/toggle`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            field: field,
+                            value: value
+                        })
+                    }).then(response => response.json())
+                        .then(data => {
+                            if (!data.success) {
+                                alert('Ошибка при обновлении!');
+                            }
+                        }).catch(error => {
+                        console.error(error);
+                        alert('Ошибка соединения!');
+                    });
+                });
+            });
+        });
+    </script>
 @endsection

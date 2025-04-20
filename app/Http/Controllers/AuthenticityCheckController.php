@@ -16,7 +16,18 @@ class AuthenticityCheckController extends Controller
         $authCheck = AuthenticityCheck::latest()->get();
         return view('authenticity_checks.index', compact('authCheck', 'products'));
     }
+    public function add()
+    {
+        $products = Product::all();
+        return view('authenticity_checks.create', compact('products'));
+    }
 
+    public function authStore(Request $request)
+    {
+        AuthenticityCheck::create($request->all());
+
+        return redirect()->route('authenticity.index')->with('success', 'Товары успешно загружены.');
+    }
     public function import(Request $request)
     {
         $request->validate([

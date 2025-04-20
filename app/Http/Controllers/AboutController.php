@@ -17,9 +17,10 @@ class AboutController extends Controller
      */
     public function index()
     {
-        $abouts = About::first();
-        if(isset($abouts)){
-            return view('about.show', compact('abouts'));
+        $about = About::first();
+
+        if(isset($about)){
+            return view('about.show', compact('about'));
         }else{
             return view('about.create');
         }

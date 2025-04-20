@@ -1,9 +1,11 @@
 <template>
     <div v-if="isOpen" class="popup-overlay" @click.self="closePopup">
       <div class="popup">
-        <h3>Authenticity Check</h3>
-        <input v-model="barcode" type="text" placeholder="Enter barcode" @input="searchProduct" />
-         <button @click="searchProduct">Search</button>
+        <h3>{{ $t('auth_check') }}</h3>
+          <div class="flex flex-col items-center justify-center">
+              <input v-model="barcode" type="text" placeholder="" @input="searchProduct" />
+              <button @click="searchProduct" class="bg-blue-700 text-white rounded">{{ $t('search') }}</button>
+          </div>
 
         <div class="product-info" v-if="product">
             <div class="product-header">
@@ -52,6 +54,7 @@
 
   const openPopup = () => {
     isOpen.value = true;
+    document.body.classList.toggle('lock');
   };
 
   const closePopup = () => {
@@ -95,7 +98,8 @@
       margin-bottom: 10px;
   }
   input{
-      width: 300px !important;
+      max-width: 300px !important;
+      width: 100%;
       font-size: 16px;
   }
   .product-info{
@@ -165,7 +169,6 @@
 
   input {
     margin-bottom: 10px;
-    width: 10%;
     padding: 10px;
     border-radius: 4px;
     border: 1px solid #ccc;

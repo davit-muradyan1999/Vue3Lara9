@@ -31,7 +31,7 @@
                                     @foreach ($collections as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td><a href="{{ route('collections.show', $item->id) }}">{{ $item->name }}</a></td>
+                                        <td><a href="{{ route('collections.show', $item->id) }}">{{ $item->name['am'] }}</a></td>
                                         @if($item->image)
                                             <td><img src="{{ asset('storage/'.$item->image[0]) }}" alt="" width="50" height="50"></td>
                                         @endif

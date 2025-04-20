@@ -18,9 +18,10 @@
                 @csrf
                 @method('PATCH')
                 <div class="card-body">
-                    <label for="title"> Title AM</label>
-                    <input type="text" name="title[am]" value="{{ $about->title['am'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title AM">
-                </div>
+                    <div class="form-group">
+                        <label for="title"> Title AM</label>
+                        <input type="text" name="title[am]" value="{{ $about->title['am'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title AM">
+                    </div>
                 <div class="form-group">
                     <label for="title"> Title EN</label>
                     <input type="text" name="title[en]" value="{{ $about->title['en'] }}" class="form-control" id="exampleInputEmail1" placeholder="Title EN">
@@ -31,15 +32,15 @@
                 </div>
                 <div class="form-group">
                     <label for="description">Description AM</label>
-                    <textarea class="form-control" id="description" name="description[am]" rows="3">{{ $about->description['am'] }}</textarea>
+                    <textarea class="form-control" id="editor_am" name="description[am]" rows="3">{{ $about->description['am'] }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="description">Description EN</label>
-                    <textarea class="form-control" id="description" name="description[en]" rows="3">{{ $about->description['en'] }}</textarea>
+                    <textarea class="form-control" id="editor_en" name="description[en]" rows="3">{{ $about->description['en'] }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="description">Description RU</label>
-                    <textarea class="form-control" id="description" name="description[ru]" rows="3">{{ $about->description['ru'] }}</textarea>
+                    <textarea class="form-control" id="editor_ru" name="description[ru]" rows="3">{{ $about->description['ru'] }}</textarea>
                 </div>
                     @if ($about->image)
                         <div id="existingImages" class="row mt-3">
@@ -60,6 +61,8 @@
 
                     <div id="imagePreview" class="row mt-3"></div>
                 </div>
+        </div>
+
 
 
 
@@ -109,6 +112,23 @@
                 $('#deleteImages').val(deleteImages.join(','));
                 $(this).parent().remove();
             });
+            ClassicEditor
+                .create(document.querySelector('#editor_am'))
+                .catch(error => {
+                    console.error(error);
+                });
+            ClassicEditor
+                .create(document.querySelector('#editor_en'))
+                .catch(error => {
+                    console.error(error);
+                });
+
+            ClassicEditor
+                .create(document.querySelector('#editor_ru'))
+                .catch(error => {
+                    console.error(error);
+                });
+
         });
     </script>
 @endsection

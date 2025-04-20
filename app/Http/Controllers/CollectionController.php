@@ -46,7 +46,9 @@ class CollectionController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string',
+            'name.am' => 'required|string',
+            'name.en' => 'required|string',
+            'name.ru' => 'required|string',
             'products' => 'required',
             'products.*' => 'integer',
         ]);
@@ -57,8 +59,17 @@ class CollectionController extends Controller
         if ($request->hasFile('image')) {
             $image = $this->uploadFile($request->file('image'), 'collections');
         }
+        $name = [
+            'am' => $data['name']['am'],
+            'en' => $data['name']['en'],
+            'ru' => $data['name']['ru']
+        ];
 
-        $collection = Collections::create(array_merge($data, ['image' => $image]));
+        unset($data['name']);
+        $collection = Collections::create(array_merge($data, [
+            'image' => $image,
+            'name' => $name,
+        ]));
 
         $collection->products()->sync($productsIds);
         return redirect()->route('collections.index');
@@ -97,11 +108,14 @@ class CollectionController extends Controller
     public function update(Request $request, Collections $collection)
     {
         $data = $request->validate([
-            'name' => 'required|string',
+            'name.am' => 'required|string',
+            'name.en' => 'required|string',
+            'name.ru' => 'required|string',
             'products' => 'required',
             'products.*' => 'integer',
         ]);
-
+        $productsIds = $data['products'] ?? [];
+        unset($data['products']);
         $image = $collection->image ?? [];
         if ($request->filled('delete_images')) {
             $imagesToDelete = explode(',', $request->delete_images);
@@ -116,10 +130,20 @@ class CollectionController extends Controller
         if ($request->hasFile('image')) {
             $image = $this->uploadFile($request->file('image'), 'collections');
         }
+        $name = [
+            'am' => $data['name']['am'],
+            'en' => $data['name']['en'],
+            'ru' => $data['name']['ru']
+        ];
 
+        unset($data['name']);
 
-        $collection->update(array_merge($data, ['image' => $image]));
+        $collection->update(array_merge($data, [
+            'image' => $image,
+            'name' => $name,
+        ]));
 
+        $collection->products()->sync($productsIds);
         return redirect()->route('collections.index')->with('success', 'Collection updated successfully');
     }
 

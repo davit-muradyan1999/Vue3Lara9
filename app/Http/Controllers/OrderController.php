@@ -28,4 +28,9 @@ class OrderController extends Controller
         CartItem::where($cartKey)->delete();
         return redirect()->route('home')->with('success', 'Order placed!');
     }
+    public function index()
+    {
+       $orders = Order::paginate(5);
+       return view('order.index', compact('orders'));
+    }
 }

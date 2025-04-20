@@ -82,7 +82,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request,User $user)
     {
         $data = $request->validated();
-        
+
         if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         } else {
@@ -106,4 +106,19 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success','User was deleted successfully');
     }
+
+    public function toggleField(Request $request, User $user)
+    {
+        $request->validate([
+            'field' => 'required|in:is_admin,is_private',
+            'value' => 'required|boolean'
+        ]);
+
+        $field = $request->field;
+        $user->$field = $request->value;
+        $user->save();
+
+        return response()->json(['success' => true]);
+    }
+
 }

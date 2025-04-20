@@ -14,7 +14,8 @@ class Collections extends Model
     ];
 
     protected $casts = [
-        'image' => 'array'
+        'image' => 'array',
+        'name' => 'array'
     ];
 
     public function products() {

@@ -14,6 +14,7 @@ use App\Http\Controllers\{AboutController,
     ColorController,
     HomeController,
     OrderController,
+    RequestPriceController,
     TagController,
     ShoesSizeController,
     UserController,
@@ -53,6 +54,7 @@ Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
 Route::get('/boutiques', [HomeController::class, 'boutiques'])->name('boutiques');
 Route::get('/private-club', [HomeController::class, 'privateClub'])->name('private-club');
 Route::get('/categories/{category}', [HomeController::class, 'categoriesProducts'])->name('categories.products');
+Route::get('/collections/{collection}', [HomeController::class, 'collectionsProducts'])->name('collections.products');
 Route::get('/product/{id}', [HomeController::class, 'getProduct'])->name('product');
 Route::get('/auth-check/{id}', [HomeController::class, 'getAuthCheckProduct'])->name('product');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
@@ -60,7 +62,7 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
-
+Route::post('/request-price', [RequestPriceController::class, 'store']);
 
 
 Route::group(['prefix'=>'admin', 'middleware' => 'isAdmin'], function(){
@@ -72,8 +74,12 @@ Route::group(['prefix'=>'admin', 'middleware' => 'isAdmin'], function(){
     Route::resource('abouts', AboutController::class);
     Route::resource('boutiques', BoutiqueController::class);
     Route::resource('blogs', BlogController::class);
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/authenticity-checks', [AuthenticityCheckController::class, 'index'])->name('authenticity.index');
     Route::post('/authenticity-checks/import', [AuthenticityCheckController::class, 'import'])->name('authenticity.import');
+    Route::get('/authenticity-checks/add', [AuthenticityCheckController::class, 'add'])->name('authenticity.add');
+    Route::post('/authenticity-checks/store', [AuthenticityCheckController::class, 'authStore'])->name('authenticity.store');
     Route::put('/authenticity/update/{id}', [AuthenticityCheckController::class, 'update'])->name('authenticity.update');
     Route::get('/authenticity/delete/{id}', [AuthenticityCheckController::class, 'destroy'])->name('authenticity.delete');
+    Route::post('/users/{user}/toggle', [UserController::class, 'toggleField'])->name('users.toggleField');
 });

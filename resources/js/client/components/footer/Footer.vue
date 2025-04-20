@@ -4,8 +4,8 @@
             <div class="sitemap--dark app-footer__sitemap">
                 <h4 class="text-heading-4 sitemap__heading">Get to know Craft</h4>
                 <ul class="sitemap__list">
-                    <li class="sitemap__list-item"><a class="link--underlineOnHover sitemap__link" href="/react-based-shopify-craft-theme/about">About</a></li>
-                    <li class="sitemap__list-item"><a class="link--underlineOnHover sitemap__link" href="/react-based-shopify-craft-theme/blog">Magazine</a></li>
+                    <li class="sitemap__list-item"><Link class="link--underlineOnHover sitemap__link" href="/about">About</Link></li>
+                    <li class="sitemap__list-item"><Link class="link--underlineOnHover sitemap__link" href="/blogs">Blogs</Link></li>
                 </ul>
             </div>
             <div class="card-info app-footer__mission"><strong class="card-info__title">Our Mission</strong>
@@ -14,12 +14,13 @@
         </div>
         <hr class="app-footer__separator">
         <div class="app-footer__wrapper">
-            <small class="app-footer__copyright">©2025,<a href="https://themes.shopify.com/themes/craft/styles/default" target="_blank" rel="noreferrer"> theme-craft-demo</a><a href="https://www.shopify.com/" target="_blank" rel="noreferrer"> Powered by Shopify</a></small></div>
+            <small class="app-footer__copyright">©2025, Dvin Gold</small></div>
     </footer>
 </template>
 
 <script setup>
 
+import { Link } from '@inertiajs/vue3';
 </script>
 
 <style lang="scss" scoped>

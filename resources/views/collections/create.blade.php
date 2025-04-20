@@ -19,8 +19,16 @@
                     @method('POST')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Name</label>
-                            <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
+                            <label for="exampleInputEmail1">Name AM</label>
+                            <input type="text" name="name[am]" value="{{ old('name.am') }}" class="form-control" id="exampleInputEmail1" placeholder="Enter name AM">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Name EN</label>
+                            <input type="text" name="name[en]" value="{{ old('name.am') }}" class="form-control" id="exampleInputEmail1" placeholder="Enter name EN">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Name RU</label>
+                            <input type="text" name="name[ru]" value="{{ old('name.am') }}" class="form-control" id="exampleInputEmail1" placeholder="Enter name RU">
                         </div>
                         <div class="form-group">
                             <div class="input-group">

@@ -1,16 +1,28 @@
 <template>
     <li :class="wrapperClass" ref="dropdownRef">
         <button @click="toggleDropdown" type="button" class="button--plain menu-list__button">
-            <span>Categories</span>
+            <template v-if="type === 'category'">
+                <span>{{ $t('categories') }}</span>
+            </template>
+            <template v-else>
+                <span>{{ $t('collections') }}</span>
+            </template>
             <img v-if="!isOpen" class="icon chevron-down menu-list__button-icon down" src="/public/client/icons/arrow-down.svg" alt="arrow-down">
             <img v-else class="icon chevron-up menu-list__button-icon up" src="/public/client/icons/arrow-up.svg" alt="arrow-up">
         </button>
         <transition name="fade">
             <ul v-show="isOpen" class="menu-list__sub-list">
                 <li v-for="item in menuItems" :key="item.id" class="menu-list__sub-list-item">
-                    <Link class="link--plain menu-list__sub-list-link" :href="`/categories/${item.id}`" @click="closeDropdown">
-                        {{ item.title[locale] }}
-                    </Link>
+                    <template v-if="type === 'category'">
+                        <Link class="link--plain menu-list__sub-list-link" :href="`/categories/${item.id}`" @click="closeDropdown">
+                            {{ item.title[locale] }}
+                        </Link>
+                    </template>
+                    <template v-else>
+                        <Link class="link--plain menu-list__sub-list-link" :href="`/collections/${item.id}`" @click="closeDropdown">
+                            {{ item.name[locale] }}
+                        </Link>
+                    </template>
                 </li>
             </ul>
         </transition>
@@ -21,7 +33,9 @@
   import { Link, usePage } from '@inertiajs/vue3';
   import axios from 'axios';
 
-
+  const props = defineProps({
+      type: String,
+  })
   const locale = computed(() => usePage().props.locale);
   const isOpen = ref(false);
   const menuItems = ref([]);
@@ -43,7 +57,7 @@
 
   onMounted(async () => {
     try {
-            const response = await axios.get('/api/categories');
+            const response = await axios.get(props.type === 'category' ? '/api/categories' : '/api/collections');
             menuItems.value = response.data;
     } catch (error) {
             console.error('Error:', error);
