@@ -88,11 +88,7 @@
                 $(this).parent().remove();
             });
             ClassicEditor
-                .create(document.querySelector('#editor_am'), {
-        validation: {
-            required: true
-        }
-    })
+                .create(document.querySelector('#editor_am'))
                 .catch(error => {
                     console.error(error);
                 });
