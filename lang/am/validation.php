@@ -1,5 +1,5 @@
 <?php
 return [
-    'required' => 'Դաշտը Պարտադիր է։',
+    'required' => ':attribute Դաշտը Պարտադիր է։',
     'confirmed' => 'Կրկնել դաշտը պարտադիր է։'
 ];

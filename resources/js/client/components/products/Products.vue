@@ -51,7 +51,7 @@
                     <span class="link-product__image-wrapper">
                         <img class="link-product__image" :src="product.images.length ? `/storage/${product.images[0]}` : 'https:\\/\\/via.placeholder.com\\/200'" :alt="product.title">
                     </span>
-                    <span class="link-product__title">{{ product.title[locale] }}</span>
+                    <span class="link-product__title">{{ product.title[locale] || product.title.am }}</span>
                 </Link>
             </div>
         </div>

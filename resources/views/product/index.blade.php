@@ -1,6 +1,12 @@
 @extends('../admin')
 
 @section('content')
+    @if (session('success'))
+        <div class="alert alert-success">
+
+            {!! session('success') !!}
+        </div>
+    @endif
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">

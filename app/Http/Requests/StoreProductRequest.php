@@ -25,11 +25,11 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'title.am' => 'required|string',
-            'title.en' => 'required|string',
-            'title.ru' => 'required|string',
+            'title.en' => 'nullable|string',
+            'title.ru' => 'nullable|string',
             'description.am' => 'required|string',
-            'description.en' => 'required|string',
-            'description.ru' => 'required|string',
+            'description.en' => 'nullable|string',
+            'description.ru' => 'nullable|string',
             'price' => 'nullable',
             'count' => 'nullable',
             'images' => 'required|array',

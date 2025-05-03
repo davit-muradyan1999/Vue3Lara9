@@ -68,7 +68,7 @@
             </div>
             <div class="product-template__info">
                 <div class="product-template__info__wrapper">
-                    <hgroup class="product-template__info__heading-group"><h1 class="text-heading-1 heading">{{ product.title[locale] }}</h1></hgroup>
+                    <hgroup class="product-template__info__heading-group"><h1 class="text-heading-1 heading">{{ product.title[locale] || product.title.am }}</h1></hgroup>
                     <div class="product-template__info__cart">
                         <button type="button" @click="showModal = true"
                                 class="button--outlined product-template__info__cart__add">Request a Price
@@ -76,7 +76,7 @@
                     </div>
                     <div class="product-template__info__content-wrapper">
                         <div class="content">
-                            <p v-html="product.description[locale]"></p>
+                            <p v-html="product.description[locale] || product.description.am"></p>
                         </div>
                         <template v-if="is_auth_check">
                             <div class="content">

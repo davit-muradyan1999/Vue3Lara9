@@ -83,7 +83,7 @@ class ProductController extends Controller
 
         $product->tags()->sync($tagsIds);
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
     /**
