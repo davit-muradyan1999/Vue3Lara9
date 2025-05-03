@@ -275,6 +275,7 @@ $breakPoint2: 450px;
 
         p {
             margin-bottom: 2rem;
+            word-break: break-word;
         }
 
         ul {
@@ -413,7 +414,13 @@ $breakPoint2: 450px;
     clip-path: inset(50% 0 50% 0);
     opacity: 0;
     transition: visibility 0s linear 0.5s, clip-path 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    @media (max-width: $breakPoint) {
+        padding: 3rem;
+    }
 
+    @media (max-width: $breakPoint2) {
+        padding: 1rem;
+    }
     &.visible {
         transition: visibility 0s linear, clip-path 0.5s ease-in-out, opacity 0.5s ease-in-out;
         opacity: 1;
@@ -631,6 +638,10 @@ $breakPoint2: 450px;
 .text-heading-1 {
     @extend .text-heading;
     font-size: 2.125rem;
+
+    @media (max-width: $breakPoint) {
+        font-size: 1.125rem;
+    }
 }
 
 .text-heading-2 {

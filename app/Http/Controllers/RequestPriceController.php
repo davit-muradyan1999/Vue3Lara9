@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Mail;
 
 class RequestPriceController extends Controller
 {
+    public function index()
+    {
+        $request_price = RequestPrice::latest()->paginate(5);
+        return view('requestPrice.index', compact('request_price'));
+    }
     public function store(Request $request)
     {
         $data = $request->validate([

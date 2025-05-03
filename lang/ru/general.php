@@ -27,5 +27,15 @@ return [
     'product_category' => 'Категория Товаров:',
     'product_private' => 'Частный Продукт',
     'search' => 'Поиск',
+    'create_account' => 'Зарегистрировать Аккаунт',
+    'full_name' => 'Полное имя',
+    'email' => 'Эл,Почта',
+    'phone' => 'Телефон',
+    'password' => 'Пароль',
+    'confirm_password' => 'Повторить Пароль',
+    'create' => 'Создать Аккаунт',
+    'already_login' => 'Уже зарегистрированы?',
+    'login_here' => 'Логин',
+    'remember' => 'Запомнить',
 ];
 

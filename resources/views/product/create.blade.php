@@ -10,7 +10,18 @@
             </div>
         </div>
     </div>
-
+    @if(session('error'))
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success">
+            {!! session('success') !!}
+        </div>
+    @endif
     <section class="content">
         <div class="container-fluid">
             <div class="row">

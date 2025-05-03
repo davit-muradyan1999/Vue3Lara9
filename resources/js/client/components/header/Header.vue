@@ -4,15 +4,15 @@
         <SearchPopup ref="searchPopup" />
       <header class="app__header">
         <div class="app-bar">
-          <div class="app-bar__wrapper">
-            <Link class="link--plain link-icon--expandOnHover app-bar__cart" href="/cart">
-              <img src="/public/client/icons/bascet.svg" alt="bascet">
-                <span class="badge link-icon__badge" v-if="cartCount > 0">{{ cartCount }}</span>
-            </Link>
+          <div class="flex app-bar__wrapper">
+<!--            <Link class="link&#45;&#45;plain link-icon&#45;&#45;expandOnHover app-bar__cart" href="/cart">-->
+<!--              <img src="/public/client/icons/bascet.svg" alt="bascet">-->
+<!--                <span class="badge link-icon__badge" v-if="cartCount > 0">{{ cartCount }}</span>-->
+<!--            </Link>-->
               <a aria-current="page" class="link--plain app-bar__company active" href="/">
                   <img class="icon logo link-icon__icon" src="/public/client/icons/logo.svg"  alt="logo">
               </a>
-              <div class="max-w-xs min-w-[20px]">
+              <div class="max-w-xs min-w-[20px]" @click.stop>
                   <div class="relative">
                       <select v-model="selectedLanguage" @change="switchLanguage(selectedLanguage)"
                               class="bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer">
@@ -52,6 +52,7 @@
                 <!--            <li class="menu-list__item"><Link class="link&#45;&#45;underlineOnHover menu-list__link" href="/collections">{{ $t('collections') }}</Link></li>-->
                 <DropdownMenu type="collections" />
                 <DropdownMenu type="category" />
+
                 <li class="menu-list__item"><a @click.prevent="openPopup" class="link--underlineOnHover menu-list__link" href="#">{{ $t('auth_check') }}</a></li>
                 <li v-if="authUser && authUser.is_private" class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/private-club">{{ $t('private_club') }}</Link></li>
                 <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/boutiques">{{ $t('boutiques') }}</Link></li>
@@ -71,7 +72,7 @@
           </menu>
         </nav>
       </header>
-        <aside class="nav-drawer" :class="{ expand: isDrawerOpen }" @click="closeDrawer" style="top: 145.922px">
+        <aside class="nav-drawer" :class="{ expand: isDrawerOpen }" @click.stop="closeDrawer" style="top: 145.922px">
             <menu class="menu-list--stack nav-drawer__menu">
                     <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/">{{ $t('home') }}</Link></li>
                     <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/about">{{ $t('about') }}</Link></li>
@@ -126,12 +127,16 @@ function logout() {
         }
     })
 }
-const toggleDrawer = () => {
+const toggleDrawer = (event) => {
+    event.stopPropagation();
     isDrawerOpen.value = !isDrawerOpen.value;
     document.body.classList.toggle('lock');
 };
 
-const closeDrawer = () => {
+const closeDrawer = (event) => {
+    // Проверяем, что клик не произошёл внутри DropdownMenu
+    if (event.target.closest('.dropdown-menu')) return;
+
     document.body.classList.remove('lock');
     isDrawerOpen.value = false;
 };

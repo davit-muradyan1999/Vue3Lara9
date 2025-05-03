@@ -127,10 +127,12 @@ class ProductController extends Controller
             'description.am' => 'required|string',
             'description.en' => 'required|string',
             'description.ru' => 'required|string',
+            'price' => 'nullable',
             'count' => 'nullable',
             'category_id' => 'required|exists:categories,id',
             'is_published' => 'nullable',
             'is_private' => 'nullable',
+            'tags' => 'nullable|array',
         ]);
 
         $currentImages = $product->images ?? [];

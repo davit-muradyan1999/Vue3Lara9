@@ -265,7 +265,7 @@ textarea {
   display: block;
   height: 6rem;
   width: 6rem;
-  order: 2;
+  margin: 0 auto;
   position: relative;
 }
 .app-bar__company div {
@@ -598,6 +598,8 @@ textarea {
   transform: scale(1);
   border-radius: 0;
   padding: 0;
+  position: absolute;
+  order: 1;
 }
 
 .button--ghost:hover {

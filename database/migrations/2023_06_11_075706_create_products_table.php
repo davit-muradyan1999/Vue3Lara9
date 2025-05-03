@@ -20,8 +20,8 @@ return new class extends Migration
             $table->text('description');
             $table->text('images');
 
-            $table->integer('price');
-            $table->integer('count');
+            $table->integer('price')->nullable();
+            $table->integer('count')->nullable();
             $table->boolean('is_published')->default(true);
             $table->boolean('is_private')->default(false);
 

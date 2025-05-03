@@ -75,6 +75,7 @@ Route::group(['prefix'=>'admin', 'middleware' => 'isAdmin'], function(){
     Route::resource('boutiques', BoutiqueController::class);
     Route::resource('blogs', BlogController::class);
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/request-price', [RequestPriceController::class, 'index'])->name('orders.index');
     Route::get('/authenticity-checks', [AuthenticityCheckController::class, 'index'])->name('authenticity.index');
     Route::post('/authenticity-checks/import', [AuthenticityCheckController::class, 'import'])->name('authenticity.import');
     Route::get('/authenticity-checks/add', [AuthenticityCheckController::class, 'add'])->name('authenticity.add');

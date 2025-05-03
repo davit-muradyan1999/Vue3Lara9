@@ -77,9 +77,9 @@
                         data-accordion="false">
                         <li class="nav-item">
                             <a href="{{ route('orders.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-shopping-cart"></i>
+                                <i class="nav-icon fas fa-dollar-sign"></i>
                                 <p>
-                                    Orders
+                                    Request Price
                                 </p>
                             </a>
                         </li>

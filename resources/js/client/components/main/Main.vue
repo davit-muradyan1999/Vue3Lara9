@@ -1,7 +1,6 @@
 <template>
             <Collage :categories="categories" />
             <Video />
-            <Testimonies />
 </template>
 
 <script setup>
