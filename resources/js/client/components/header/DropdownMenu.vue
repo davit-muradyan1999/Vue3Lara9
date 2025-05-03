@@ -29,12 +29,12 @@
             </li>
             <li v-for="item in menuItems" :key="item.id" class="menu-list__sub-list-item">
                 <template v-if="type === 'category'">
-                    <Link class="link--plain menu-list__sub-list-link" :href="`/categories/${item.id}`" @click="closeDropdown">
+                    <Link class="link--plain menu-list__sub-list-link" :href="`/categories/${item.id}`" @click="handleItemClick">
                         {{ item.title[locale] }}
                     </Link>
                 </template>
                 <template v-else>
-                    <Link class="link--plain menu-list__sub-list-link" :href="`/collections/${item.id}`" @click="closeDropdown">
+                    <Link class="link--plain menu-list__sub-list-link" :href="`/collections/${item.id}`" @click="handleItemClick">
                         {{ item.name[locale] }}
                     </Link>
                 </template>
@@ -56,8 +56,13 @@ const locale = computed(() => usePage().props.locale);
 const isOpen = ref(false);
 const menuItems = ref([]);
 const dropdownRef = ref(null);
-
+const emit = defineEmits(['close-drawer']);
+const handleItemClick = () => {
+    closeDropdown();
+    emit('close-drawer');
+};
 const closeDropdown = () => {
+    emit('close-drawer');
     isOpen.value = false;
 };
 
