@@ -1,5 +1,10 @@
 <template>
-    <h1 class="text-heading-1 landing__heading">Sustainably crafted goods to elevate your everyday.</h1>
+    <div class="!flex !items-center !gap-4 !my-8">
+        <div class="!flex-grow !border-t !border-black"></div>
+        <h1 class="text-heading-1 landing__heading">Sustainably crafted goods to elevate your everyday.</h1>
+        <div class="!flex-grow !border-t !border-black"></div>
+    </div>
+
     <ul class="collage--5-piece landing__multi-link-collage">
         <li v-for="category in categories" :key="category.id" class="collage__item-wrapper">
             <Link class="link-image landing__multi-link-collage-item" :href="`/categories/${category.id}`">
@@ -11,16 +16,54 @@
             </Link>
         </li>
     </ul>
+    <div ref="container" class="flex justify-around md:justify-between flex-wrap">
+        <blockquote
+            class="instagram-media"
+            data-instgrm-permalink="https://www.instagram.com/p/BvKafg6AnyN/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+            data-instgrm-version="14"
+            style="background:#FFF; border:0; margin: 1rem 0; padding:0;">
+        </blockquote>
+        <blockquote
+            class="instagram-media"
+            data-instgrm-permalink="https://www.instagram.com/p/BsQWlbtAGKc/?utm_source=ig_web_button_share_sheet&igsh=MzRlODBiNWFlZA=="
+            data-instgrm-version="14"
+            style="background:#FFF; border:0; margin: 1rem 0; padding:0;">
+        </blockquote>
+        <blockquote
+            class="instagram-media"
+            data-instgrm-permalink="https://www.instagram.com/p/BlvDWTMh4c_/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+            data-instgrm-version="14"
+            style="background:#FFF; border:0; margin: 1rem 0; padding:0;">
+        </blockquote>
+    </div>
 </template>
 <script setup>
 import {Link, usePage} from '@inertiajs/vue3';
-import {computed} from "vue";
+import {computed, onMounted, ref} from "vue";
 
 
 const locale = computed(() => usePage().props.locale);
 let props = defineProps({
     categories: Array
 });
+
+const container = ref(null)
+
+onMounted(() => {
+    // Проверяем, если скрипт уже загружен
+    if (!window.instgrm) {
+        const script = document.createElement('script')
+        script.setAttribute('src', 'https://www.instagram.com/embed.js')
+        script.async = true
+        script.onload = () => {
+            window.instgrm.Embeds.process()
+        }
+        document.body.appendChild(script)
+    } else {
+        // Если уже загружен — просто обработать
+        window.instgrm.Embeds.process()
+    }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -28,7 +71,6 @@ let props = defineProps({
 @use "../../../../../assets/styles/typography.scss";
 @use "../../../../../assets/styles/shared.scss";
 .text-heading {
-  font-family: typography.$heading;
   letter-spacing: 0.0625rem;
   line-height: 1.6em;
   font-weight: 400;
@@ -38,13 +80,11 @@ let props = defineProps({
 
 
 .text-heading-1 {
-  @extend .text-heading;
   font-size: 2.125rem;
 }
 .landing__heading {
   text-align: center;
   max-width: 50rem;
-  margin: 0 auto 4rem auto;
 }
 $collageBreakPoint: 800px;
 

@@ -2,3 +2,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+    font-family: "MyriadPro Light";
+    src: url("../fonts/myriad/MYRIADPRO-LIGHT.OTF") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "MyriadPro LightCond";
+    src: url("../fonts/myriad/MyriadPro-LightCond.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+*, body {
+    font-family: 'MyriadPro Light', sans-serif !important;
+}
+.app__header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+body {
+    padding-top: 170px;
+}
+.nav-bar{
+    margin-bottom: 25px;
+}

@@ -1,12 +1,9 @@
 <template>
             <Collage :categories="categories" />
-            <Video />
 </template>
 
 <script setup>
 import Collage from './collage/Collage.vue';
-import Video from './video/Video.vue';
-import Testimonies from './testimonies/Testimonies.vue';
 
 defineProps({
     categories: Array

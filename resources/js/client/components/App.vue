@@ -17,10 +17,12 @@ import { usePage } from '@inertiajs/vue3';
 const page = usePage().props;
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use "../../../assets/styles/colors.scss";
 @use "../../../assets/styles/typography.scss";
 @use "../../../assets/styles/shared.scss";
+
+
 .layout__main {
     padding: 4rem 0;
 }

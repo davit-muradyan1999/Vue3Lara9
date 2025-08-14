@@ -211,8 +211,19 @@ a {
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "MyriadPro Light";
+  src: url("../fonts/myriad/MYRIADPRO-LIGHT.OTF") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "MyriadPro LightCond";
+  src: url("../fonts/myriad/MyriadPro-LightCond.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
 :root {
-  font: 400 16px/1.62em "Quattrocento Sans";
   background-color: #e8e8e8;
   color: #212121;
   -webkit-touch-callout: none;
@@ -231,7 +242,6 @@ a {
   color: #212121;
   background-color: #d3d3d3;
 }
-
 body {
   min-height: 100vh;
 }
@@ -263,26 +273,14 @@ textarea {
 
 .app-bar__company {
   display: block;
-  height: 6rem;
-  width: 6rem;
+  height: 114px;
+  width: 261px;
   margin: 0 auto;
   position: relative;
 }
 .app-bar__company div {
   width: 100%;
   height: 100%;
-}
-@media (max-width: 1175px) {
-  .app-bar__company {
-    height: 4rem;
-    width: 4rem;
-  }
-}
-@media (max-width: 500px) {
-  .app-bar__company {
-    height: 3rem;
-    width: 3rem;
-  }
 }
 
 .app-bar__menu,

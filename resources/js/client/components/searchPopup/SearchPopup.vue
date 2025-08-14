@@ -1,38 +1,54 @@
 <template>
     <div v-if="isOpen" class="popup-overlay" @click.self="closePopup">
       <div class="popup">
-        <h3>{{ $t('auth_check') }}</h3>
-          <div class="flex flex-col items-center justify-center">
-              <input v-model="barcode" type="text" placeholder="" @input="searchProduct" />
-              <button @click="searchProduct" class="bg-blue-700 text-white rounded">{{ $t('search') }}</button>
+          <div v-if="!product">
+              <h3>{{ $t('auth_check') }}</h3>
+              <div class="flex flex-col items-center justify-center">
+                  <input v-model="barcode" type="text" placeholder="" @input="searchProduct" />
+                  <button @click="searchProduct" class="bg-blue-700 text-white rounded">{{ $t('search') }}</button>
+              </div>
           </div>
 
-        <div class="product-info" v-if="product">
-            <div class="product-header">
-              <h4 class="product-title">CERTIFICATION OF AUTHENTICITY</h4>
+        <div v-if="product">
+           <div class="!flex !flex-col !justify-center !items-center !w-full">
+               <div>
+                   <img src="/public/client/icons/logo.png"  alt="logo">
+               </div>
+               <div class="!flex !items-center !gap-4 !my-8 !w-full text-gray-700">
+                   <div class="!flex-grow !border-t !border-gray-700"></div>
+                   <h1 class="tracking-wider whitespace-nowrap !text-xs sm:!text-sm md:!text-lg lg:!text-lg xl:!text-2xl">CERTIFICATION OF AUTHENTICITY</h1>
+                   <div class="!flex-grow !border-t !border-gray-700"></div>
+               </div>
+           </div>
+
+            <div class="lg:flex lg:justify-between">
+              <div class="lg:w-1/3 text-gray-700"  style="word-spacing: 0.2rem">
+                  <p>Serial No.: {{ product.barcode }}</p>
+                  <p v-if="product.title">Title: {{ product.title }}</p>
+                  <p v-if="product.item">Item: {{ product.item }}</p>
+                  <p v-if="product.gold">Gold: {{ product.gold }}</p>
+                  <p v-if="product.stone">Stone: {{ product.stone }}</p>
+                  <p v-if="product.silver">Silver: {{ product.silver }}</p>
+                  <p v-if="product.other_materials">Other Materials: {{ product.other_materials }}</p>
+                  <p v-if="product.price_exclusive">Price: Exclusive</p>
+                  <p v-if="product.handcrafted">Handcrafted</p>
+                  <p v-if="product.exclusive_edition">Exclusive Edition</p>
+                  <p class="flex gap-1">Show Product:
+
+                      <Link :href="'/auth-check/'+product.product_id" @click="closePopup">
+                          {{ product.title }}
+                      </Link>
+                  </p>
+              </div>
+              <div class="!flex-grow bg-gray-700 max-w-full w-full h-[1px] !my-2 lg:max-w-[1px] lg:w-[1px] lg:h-auto lg:!my-0"></div>
+              <div class="lg:w-1/2 text-gray-700">
+                  <p style="word-spacing: 0.2rem">
+                      Dvingold hereby guarantees that all the particulars herewith written are true and accurate. We confirm that above items are genuine and of perfect quality. This item is unique authorial work that has been manufactured and inspected to the highest standards. This item is registered as industrial design by the standards of World Intellectual Property Organization. The information above is available online any time at www.dvingold.com (http://www.dvingold.com/).
+                  </p>
+                  <img src="/public/client/images/sign.png" alt="sign" style="float: right">
+              </div>
             </div>
 
-            <div class="product-details">
-              <p><strong>Title:</strong> {{ product.title }}</p>
-              <p><strong>Item:</strong> {{ product.item }}</p>
-              <p><strong>Gold:</strong> {{ product.gold }}</p>
-              <p><strong>Silver:</strong> {{ product.silver }}</p>
-              <p><strong>Stone:</strong> {{ product.stone }}</p>
-              <p><strong>Other Materials:</strong> {{ product.other_materials }}</p>
-            </div>
-
-            <div class="product-pricing">
-              <p><strong>Price:</strong> {{ product.price_exclusive }}</p>
-              <p><strong>Handcrafted:</strong> {{ product.handcrafted ? 'Yes' : 'No' }}</p>
-              <p><strong>Exclusive Edition:</strong> {{ product.exclusive_edition ? 'Yes' : 'No' }}</p>
-              <p><strong>Show Product:</strong>
-                  <Link :href="'/auth-check/'+product.product_id" @click="closePopup">
-                      <p>
-                        {{ product.title }}
-                      </p>
-                  </Link>
-              </p>
-            </div>
           </div>
           <div v-if="errorMessage" class="error-message">
               <p style="color: red; font-size: 15px">{{ errorMessage }}</p>
@@ -178,5 +194,12 @@
     padding: 10px 15px;
     margin-top: 10px;
     cursor: pointer;
+  }
+  @media screen and (max-width: 1024px) {
+      .popup{
+          width: 60%;
+          height: 90%;
+          overflow-y: auto;
+      }
   }
   </style>

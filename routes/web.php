@@ -52,6 +52,7 @@ Route::get('/collections', [HomeController::class, 'collections'])->name('collec
 Route::get('/about', [HomeController::class, 'abouts'])->name('about');
 Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
 Route::get('/boutiques', [HomeController::class, 'boutiques'])->name('boutiques');
+Route::get('/auth_check', [HomeController::class, 'authCheck'])->name('auth-check');
 Route::get('/private-club', [HomeController::class, 'privateClub'])->name('private-club');
 Route::get('/categories/{category}', [HomeController::class, 'categoriesProducts'])->name('categories.products');
 Route::get('/collections/{collection}', [HomeController::class, 'collectionsProducts'])->name('collections.products');

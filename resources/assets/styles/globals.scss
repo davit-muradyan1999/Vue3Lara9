@@ -3,9 +3,21 @@
 @use "./typography.scss";
 @use "./partials/reset.scss";
 @use "./partials/fonts.scss";
+@font-face {
+    font-family: 'MyriadPro Light';
+    src: url('../fonts/myriad/MYRIADPRO-LIGHT.OTF') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyriadPro LightCond';
+    src: url('../fonts/myriad/MyriadPro-LightCond.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 :root {
-  font: 400 16px/1.62em typography.$body;
   background-color: colors.$charcoal600;
   color: colors.$charcoal100;
   -webkit-touch-callout: none;
@@ -63,8 +75,8 @@ $breakPoint2: 500px;
 
 .app-bar__company {
   display: block;
-  height: 6rem;
-  width: 6rem;
+  height: 114px;
+  width: 261px;
   margin: 0 auto;
   position: relative;
 
@@ -73,15 +85,6 @@ $breakPoint2: 500px;
     height: 100%;
   }
 
-  @media (max-width: $breakPoint) {
-    height: 4rem;
-    width: 4rem;
-  }
-
-  @media (max-width: $breakPoint2) {
-    height: 3rem;
-    width: 3rem;
-  }
 }
 
 .app-bar__menu,

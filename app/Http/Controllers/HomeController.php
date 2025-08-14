@@ -50,6 +50,10 @@ class HomeController extends Controller
         ]);
     }
 
+    public function authCheck(){
+        return Inertia::render('authCheck/AuthCheck');
+    }
+
     public function categoriesProducts(Category $category, Request $request)
     {
         $locale = App::getLocale();
