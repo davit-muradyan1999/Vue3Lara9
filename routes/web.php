@@ -50,7 +50,7 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('/lang/{locale}', [LanguageController::class, 'changeLocale'])->name('lang.switch');
 Route::get('/collections', [HomeController::class, 'collections'])->name('collections');
 Route::get('/about', [HomeController::class, 'abouts'])->name('about');
-Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
+Route::get('/philosophy', [HomeController::class, 'philosophy'])->name('philosophy');
 Route::get('/boutiques', [HomeController::class, 'boutiques'])->name('boutiques');
 Route::get('/auth_check', [HomeController::class, 'authCheck'])->name('auth-check');
 Route::get('/private-club', [HomeController::class, 'privateClub'])->name('private-club');

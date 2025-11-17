@@ -35,11 +35,11 @@ class HomeController extends Controller
             'about' => $about,
         ]);
     }
-    public function blogs(){
-        $blogs = Blog::select('id', 'title', 'description', 'image')->get();
+    public function philosophy(){
+        $philosophy = Blog::select('id', 'title', 'description', 'image')->first();
 
         return Inertia::render('blogs/Blogs', [
-            'blogs' => $blogs,
+            'philosophy' => $philosophy,
         ]);
     }
     public function boutiques(){

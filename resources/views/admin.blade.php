@@ -143,7 +143,7 @@
                             <a href="{{ route('blogs.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-blog"></i>
                                 <p>
-                                    Blog
+                                    Philosophy
                                 </p>
                             </a>
                         </li>

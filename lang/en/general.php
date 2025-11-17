@@ -8,7 +8,8 @@ return [
     'auth_check' => 'Authenticity check',
     'private_club' => 'Private Club',
     'boutiques' => 'Boutiques',
-    'blog' => 'Blog',
+    'blog' => 'Philosophy',
+    'philosophy' => 'Փիլիսոփայություն',
     'login' => 'Login',
     'register' => 'Register',
     'logout' => 'Logout',
@@ -37,4 +38,7 @@ return [
     'already_login' => 'Already have an account?',
     'login_here' => 'Login here',
     'remember' => 'Remember me',
+    'auth_check_text' => 'Dvingold hereby guarantees that all the particulars herewith written are true and accurate. We confirm that above items are genuine and of perfect quality. This item is unique authorial work that has been manufactured and inspected to the highest standards. This item is registered as industrial design by the standards of World Intellectual Property Organization. The information above is available online any time at www.dvingold.com (http://www.dvingold.com/).',
+    'search_input' => 'Please enter your item serial number',
+    'search_input_heading' => 'Dvingold item comes with certificate of authenticity which includes unique serial number of the origin of your unique item.',
 ];

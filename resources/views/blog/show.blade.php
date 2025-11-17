@@ -41,12 +41,6 @@
                                     <td>Description</td>
                                     <td>{!! $blog->description['am'] !!}</td>
                                 </tr>
-                                @if($blog->image)
-                                    <tr>
-                                        <td>Image</td>
-                                        <td><img src="{{ asset('storage/'.$blog->image[0]) }}" width="100" alt=""></td>
-                                    </tr>
-                                @endif
                             </tbody>
                         </table>
                     </div>

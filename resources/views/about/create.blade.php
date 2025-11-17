@@ -42,17 +42,6 @@
                             <label for="description">Description RU</label>
                             <textarea class="form-control" id="editor_ru" name="description[ru]" rows="3">{{ old('description.ru') }}</textarea>
                         </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" id="imageUpload" name="image" class="custom-file-input">
-                                    <label class="custom-file-label" for="imageUpload">Choose files</label>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div id="imagePreview" class="row mt-3"></div>
                     </div>
 
                     <div class="card-footer" style="background-color: transparent !important;">

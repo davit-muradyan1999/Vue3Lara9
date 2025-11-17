@@ -36,12 +36,6 @@
                                     <td>Description</td>
                                     <td>{!! $about->description['am'] !!}</td>
                                 </tr>
-                                @if($about->image)
-                                    <tr>
-                                        <td>Image</td>
-                                        <td><img src="{{ asset('storage/'.$about->image[0]) }}" width="100" alt=""></td>
-                                    </tr>
-                                @endif
                             </tbody>
                         </table>
                     </div>

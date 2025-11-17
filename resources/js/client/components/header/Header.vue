@@ -51,11 +51,10 @@
                 <DropdownMenu type="collections" />
                 <DropdownMenu type="category" />
 
-                <li class="menu-list__item"><a @click.prevent="openPopup" class="link--underlineOnHover menu-list__link" href="#">{{ $t('auth_check') }}</a></li>
                 <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/auth_check">{{ $t('auth_check') }}</Link></li>
                 <li v-if="authUser && authUser.is_private" class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/private-club">{{ $t('private_club') }}</Link></li>
                 <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/boutiques">{{ $t('boutiques') }}</Link></li>
-                <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/blogs">{{ $t('blog') }}</Link></li>
+                <li class="menu-list__item"><Link class="link--underlineOnHover menu-list__link" href="/philosophy">{{ $t('philosophy') }}</Link></li>
 
             </ul>
           </menu>

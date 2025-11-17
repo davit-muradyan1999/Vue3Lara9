@@ -42,24 +42,8 @@
                         <label for="description">Description RU</label>
                         <textarea class="form-control" id="editor_ru" name="description[ru]" rows="3">{{ $blog->description['ru'] }}</textarea>
                     </div>
-                    @if ($blog->image)
-                        <div id="existingImages" class="row mt-3">
-                            <div class="col-md-3 position-relative mb-3">
-                                <img src="{{ asset( 'storage/' . $blog->image[0]) }}" class="img-fluid rounded" alt="Image preview">
-                                <button type="button" class="btn btn-danger btn-sm remove-image" data-path="{{ $blog->image[0] }}" style="position: absolute; top: 5px; right: 5px;">&times;</button>
-                            </div>
-                        </div>
-                    @endif
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" id="imageUpload" name="image"  class="custom-file-input">
-                                <label class="custom-file-label" for="imageUpload">Choose files</label>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div id="imagePreview" class="row mt-3"></div>
+
                 </div>
 
 

@@ -24,7 +24,6 @@
                                       <tr>
                                         <th>ID</th>
                                         <th>Title</th>
-                                        <th>Image</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -32,9 +31,6 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td><a href="{{ route('blogs.show', $item->id) }}">{{ $item->title['am'] }}</a></td>
-                                        @if($item->image)
-                                            <td><img src="{{ asset('storage/'.$item->image[0]) }}" alt="" width="50" height="50"></td>
-                                        @endif
                                     </tr>
                                     @endforeach
                                     </tbody>

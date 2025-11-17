@@ -3,19 +3,21 @@ import {computed} from "vue";
 import {usePage} from "@inertiajs/vue3";
 
 defineProps({
-    blogs: Array,
+    philosophy: Array,
 });
 const locale = computed(() => usePage().props.locale)
 </script>
 
 <template>
-    <div class="w-full ">
-        <div v-for="item in blogs" :key="item.id" class="main_blogs flex flex-col w-full items-center bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row hover:bg-gray-100">
-            <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" :src="'storage/' + item?.image" alt="">
-            <div class="flex flex-col justify-between p-4 leading-normal blog_content">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ item.title[locale] }}</h5>
-                <p class="mb-3 font-normal text-gray-700" v-html="item.description[locale]"></p>
-            </div>
+    <div class="!flex !items-center !gap-4 !my-8">
+        <div class="!flex-grow !border-t !border-black"></div>
+        <h1 class="uppercase !max-w-[50rem] !text-[2.125rem]">{{ philosophy?.title[locale] }}</h1>
+        <div class="!flex-grow !border-t !border-black"></div>
+    </div>
+    <div class="flex flex-col items-center gap-4">
+        <div class="relative">
+            <div v-html="philosophy?.description[locale]" class=" w-full"></div>
+            <img src="/public/client/images/sign.png" class="absolute !w-auto !right-0" alt="sign" style="float: right">
         </div>
     </div>
 </template>

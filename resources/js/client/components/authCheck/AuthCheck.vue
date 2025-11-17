@@ -5,11 +5,12 @@
             <h1 class="text-heading-1 landing__heading">AUTHENTICITY CHECK</h1>
             <div class="!flex-grow !border-t !border-black"></div>
         </div>
-        <div>
-            <h3>{{ $t('auth_check') }}</h3>
-            <div class="!max-w-md !mx-auto">
-                <input v-model="barcode" type="text" placeholder="" @input="searchProduct" />
-                <button @click="searchProduct" class="bg-blue-700 text-white rounded">{{ $t('search') }}</button>
+        <div class="!flex !flex-col !gap-2 !items-center">
+            <div>
+                <p>{{ $t('search_input_heading') }}</p>
+            </div>
+            <div class="!max-w-lg w-full">
+                <input v-model="barcode" type="text" placeholder="" class="hidden" />
                 <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 start-0 flex items-center !ps-3 pointer-events-none">
@@ -17,22 +18,20 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                         </svg>
                     </div>
-                    <input v-model="barcode" type="search"  @input="searchProduct" id="default-search" class="block w-full !p-4 !ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search Mockups, Logos..." required />
+                    <input v-model="barcode" @keyup.enter="searchProduct" type="search" id="default-search" class="block w-full !p-4 !ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" :placeholder="$t('search_input')" required />
                     <button @click="searchProduct" type="button" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{ $t('search') }}</button>
                 </div>
+            </div>
+            <div v-if="errorMessage" class="error-message">
+                <p style="color: red; font-size: 15px">{{ errorMessage }}</p>
             </div>
         </div>
     </div>
     <div v-if="product">
-        <div class="!flex !flex-col !justify-center !items-center !w-full">
-            <div>
-                <img src="/public/client/icons/logo.png"  alt="logo">
-            </div>
-            <div class="!flex !items-center !gap-4 !my-8 !w-full text-gray-700">
-                <div class="!flex-grow !border-t !border-gray-700"></div>
-                <h1 class="tracking-wider whitespace-nowrap !text-xs sm:!text-sm md:!text-lg lg:!text-lg xl:!text-2xl">CERTIFICATION OF AUTHENTICITY</h1>
-                <div class="!flex-grow !border-t !border-gray-700"></div>
-            </div>
+        <div class="!flex !items-center !gap-4 !my-8">
+                <div class="!flex-grow !border-t !border-black"></div>
+                <h1 class="whitespace-nowrap text-heading-1 landing__heading">CERTIFICATION OF AUTHENTICITY</h1>
+                <div class="!flex-grow !border-t !border-black"></div>
         </div>
 
         <div class="lg:flex lg:justify-between">
@@ -57,26 +56,23 @@
             <div class="!flex-grow bg-gray-700 max-w-full w-full h-[1px] !my-2 lg:max-w-[1px] lg:w-[1px] lg:h-auto lg:!my-0"></div>
             <div class="lg:w-1/2 text-gray-700">
                 <p style="word-spacing: 0.2rem">
-                    Dvingold hereby guarantees that all the particulars herewith written are true and accurate. We confirm that above items are genuine and of perfect quality. This item is unique authorial work that has been manufactured and inspected to the highest standards. This item is registered as industrial design by the standards of World Intellectual Property Organization. The information above is available online any time at www.dvingold.com (http://www.dvingold.com/).
+                    {{ $t('auth_check_text') }}
                 </p>
                 <img src="/public/client/images/sign.png" alt="sign" style="float: right">
             </div>
         </div>
 
     </div>
-    <div v-if="errorMessage" class="error-message">
-        <p style="color: red; font-size: 15px">{{ errorMessage }}</p>
-    </div>
 </template>
 <script setup>
-import {Link} from "@inertiajs/vue3";
+import {Link, usePage} from "@inertiajs/vue3";
 import {ref} from "vue";
 import axios from "axios";
 
 const barcode = ref('');
 const product = ref(null);
 const errorMessage = ref('');
-
+console.log()
 const searchProduct = async () => {
     if (barcode.value.trim() === '') return;
 
@@ -85,7 +81,13 @@ const searchProduct = async () => {
             return;
         }
         if (!/^\d+$/.test(barcode.value)) {
-            errorMessage.value = "Barcode must be numeric";
+            if(usePage().props.locale === 'am'){
+                errorMessage.value = "Ստուգման համարը պետք է լինի թվային։";
+            }else if(usePage().props.locale === 'en'){
+                errorMessage.value = "The verification number must be numeric.";
+            }else{
+                errorMessage.value = "Проверочный номер должен быть числовым.";
+            }
             return;
         }
         const response = await axios.get(`/api/authenticity-check/${barcode.value}`);
@@ -94,7 +96,13 @@ const searchProduct = async () => {
     } catch (error) {
         product.value = null;
         if (error.response && error.response.status === 404) {
-            errorMessage.value = 'Product not found';
+            if(usePage().props.locale === 'am'){
+                errorMessage.value = "Սերիական համարը անվավեր է։";
+            }else if(usePage().props.locale === 'en'){
+                errorMessage.value = "Invalid serial number.";
+            }else{
+                errorMessage.value = "Неверный серийный номер.";
+            }
         } else {
             errorMessage.value = 'An error occurred while searching';
         }
